@@ -1,2 +1,3 @@
-# guesser-game
-Guesser browser game using TanStack Start
+Guesser Game
+
+Browser guesser game using TanStack Start
