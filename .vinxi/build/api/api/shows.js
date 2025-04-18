@@ -1,0 +1,1 @@
+import r from"redaxios";import{a as e}from"./assets/index-CN_uOa4A.js";import{j as i}from"./assets/json-853Virwn.js";import"node:async_hooks";import"h3";const f=e("/api/shows")({GET:async({request:s})=>{console.info("Fetching shows... @",s.url);const t=(await r.get("someUrlOrJson")).data.slice(0,10);return i(t.map(o=>({id:o.id,name:o.name})))}});export{f as APIRoute};
