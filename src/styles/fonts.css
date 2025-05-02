@@ -1,0 +1,19 @@
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap");
+
+/* Local Fonts */
+@font-face {
+  font-family: "MedievalSharp";
+  src: url("/fonts/MedievalSharp-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Herculanum";
+  src: url("/fonts/HerculanumLTStd.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
