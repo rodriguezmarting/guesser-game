@@ -10,7 +10,7 @@ import { jsx, jsxs } from 'react/jsx-runtime';
 import { RouterProvider, createRootRoute, Outlet, HeadContent, Scripts, createFileRoute, lazyRouteComponent, Link, useRouter, useMatch, rootRouteId, ErrorComponent, createRouter as createRouter$2 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { PassThrough, Readable } from 'node:stream';
-import X$1 from 'react-dom/server';
+import Y$1 from 'react-dom/server';
 import { ReadableStream as ReadableStream$1 } from 'node:stream/web';
 import { promises, existsSync } from 'node:fs';
 import { resolve, dirname, join as join$1 } from 'node:path';
@@ -587,7 +587,7 @@ const defuFn = createDefu((object, key, currentValue) => {
   }
 });
 
-function o(n){throw new Error(`${n} is not implemented yet!`)}let i$1 = class i extends EventEmitter{__unenv__={};readableEncoding=null;readableEnded=true;readableFlowing=false;readableHighWaterMark=0;readableLength=0;readableObjectMode=false;readableAborted=false;readableDidRead=false;closed=false;errored=null;readable=false;destroyed=false;static from(e,t){return new i(t)}constructor(e){super();}_read(e){}read(e){}setEncoding(e){return this}pause(){return this}resume(){return this}isPaused(){return  true}unpipe(e){return this}unshift(e,t){}wrap(e){return this}push(e,t){return  false}_destroy(e,t){this.removeAllListeners();}destroy(e){return this.destroyed=true,this._destroy(e),this}pipe(e,t){return {}}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return this.destroy(),Promise.resolve()}async*[Symbol.asyncIterator](){throw o("Readable.asyncIterator")}iterator(e){throw o("Readable.iterator")}map(e,t){throw o("Readable.map")}filter(e,t){throw o("Readable.filter")}forEach(e,t){throw o("Readable.forEach")}reduce(e,t,r){throw o("Readable.reduce")}find(e,t){throw o("Readable.find")}findIndex(e,t){throw o("Readable.findIndex")}some(e,t){throw o("Readable.some")}toArray(e){throw o("Readable.toArray")}every(e,t){throw o("Readable.every")}flatMap(e,t){throw o("Readable.flatMap")}drop(e,t){throw o("Readable.drop")}take(e,t){throw o("Readable.take")}asIndexedPairs(e){throw o("Readable.asIndexedPairs")}};let l$2 = class l extends EventEmitter{__unenv__={};writable=true;writableEnded=false;writableFinished=false;writableHighWaterMark=0;writableLength=0;writableObjectMode=false;writableCorked=0;closed=false;errored=null;writableNeedDrain=false;destroyed=false;_data;_encoding="utf8";constructor(e){super();}pipe(e,t){return {}}_write(e,t,r){if(this.writableEnded){r&&r();return}if(this._data===void 0)this._data=e;else {const s=typeof this._data=="string"?Buffer$1.from(this._data,this._encoding||t||"utf8"):this._data,a=typeof e=="string"?Buffer$1.from(e,t||this._encoding||"utf8"):e;this._data=Buffer$1.concat([s,a]);}this._encoding=t,r&&r();}_writev(e,t){}_destroy(e,t){}_final(e){}write(e,t,r){const s=typeof t=="string"?this._encoding:"utf8",a=typeof t=="function"?t:typeof r=="function"?r:void 0;return this._write(e,s,a),true}setDefaultEncoding(e){return this}end(e,t,r){const s=typeof e=="function"?e:typeof t=="function"?t:typeof r=="function"?r:void 0;if(this.writableEnded)return s&&s(),this;const a=e===s?void 0:e;if(a){const u=t===s?void 0:t;this.write(a,u,s);}return this.writableEnded=true,this.writableFinished=true,this.emit("close"),this.emit("finish"),this}cork(){}uncork(){}destroy(e){return this.destroyed=true,delete this._data,this.removeAllListeners(),this}compose(e,t){throw new Error("Method not implemented.")}};const c=class{allowHalfOpen=true;_destroy;constructor(e=new i$1,t=new l$2){Object.assign(this,e),Object.assign(this,t),this._destroy=g$1(e._destroy,t._destroy);}};function _(){return Object.assign(c.prototype,i$1.prototype),Object.assign(c.prototype,l$2.prototype),c}function g$1(...n){return function(...e){for(const t of n)t(...e);}}const m$1=_();let A$1 = class A extends m$1{__unenv__={};bufferSize=0;bytesRead=0;bytesWritten=0;connecting=false;destroyed=false;pending=false;localAddress="";localPort=0;remoteAddress="";remoteFamily="";remotePort=0;autoSelectFamilyAttemptedAddresses=[];readyState="readOnly";constructor(e){super();}write(e,t,r){return  false}connect(e,t,r){return this}end(e,t,r){return this}setEncoding(e){return this}pause(){return this}resume(){return this}setTimeout(e,t){return this}setNoDelay(e){return this}setKeepAlive(e,t){return this}address(){return {}}unref(){return this}ref(){return this}destroySoon(){this.destroy();}resetAndDestroy(){const e=new Error("ERR_SOCKET_CLOSED");return e.code="ERR_SOCKET_CLOSED",this.destroy(e),this}};let y$2 = class y extends i$1{aborted=false;httpVersion="1.1";httpVersionMajor=1;httpVersionMinor=1;complete=true;connection;socket;headers={};trailers={};method="GET";url="/";statusCode=200;statusMessage="";closed=false;errored=null;readable=false;constructor(e){super(),this.socket=this.connection=e||new A$1;}get rawHeaders(){const e=this.headers,t=[];for(const r in e)if(Array.isArray(e[r]))for(const s of e[r])t.push(r,s);else t.push(r,e[r]);return t}get rawTrailers(){return []}setTimeout(e,t){return this}get headersDistinct(){return p$1(this.headers)}get trailersDistinct(){return p$1(this.trailers)}};function p$1(n){const e={};for(const[t,r]of Object.entries(n))t&&(e[t]=(Array.isArray(r)?r:[r]).filter(Boolean));return e}let w$1 = class w extends l$2{statusCode=200;statusMessage="";upgrading=false;chunkedEncoding=false;shouldKeepAlive=false;useChunkedEncodingByDefault=false;sendDate=false;finished=false;headersSent=false;strictContentLength=false;connection=null;socket=null;req;_headers={};constructor(e){super(),this.req=e;}assignSocket(e){e._httpMessage=this,this.socket=e,this.connection=e,this.emit("socket",e),this._flush();}_flush(){this.flushHeaders();}detachSocket(e){}writeContinue(e){}writeHead(e,t,r){e&&(this.statusCode=e),typeof t=="string"&&(this.statusMessage=t,t=void 0);const s=r||t;if(s&&!Array.isArray(s))for(const a in s)this.setHeader(a,s[a]);return this.headersSent=true,this}writeProcessing(){}setTimeout(e,t){return this}appendHeader(e,t){e=e.toLowerCase();const r=this._headers[e],s=[...Array.isArray(r)?r:[r],...Array.isArray(t)?t:[t]].filter(Boolean);return this._headers[e]=s.length>1?s:s[0],this}setHeader(e,t){return this._headers[e.toLowerCase()]=t,this}setHeaders(e){for(const[t,r]of Object.entries(e))this.setHeader(t,r);return this}getHeader(e){return this._headers[e.toLowerCase()]}getHeaders(){return this._headers}getHeaderNames(){return Object.keys(this._headers)}hasHeader(e){return e.toLowerCase()in this._headers}removeHeader(e){delete this._headers[e.toLowerCase()];}addTrailers(e){}flushHeaders(){}writeEarlyHints(e,t){typeof t=="function"&&t();}};const E$2=(()=>{const n=function(){};return n.prototype=Object.create(null),n})();function R$1(n={}){const e=new E$2,t=Array.isArray(n)||H$3(n)?n:Object.entries(n);for(const[r,s]of t)if(s){if(e[r]===void 0){e[r]=s;continue}e[r]=[...Array.isArray(e[r])?e[r]:[e[r]],...Array.isArray(s)?s:[s]];}return e}function H$3(n){return typeof n?.entries=="function"}function S$2(n={}){if(n instanceof Headers)return n;const e=new Headers;for(const[t,r]of Object.entries(n))if(r!==void 0){if(Array.isArray(r)){for(const s of r)e.append(t,String(s));continue}e.set(t,String(r));}return e}const C$1=new Set([101,204,205,304]);async function b$1(n,e){const t=new y$2,r=new w$1(t);t.url=e.url?.toString()||"/";let s;if(!t.url.startsWith("/")){const d=new URL(t.url);s=d.host,t.url=d.pathname+d.search+d.hash;}t.method=e.method||"GET",t.headers=R$1(e.headers||{}),t.headers.host||(t.headers.host=e.host||s||"localhost"),t.connection.encrypted=t.connection.encrypted||e.protocol==="https",t.body=e.body||null,t.__unenv__=e.context,await n(t,r);let a=r._data;(C$1.has(r.statusCode)||t.method.toUpperCase()==="HEAD")&&(a=null,delete r._headers["content-length"]);const u={status:r.statusCode,statusText:r.statusMessage,headers:r._headers,body:a};return t.destroy(),r.destroy(),u}async function O$1(n,e,t={}){try{const r=await b$1(n,{url:e,...t});return new Response(r.body,{status:r.status,statusText:r.statusText,headers:S$2(r.headers)})}catch(r){return new Response(r.toString(),{status:Number.parseInt(r.statusCode||r.code)||500,statusText:r.statusText})}}
+function o(n){throw new Error(`${n} is not implemented yet!`)}let i$1 = class i extends EventEmitter{__unenv__={};readableEncoding=null;readableEnded=true;readableFlowing=false;readableHighWaterMark=0;readableLength=0;readableObjectMode=false;readableAborted=false;readableDidRead=false;closed=false;errored=null;readable=false;destroyed=false;static from(e,t){return new i(t)}constructor(e){super();}_read(e){}read(e){}setEncoding(e){return this}pause(){return this}resume(){return this}isPaused(){return  true}unpipe(e){return this}unshift(e,t){}wrap(e){return this}push(e,t){return  false}_destroy(e,t){this.removeAllListeners();}destroy(e){return this.destroyed=true,this._destroy(e),this}pipe(e,t){return {}}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return this.destroy(),Promise.resolve()}async*[Symbol.asyncIterator](){throw o("Readable.asyncIterator")}iterator(e){throw o("Readable.iterator")}map(e,t){throw o("Readable.map")}filter(e,t){throw o("Readable.filter")}forEach(e,t){throw o("Readable.forEach")}reduce(e,t,r){throw o("Readable.reduce")}find(e,t){throw o("Readable.find")}findIndex(e,t){throw o("Readable.findIndex")}some(e,t){throw o("Readable.some")}toArray(e){throw o("Readable.toArray")}every(e,t){throw o("Readable.every")}flatMap(e,t){throw o("Readable.flatMap")}drop(e,t){throw o("Readable.drop")}take(e,t){throw o("Readable.take")}asIndexedPairs(e){throw o("Readable.asIndexedPairs")}};let l$2 = class l extends EventEmitter{__unenv__={};writable=true;writableEnded=false;writableFinished=false;writableHighWaterMark=0;writableLength=0;writableObjectMode=false;writableCorked=0;closed=false;errored=null;writableNeedDrain=false;destroyed=false;_data;_encoding="utf8";constructor(e){super();}pipe(e,t){return {}}_write(e,t,r){if(this.writableEnded){r&&r();return}if(this._data===void 0)this._data=e;else {const s=typeof this._data=="string"?Buffer$1.from(this._data,this._encoding||t||"utf8"):this._data,a=typeof e=="string"?Buffer$1.from(e,t||this._encoding||"utf8"):e;this._data=Buffer$1.concat([s,a]);}this._encoding=t,r&&r();}_writev(e,t){}_destroy(e,t){}_final(e){}write(e,t,r){const s=typeof t=="string"?this._encoding:"utf8",a=typeof t=="function"?t:typeof r=="function"?r:void 0;return this._write(e,s,a),true}setDefaultEncoding(e){return this}end(e,t,r){const s=typeof e=="function"?e:typeof t=="function"?t:typeof r=="function"?r:void 0;if(this.writableEnded)return s&&s(),this;const a=e===s?void 0:e;if(a){const u=t===s?void 0:t;this.write(a,u,s);}return this.writableEnded=true,this.writableFinished=true,this.emit("close"),this.emit("finish"),this}cork(){}uncork(){}destroy(e){return this.destroyed=true,delete this._data,this.removeAllListeners(),this}compose(e,t){throw new Error("Method not implemented.")}};const c=class{allowHalfOpen=true;_destroy;constructor(e=new i$1,t=new l$2){Object.assign(this,e),Object.assign(this,t),this._destroy=g$1(e._destroy,t._destroy);}};function _$1(){return Object.assign(c.prototype,i$1.prototype),Object.assign(c.prototype,l$2.prototype),c}function g$1(...n){return function(...e){for(const t of n)t(...e);}}const m$1=_$1();let A$3 = class A extends m$1{__unenv__={};bufferSize=0;bytesRead=0;bytesWritten=0;connecting=false;destroyed=false;pending=false;localAddress="";localPort=0;remoteAddress="";remoteFamily="";remotePort=0;autoSelectFamilyAttemptedAddresses=[];readyState="readOnly";constructor(e){super();}write(e,t,r){return  false}connect(e,t,r){return this}end(e,t,r){return this}setEncoding(e){return this}pause(){return this}resume(){return this}setTimeout(e,t){return this}setNoDelay(e){return this}setKeepAlive(e,t){return this}address(){return {}}unref(){return this}ref(){return this}destroySoon(){this.destroy();}resetAndDestroy(){const e=new Error("ERR_SOCKET_CLOSED");return e.code="ERR_SOCKET_CLOSED",this.destroy(e),this}};let y$2 = class y extends i$1{aborted=false;httpVersion="1.1";httpVersionMajor=1;httpVersionMinor=1;complete=true;connection;socket;headers={};trailers={};method="GET";url="/";statusCode=200;statusMessage="";closed=false;errored=null;readable=false;constructor(e){super(),this.socket=this.connection=e||new A$3;}get rawHeaders(){const e=this.headers,t=[];for(const r in e)if(Array.isArray(e[r]))for(const s of e[r])t.push(r,s);else t.push(r,e[r]);return t}get rawTrailers(){return []}setTimeout(e,t){return this}get headersDistinct(){return p$1(this.headers)}get trailersDistinct(){return p$1(this.trailers)}};function p$1(n){const e={};for(const[t,r]of Object.entries(n))t&&(e[t]=(Array.isArray(r)?r:[r]).filter(Boolean));return e}let w$1 = class w extends l$2{statusCode=200;statusMessage="";upgrading=false;chunkedEncoding=false;shouldKeepAlive=false;useChunkedEncodingByDefault=false;sendDate=false;finished=false;headersSent=false;strictContentLength=false;connection=null;socket=null;req;_headers={};constructor(e){super(),this.req=e;}assignSocket(e){e._httpMessage=this,this.socket=e,this.connection=e,this.emit("socket",e),this._flush();}_flush(){this.flushHeaders();}detachSocket(e){}writeContinue(e){}writeHead(e,t,r){e&&(this.statusCode=e),typeof t=="string"&&(this.statusMessage=t,t=void 0);const s=r||t;if(s&&!Array.isArray(s))for(const a in s)this.setHeader(a,s[a]);return this.headersSent=true,this}writeProcessing(){}setTimeout(e,t){return this}appendHeader(e,t){e=e.toLowerCase();const r=this._headers[e],s=[...Array.isArray(r)?r:[r],...Array.isArray(t)?t:[t]].filter(Boolean);return this._headers[e]=s.length>1?s:s[0],this}setHeader(e,t){return this._headers[e.toLowerCase()]=t,this}setHeaders(e){for(const[t,r]of Object.entries(e))this.setHeader(t,r);return this}getHeader(e){return this._headers[e.toLowerCase()]}getHeaders(){return this._headers}getHeaderNames(){return Object.keys(this._headers)}hasHeader(e){return e.toLowerCase()in this._headers}removeHeader(e){delete this._headers[e.toLowerCase()];}addTrailers(e){}flushHeaders(){}writeEarlyHints(e,t){typeof t=="function"&&t();}};const E$2=(()=>{const n=function(){};return n.prototype=Object.create(null),n})();function R$2(n={}){const e=new E$2,t=Array.isArray(n)||H$2(n)?n:Object.entries(n);for(const[r,s]of t)if(s){if(e[r]===void 0){e[r]=s;continue}e[r]=[...Array.isArray(e[r])?e[r]:[e[r]],...Array.isArray(s)?s:[s]];}return e}function H$2(n){return typeof n?.entries=="function"}function S$2(n={}){if(n instanceof Headers)return n;const e=new Headers;for(const[t,r]of Object.entries(n))if(r!==void 0){if(Array.isArray(r)){for(const s of r)e.append(t,String(s));continue}e.set(t,String(r));}return e}const C$1=new Set([101,204,205,304]);async function b$2(n,e){const t=new y$2,r=new w$1(t);t.url=e.url?.toString()||"/";let s;if(!t.url.startsWith("/")){const d=new URL(t.url);s=d.host,t.url=d.pathname+d.search+d.hash;}t.method=e.method||"GET",t.headers=R$2(e.headers||{}),t.headers.host||(t.headers.host=e.host||s||"localhost"),t.connection.encrypted=t.connection.encrypted||e.protocol==="https",t.body=e.body||null,t.__unenv__=e.context,await n(t,r);let a=r._data;(C$1.has(r.statusCode)||t.method.toUpperCase()==="HEAD")&&(a=null,delete r._headers["content-length"]);const u={status:r.statusCode,statusText:r.statusMessage,headers:r._headers,body:a};return t.destroy(),r.destroy(),u}async function O(n,e,t={}){try{const r=await b$2(n,{url:e,...t});return new Response(r.body,{status:r.status,statusText:r.statusText,headers:S$2(r.headers)})}catch(r){return new Response(r.toString(),{status:Number.parseInt(r.statusCode||r.code)||500,statusText:r.statusText})}}
 
 function hasProp(obj, prop) {
   try {
@@ -730,6 +730,7 @@ function getRequestHeaders(event) {
   }
   return _headers;
 }
+const getHeaders = getRequestHeaders;
 function getRequestHost(event, opts = {}) {
   if (opts.xForwardedHost) {
     const xForwardedHost = event.node.req.headers["x-forwarded-host"];
@@ -2400,10 +2401,10 @@ function createNodeFetch() {
     return l$1(input, { ...nodeFetchOptions, ...init });
   };
 }
-const fetch = globalThis.fetch ? (...args) => globalThis.fetch(...args) : createNodeFetch();
+const fetch$1 = globalThis.fetch ? (...args) => globalThis.fetch(...args) : createNodeFetch();
 const Headers$1 = globalThis.Headers || s$1;
 const AbortController$1 = globalThis.AbortController || i;
-createFetch({ fetch, Headers: Headers$1, AbortController: AbortController$1 });
+createFetch({ fetch: fetch$1, Headers: Headers$1, AbortController: AbortController$1 });
 
 function defineNitroErrorHandler(handler) {
   return handler;
@@ -2488,7 +2489,7 @@ async function errorHandler(error, event) {
 }
 
 const appConfig$1 = {"name":"vinxi","routers":[{"name":"public","type":"static","dir":"./public","base":"/","root":"/Users/martinrodriguez/personal/guesser-game","order":0,"outDir":"/Users/martinrodriguez/personal/guesser-game/.vinxi/build/public"},{"name":"client","type":"client","target":"browser","handler":"src/client.tsx","base":"/_build","build":{"sourcemap":true},"root":"/Users/martinrodriguez/personal/guesser-game","outDir":"/Users/martinrodriguez/personal/guesser-game/.vinxi/build/client","order":1},{"name":"ssr","type":"http","target":"server","handler":"src/ssr.tsx","link":{"client":"client"},"root":"/Users/martinrodriguez/personal/guesser-game","base":"/","outDir":"/Users/martinrodriguez/personal/guesser-game/.vinxi/build/ssr","order":2},{"name":"server","type":"http","target":"server","base":"/_server","handler":"node_modules/.pnpm/@tanstack+start-server-functions-handler@1.114.22/node_modules/@tanstack/start-server-functions-handler/dist/esm/index.js","root":"/Users/martinrodriguez/personal/guesser-game","outDir":"/Users/martinrodriguez/personal/guesser-game/.vinxi/build/server","order":3},{"name":"api","base":"/api","type":"http","handler":"src/api.ts","target":"server","root":"/Users/martinrodriguez/personal/guesser-game","outDir":"/Users/martinrodriguez/personal/guesser-game/.vinxi/build/api","order":4}],"server":{"preset":"netlify","experimental":{"asyncContext":true}},"root":"/Users/martinrodriguez/personal/guesser-game"};
-				const buildManifest = {"client":{"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css":{"file":"assets/app-CrcVEtZX.css","src":"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"},"_client-DONT5KoR.js":{"file":"assets/client-DONT5KoR.js","name":"client","dynamicImports":["src/routes/index.tsx?tsr-split=component"],"assets":["assets/app-CrcVEtZX.css"]},"src/routes/index.tsx?tsr-split=component":{"file":"assets/index-SjW2o3lo.js","name":"index","src":"src/routes/index.tsx?tsr-split=component","isDynamicEntry":true,"imports":["_client-DONT5KoR.js"]},"virtual:$vinxi/handler/client":{"file":"assets/client-BaDX-hYO.js","name":"client","src":"virtual:$vinxi/handler/client","isEntry":true,"imports":["_client-DONT5KoR.js"]}},"ssr":{"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css":{"file":"assets/app-CrcVEtZX.css","src":"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"},"src/routes/index.tsx?tsr-split=component":{"file":"assets/index-3QrZu9Ae.js","name":"index","src":"src/routes/index.tsx?tsr-split=component","isDynamicEntry":true},"virtual:$vinxi/handler/ssr":{"file":"ssr.js","name":"ssr","src":"virtual:$vinxi/handler/ssr","isEntry":true,"dynamicImports":["src/routes/index.tsx?tsr-split=component"],"assets":["assets/app-CrcVEtZX.css"]}},"server":{"virtual:$vinxi/handler/server":{"file":"server.js","name":"server","src":"virtual:$vinxi/handler/server","isEntry":true}},"api":{"_index-CN_uOa4A.js":{"file":"assets/index-CN_uOa4A.js","name":"index","dynamicImports":["src/routes/api/shows.$id.ts?pick=APIRoute","src/routes/api/shows.$id.ts?pick=APIRoute","src/routes/api/shows.ts?pick=APIRoute","src/routes/api/shows.ts?pick=APIRoute"]},"_json-853Virwn.js":{"file":"assets/json-853Virwn.js","name":"json"},"src/routes/api/shows.$id.ts?pick=APIRoute":{"file":"shows._id.js","name":"shows._id","src":"src/routes/api/shows.$id.ts?pick=APIRoute","isEntry":true,"isDynamicEntry":true,"imports":["_index-CN_uOa4A.js","_json-853Virwn.js"]},"src/routes/api/shows.ts?pick=APIRoute":{"file":"shows.js","name":"shows","src":"src/routes/api/shows.ts?pick=APIRoute","isEntry":true,"isDynamicEntry":true,"imports":["_index-CN_uOa4A.js","_json-853Virwn.js"]},"virtual:$vinxi/handler/api":{"file":"api.js","name":"api","src":"virtual:$vinxi/handler/api","isEntry":true,"imports":["_index-CN_uOa4A.js"]}}};
+				const buildManifest = {"client":{"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css":{"file":"assets/app-CFX127wN.css","src":"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"},"__vite-browser-external":{"file":"assets/__vite-browser-external-BIHI7g3E.js","name":"__vite-browser-external","src":"__vite-browser-external","isDynamicEntry":true},"_client-BWad5ax2.js":{"file":"assets/client-BWad5ax2.js","name":"client","dynamicImports":["__vite-browser-external","__vite-browser-external","__vite-browser-external","__vite-browser-external","src/routes/index.tsx?tsr-split=component"],"assets":["assets/app-CFX127wN.css"]},"src/routes/index.tsx?tsr-split=component":{"file":"assets/index-B6LnUdPb.js","name":"index","src":"src/routes/index.tsx?tsr-split=component","isDynamicEntry":true,"imports":["_client-BWad5ax2.js"]},"virtual:$vinxi/handler/client":{"file":"assets/client-udtKSpht.js","name":"client","src":"virtual:$vinxi/handler/client","isEntry":true,"imports":["_client-BWad5ax2.js"]}},"ssr":{"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css":{"file":"assets/app-CFX127wN.css","src":"/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"},"_ssr-TvXHcaGv.js":{"file":"assets/ssr-TvXHcaGv.js","name":"ssr","dynamicImports":["src/routes/index.tsx?tsr-split=component"],"assets":["assets/app-CFX127wN.css"]},"src/routes/index.tsx?tsr-split=component":{"file":"assets/index-CGDgSbVy.js","name":"index","src":"src/routes/index.tsx?tsr-split=component","isDynamicEntry":true,"imports":["_ssr-TvXHcaGv.js"]},"virtual:$vinxi/handler/ssr":{"file":"ssr.js","name":"ssr","src":"virtual:$vinxi/handler/ssr","isEntry":true,"imports":["_ssr-TvXHcaGv.js"]}},"server":{"_server-CrcJzzp2.js":{"file":"assets/server-CrcJzzp2.js","name":"server","dynamicImports":["src/api/characters.ts?tsr-directive-use-server=","src/api/characters.ts?tsr-directive-use-server="]},"src/api/characters.ts?tsr-directive-use-server=":{"file":"assets/characters-DIEoQwIW.js","name":"characters","src":"src/api/characters.ts?tsr-directive-use-server=","isDynamicEntry":true,"imports":["_server-CrcJzzp2.js"]},"virtual:$vinxi/handler/server":{"file":"server.js","name":"server","src":"virtual:$vinxi/handler/server","isEntry":true,"imports":["_server-CrcJzzp2.js"]}},"api":{"_index-CN_uOa4A.js":{"file":"assets/index-CN_uOa4A.js","name":"index","dynamicImports":["src/routes/api/shows.$id.ts?pick=APIRoute","src/routes/api/shows.$id.ts?pick=APIRoute","src/routes/api/shows.ts?pick=APIRoute","src/routes/api/shows.ts?pick=APIRoute"]},"_json-853Virwn.js":{"file":"assets/json-853Virwn.js","name":"json"},"src/routes/api/shows.$id.ts?pick=APIRoute":{"file":"shows._id.js","name":"shows._id","src":"src/routes/api/shows.$id.ts?pick=APIRoute","isEntry":true,"isDynamicEntry":true,"imports":["_index-CN_uOa4A.js","_json-853Virwn.js"]},"src/routes/api/shows.ts?pick=APIRoute":{"file":"shows.js","name":"shows","src":"src/routes/api/shows.ts?pick=APIRoute","isEntry":true,"isDynamicEntry":true,"imports":["_index-CN_uOa4A.js","_json-853Virwn.js"]},"virtual:$vinxi/handler/api":{"file":"api.js","name":"api","src":"virtual:$vinxi/handler/api","isEntry":true,"imports":["_index-CN_uOa4A.js"]}}};
 
 				const routeManifest = {"api":{}};
 
@@ -2748,14 +2749,14 @@ plugin,
 app
 ];
 
-function b(e) {
-  if (!F$1(e)) return false;
+function S$1(e) {
+  if (!A$2(e)) return false;
   const t = e.constructor;
   if (typeof t > "u") return true;
   const n = t.prototype;
-  return !(!F$1(n) || !n.hasOwnProperty("isPrototypeOf"));
+  return !(!A$2(n) || !n.hasOwnProperty("isPrototypeOf"));
 }
-function F$1(e) {
+function A$2(e) {
   return Object.prototype.toString.call(e) === "[object Object]";
 }
 function j(e) {
@@ -2769,27 +2770,27 @@ function V(e, t) {
   if (!e) throw new Error(K);
 }
 const l = { stringify: (e) => JSON.stringify(e, function(n, r) {
-  const o = this[n], a = S$1.find((s) => s.stringifyCondition(o));
+  const o = this[n], a = b$1.find((s) => s.stringifyCondition(o));
   return a ? a.stringify(o) : r;
 }), parse: (e) => JSON.parse(e, function(n, r) {
   const o = this[n];
-  if (b(o)) {
-    const a = S$1.find((s) => s.parseCondition(o));
+  if (S$1(o)) {
+    const a = b$1.find((s) => s.parseCondition(o));
     if (a) return a.parse(o);
   }
   return r;
 }), encode: (e) => {
   if (Array.isArray(e)) return e.map((n) => l.encode(n));
-  if (b(e)) return Object.fromEntries(Object.entries(e).map(([n, r]) => [n, l.encode(r)]));
-  const t = S$1.find((n) => n.stringifyCondition(e));
+  if (S$1(e)) return Object.fromEntries(Object.entries(e).map(([n, r]) => [n, l.encode(r)]));
+  const t = b$1.find((n) => n.stringifyCondition(e));
   return t ? t.stringify(e) : e;
 }, decode: (e) => {
-  if (b(e)) {
-    const t = S$1.find((n) => n.parseCondition(e));
+  if (S$1(e)) {
+    const t = b$1.find((n) => n.parseCondition(e));
     if (t) return t.parse(e);
   }
-  return Array.isArray(e) ? e.map((t) => l.decode(t)) : b(e) ? Object.fromEntries(Object.entries(e).map(([t, n]) => [t, l.decode(n)])) : e;
-} }, y$1 = (e, t, n, r) => ({ key: e, stringifyCondition: t, stringify: (o) => ({ [`$${e}`]: n(o) }), parseCondition: (o) => Object.hasOwn(o, `$${e}`), parse: (o) => r(o[`$${e}`]) }), S$1 = [y$1("undefined", (e) => e === void 0, () => 0, () => {
+  return Array.isArray(e) ? e.map((t) => l.decode(t)) : S$1(e) ? Object.fromEntries(Object.entries(e).map(([t, n]) => [t, l.decode(n)])) : e;
+} }, y$1 = (e, t, n, r) => ({ key: e, stringifyCondition: t, stringify: (o) => ({ [`$${e}`]: n(o) }), parseCondition: (o) => Object.hasOwn(o, `$${e}`), parse: (o) => r(o[`$${e}`]) }), b$1 = [y$1("undefined", (e) => e === void 0, () => 0, () => {
 }), y$1("date", (e) => e instanceof Date, (e) => e.toISOString(), (e) => new Date(e)), y$1("error", (e) => e instanceof Error, (e) => ({ ...e, message: e.message, stack: void 0, cause: e.cause }), (e) => Object.assign(new Error(e.message), e)), y$1("formData", (e) => e instanceof FormData, (e) => {
   const t = {};
   return e.forEach((n, r) => {
@@ -2843,101 +2844,101 @@ function Y(e = {}) {
     }
   }, async callAsync(s, c) {
     t = s;
-    const w = () => {
+    const m = () => {
       t = s;
-    }, f = () => t === s ? w : void 0;
-    M$1.add(f);
+    }, f = () => t === s ? m : void 0;
+    D$1.add(f);
     try {
       const d = o ? o.run(s, c) : c();
       return n || (t = void 0), await d;
     } finally {
-      M$1.delete(f);
+      D$1.delete(f);
     }
   } };
 }
-function Z$1(e = {}) {
+function Z(e = {}) {
   const t = {};
   return { get(n, r = {}) {
     return t[n] || (t[n] = Y({ ...e, ...r })), t[n];
   } };
 }
-const T$1 = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof global < "u" ? global : {}, q$2 = "__unctx__", k$2 = T$1[q$2] || (T$1[q$2] = Z$1()), ee$1 = (e, t = {}) => k$2.get(e, t), D$1 = "__unctx_async_handlers__", M$1 = T$1[D$1] || (T$1[D$1] = /* @__PURE__ */ new Set());
-function te(e) {
+const x = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof global < "u" ? global : {}, q$2 = "__unctx__", k$2 = x[q$2] || (x[q$2] = Z()), ee$1 = (e, t = {}) => k$2.get(e, t), N$1 = "__unctx_async_handlers__", D$1 = x[N$1] || (x[N$1] = /* @__PURE__ */ new Set());
+function te$1(e) {
   let t;
   const n = P$1(e), r = { duplex: "half", method: e.method, headers: e.headers };
   return e.node.req.body instanceof ArrayBuffer ? new Request(n, { ...r, body: e.node.req.body }) : new Request(n, { ...r, get body() {
-    return t || (t = ie(e), t);
+    return t || (t = ie$1(e), t);
   } });
 }
-function ne$1(e) {
+function ne(e) {
   var _a;
-  return (_a = e.web) != null ? _a : e.web = { request: te(e), url: P$1(e) }, e.web.request;
+  return (_a = e.web) != null ? _a : e.web = { request: te$1(e), url: P$1(e) }, e.web.request;
 }
-function re$1() {
-  return H$2();
+function re() {
+  return H$1();
 }
-const $$2 = Symbol("$HTTPEvent");
+const $$1 = Symbol("$HTTPEvent");
 function oe(e) {
-  return typeof e == "object" && (e instanceof H3Event || (e == null ? void 0 : e[$$2]) instanceof H3Event || (e == null ? void 0 : e.__is_event__) === true);
+  return typeof e == "object" && (e instanceof H3Event || (e == null ? void 0 : e[$$1]) instanceof H3Event || (e == null ? void 0 : e.__is_event__) === true);
 }
 function E$1(e) {
   return function(...t) {
     var n;
     const r = t[0];
-    if (oe(r)) t[0] = r instanceof H3Event || r.__is_event__ ? r : r[$$2];
+    if (oe(r)) t[0] = r instanceof H3Event || r.__is_event__ ? r : r[$$1];
     else {
       if (!((n = globalThis.app.config.server.experimental) != null && n.asyncContext)) throw new Error("AsyncLocalStorage was not enabled. Use the `server.experimental.asyncContext: true` option in your app configuration to enable it. Or, pass the instance of HTTPEvent that you have as the first argument to the function.");
-      t.unshift(re$1());
+      t.unshift(re());
     }
     return e(...t);
   };
 }
-const P$1 = E$1(getRequestURL), se$1 = E$1(getResponseStatus), ie = E$1(getRequestWebStream);
+const P$1 = E$1(getRequestURL), se$1 = E$1(getResponseStatus), ie$1 = E$1(getRequestWebStream);
 function ae() {
   var e;
   return ee$1("nitro-app", { asyncContext: !!((e = globalThis.app.config.server.experimental) != null && e.asyncContext), AsyncLocalStorage: AsyncLocalStorage });
 }
-function H$2() {
+function H$1() {
   const e = ae().use().event;
   if (!e) throw new Error("No HTTPEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.");
   return e;
 }
-const ce = {}, fe$1 = p().client(async (e) => {
+const ce$1 = { "src_api_characters_ts--getCharacters_createServerFn_handler": { functionName: "getCharacters_createServerFn_handler", importer: () => import('../build/characters-DIEoQwIW.mjs') }, "src_api_characters_ts--getRandomCharacter_createServerFn_handler": { functionName: "getRandomCharacter_createServerFn_handler", importer: () => import('../build/characters-DIEoQwIW.mjs') } }, fe = p().client(async (e) => {
   const t = /* @__PURE__ */ new Date();
   return e.next({ context: { clientTime: t }, sendContext: { clientTime: t } });
 }).server(async (e) => {
   const t = /* @__PURE__ */ new Date();
   return e.next({ sendContext: { serverTime: t, durationToServer: t.getTime() - e.context.clientTime.getTime() } });
-}), ue$1 = p().middleware([fe$1]).client(async (e) => {
+}), ue = p().middleware([fe]).client(async (e) => {
   const t = await e.next(), n = /* @__PURE__ */ new Date();
   return console.log("Client Req/Res:", { duration: t.context.clientTime.getTime() - n.getTime(), durationToServer: t.context.durationToServer, durationFromServer: n.getTime() - t.context.serverTime.getTime() }), t;
 });
-X({ middleware: [ue$1] });
-const we$1 = eventHandler(le$1), x = ce;
+X({ middleware: [ue] });
+const me$1 = eventHandler(le$1), _ = ce$1;
 async function le$1(e) {
-  const t = ne$1(e);
-  return await pe$1({ request: t, event: e });
+  const t = ne(e);
+  return await pe({ request: t, event: e });
 }
 function de$1(e) {
   return e.replace(/^\/|\/$/g, "");
 }
-async function pe$1({ request: e, event: t }) {
+async function pe({ request: e, event: t }) {
   const n = new AbortController(), r = n.signal, o = () => n.abort();
   t.node.req.on("close", o);
-  const a = e.method, s = new URL(e.url, "http://localhost:3000"), c = new RegExp(`${de$1("/_server")}/([^/?#]+)`), w = s.pathname.match(c), f = w ? w[1] : null, d = Object.fromEntries(s.searchParams.entries()), C = "createServerFn" in d, I = "raw" in d;
+  const a = e.method, s = new URL(e.url, "http://localhost:3000"), c = new RegExp(`${de$1("/_server")}/([^/?#]+)`), m = s.pathname.match(c), f = m ? m[1] : null, d = Object.fromEntries(s.searchParams.entries()), C = "createServerFn" in d, I = "raw" in d;
   if (typeof f != "string") throw new Error("Invalid server action param for serverFnId: " + f);
-  const R = x[f];
-  if (!R) throw console.log("serverFnManifest", x), new Error("Server function info not found for " + f);
-  let m;
-  if (m = await R.importer(), !m) throw console.log("serverFnManifest", x), new Error("Server function module not resolved for " + f);
-  const g = m[R.functionName];
-  if (!g) throw console.log("serverFnManifest", x), console.log("fnModule", m), new Error(`Server function module export not resolved for serverFn ID: ${f}`);
+  const T = _[f];
+  if (!T) throw console.log("serverFnManifest", _), new Error("Server function info not found for " + f);
+  let w;
+  if (w = await T.importer(), !w) throw console.log("serverFnManifest", _), new Error("Server function module not resolved for " + f);
+  const g = w[T.functionName];
+  if (!g) throw console.log("serverFnManifest", _), console.log("fnModule", w), new Error(`Server function module export not resolved for serverFn ID: ${f}`);
   const z = ["multipart/form-data", "application/x-www-form-urlencoded"], h = await (async () => {
     try {
       let i = await (async () => {
         if (e.headers.get("Content-Type") && z.some((u) => {
-          var A;
-          return (A = e.headers.get("Content-Type")) == null ? void 0 : A.includes(u);
+          var F;
+          return (F = e.headers.get("Content-Type")) == null ? void 0 : F.includes(u);
         })) return V(a.toLowerCase() !== "get", "GET requests with FormData payloads are not supported"), await g(await e.formData(), r);
         if (a.toLowerCase() === "get") {
           let u = d;
@@ -2946,9 +2947,9 @@ async function pe$1({ request: e, event: t }) {
         const v = await e.text(), O = l.parse(v);
         return C ? await g(O, r) : await g(...O, r);
       })();
-      return i.result instanceof Response ? i.result : !C && (i = i.result, i instanceof Response) ? i : j(i) || L$2(i) ? N$2(i) : new Response(i !== void 0 ? l.stringify(i) : void 0, { status: se$1(H$2()), headers: { "Content-Type": "application/json" } });
+      return i.result instanceof Response ? i.result : !C && (i = i.result, i instanceof Response) ? i : j(i) || L$2(i) ? M$2(i) : new Response(i !== void 0 ? l.stringify(i) : void 0, { status: se$1(H$1()), headers: { "Content-Type": "application/json" } });
     } catch (i) {
-      return i instanceof Response ? i : j(i) || L$2(i) ? N$2(i) : (console.info(), console.info("Server Fn Error!"), console.info(), console.error(i), console.info(), new Response(l.stringify(i), { status: 500, headers: { "Content-Type": "application/json" } }));
+      return i instanceof Response ? i : j(i) || L$2(i) ? M$2(i) : (console.info(), console.info("Server Fn Error!"), console.info(), console.error(i), console.info(), new Response(l.stringify(i), { status: 500, headers: { "Content-Type": "application/json" } }));
     }
   })();
   if (t.node.req.removeListener("close", o), I) return h;
@@ -2958,7 +2959,7 @@ async function pe$1({ request: e, event: t }) {
   }
   return h;
 }
-function N$2(e) {
+function M$2(e) {
   const { headers: t, ...n } = e;
   return new Response(JSON.stringify(n), { status: 200, headers: { "Content-Type": "application/json", ...t || {} } });
 }
@@ -3015,30 +3016,30 @@ function T(e = {}) {
     return t[o] || (t[o] = S({ ...e, ...r })), t[o];
   } };
 }
-const d$1 = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof global < "u" ? global : {}, h = "__unctx__", A = d$1[h] || (d$1[h] = T()), E = (e, t = {}) => A.get(e, t), g = "__unctx_async_handlers__", m = d$1[g] || (d$1[g] = /* @__PURE__ */ new Set());
-function H$1(e) {
+const d$1 = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof global < "u" ? global : {}, h = "__unctx__", A$1 = d$1[h] || (d$1[h] = T()), E = (e, t = {}) => A$1.get(e, t), g = "__unctx_async_handlers__", m = d$1[g] || (d$1[g] = /* @__PURE__ */ new Set());
+function H(e) {
   let t;
-  const o = R(e), r = { duplex: "half", method: e.method, headers: e.headers };
+  const o = R$1(e), r = { duplex: "half", method: e.method, headers: e.headers };
   return e.node.req.body instanceof ArrayBuffer ? new Request(o, { ...r, body: e.node.req.body }) : new Request(o, { ...r, get body() {
     return t || (t = L$1(e), t);
   } });
 }
-function I(e) {
+function I$1(e) {
   var _a;
-  return (_a = e.web) != null ? _a : e.web = { request: H$1(e), url: R(e) }, e.web.request;
+  return (_a = e.web) != null ? _a : e.web = { request: H(e), url: R$1(e) }, e.web.request;
 }
 function C() {
-  return U();
+  return U$1();
 }
 const w = Symbol("$HTTPEvent");
-function $$1(e) {
+function $(e) {
   return typeof e == "object" && (e instanceof H3Event || (e == null ? void 0 : e[w]) instanceof H3Event || (e == null ? void 0 : e.__is_event__) === true);
 }
 function P(e) {
   return function(...t) {
     var o;
     const r = t[0];
-    if ($$1(r)) t[0] = r instanceof H3Event || r.__is_event__ ? r : r[w];
+    if ($(r)) t[0] = r instanceof H3Event || r.__is_event__ ? r : r[w];
     else {
       if (!((o = globalThis.app.config.server.experimental) != null && o.asyncContext)) throw new Error("AsyncLocalStorage was not enabled. Use the `server.experimental.asyncContext: true` option in your app configuration to enable it. Or, pass the instance of HTTPEvent that you have as the first argument to the function.");
       t.unshift(C());
@@ -3046,25 +3047,25 @@ function P(e) {
     return e(...t);
   };
 }
-const R = P(getRequestURL), L$1 = P(getRequestWebStream);
+const R$1 = P(getRequestURL), L$1 = P(getRequestWebStream);
 function q$1() {
   var e;
   return E("nitro-app", { asyncContext: !!((e = globalThis.app.config.server.experimental) != null && e.asyncContext), AsyncLocalStorage: AsyncLocalStorage });
 }
-function U() {
+function U$1() {
   const e = q$1().use().event;
   if (!e) throw new Error("No HTTPEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.");
   return e;
 }
-const W = [{ path: "/__root", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/__root.tsx" }, { path: "/", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/index.tsx" }, { path: "/api/shows/:$id?", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/api/shows.$id.ts", $APIRoute: { src: "src/routes/api/shows.$id.ts?pick=APIRoute", build: () => import('../build/shows._id.mjs'), import: () => import('../build/shows._id.mjs') } }, { path: "/api/shows", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/api/shows.ts", $APIRoute: { src: "src/routes/api/shows.ts?pick=APIRoute", build: () => import('../build/shows.mjs'), import: () => import('../build/shows.mjs') } }], B$1 = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"];
-function M(e) {
+const W = [{ path: "/__root", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/__root.tsx" }, { path: "/", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/index.tsx" }, { path: "/api/shows/:$id?", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/api/shows.$id.ts", $APIRoute: { src: "src/routes/api/shows.$id.ts?pick=APIRoute", build: () => import('../build/shows._id.mjs'), import: () => import('../build/shows._id.mjs') } }, { path: "/api/shows", filePath: "/Users/martinrodriguez/personal/guesser-game/src/routes/api/shows.ts", $APIRoute: { src: "src/routes/api/shows.ts?pick=APIRoute", build: () => import('../build/shows.mjs'), import: () => import('../build/shows.mjs') } }], B = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"];
+function M$1(e) {
   return eventHandler(async (t) => {
-    const o = I(t);
+    const o = I$1(t);
     return await e({ request: o });
   });
 }
 const D = (e) => (t) => ({ path: e, methods: t });
-function N$1(e, t) {
+function N(e, t) {
   const o = e.pathname.split("/").filter(Boolean), r = t.sort((s, a) => {
     const n = s.routePath.split("/").filter(Boolean);
     return a.routePath.split("/").filter(Boolean).length - n.length;
@@ -3106,8 +3107,8 @@ function F(e) {
 }
 const k$1 = async ({ request: e }) => {
   if (!y.length) return new Response("No routes found", { status: 404 });
-  if (!B$1.includes(e.method)) return new Response("Method not allowed", { status: 405 });
-  const t = F(y), o = new URL(e.url, "http://localhost:3000"), r = N$1(o, t);
+  if (!B.includes(e.method)) return new Response("Method not allowed", { status: 405 });
+  const t = F(y), o = new URL(e.url, "http://localhost:3000"), r = N(o, t);
   if (!r) return new Response("Not found", { status: 404 });
   let s;
   try {
@@ -3120,56 +3121,56 @@ const k$1 = async ({ request: e }) => {
   return n ? await n({ request: e, params: r.params }) : new Response("Method not allowed", { status: 405 });
 };
 
-const d = M(k$1);
+const d = M$1(k$1);
 
-function le(e) {
+function me(e) {
   return jsx(RouterProvider, { router: e.router });
 }
-var Xe = " daum[ /]| deusu/| yadirectfetcher|(?:^|[^g])news(?!sapphire)|(?<! (?:channel/|google/))google(?!(app|/google| pixel))|(?<! cu)bots?(?:\\b|_)|(?<!(?:lib))http|(?<![hg]m)score|@[a-z][\\w-]+\\.|\\(\\)|\\.com\\b|\\btime/|\\||^<|^[\\w \\.\\-\\(?:\\):%]+(?:/v?\\d+(?:\\.\\d+)?(?:\\.\\d{1,10})*?)?(?:,|$)|^[^ ]{50,}$|^\\d+\\b|^\\w*search\\b|^\\w+/[\\w\\(\\)]*$|^active|^ad muncher|^amaya|^avsdevicesdk/|^biglotron|^bot|^bw/|^clamav[ /]|^client/|^cobweb/|^custom|^ddg[_-]android|^discourse|^dispatch/\\d|^downcast/|^duckduckgo|^email|^facebook|^getright/|^gozilla/|^hobbit|^hotzonu|^hwcdn/|^igetter/|^jeode/|^jetty/|^jigsaw|^microsoft bits|^movabletype|^mozilla/5\\.0\\s[a-z\\.-]+$|^mozilla/\\d\\.\\d \\(compatible;?\\)$|^mozilla/\\d\\.\\d \\w*$|^navermailapp|^netsurf|^offline|^openai/|^owler|^php|^postman|^python|^rank|^read|^reed|^rest|^rss|^snapchat|^space bison|^svn|^swcd |^taringa|^thumbor/|^track|^w3c|^webbandit/|^webcopier|^wget|^whatsapp|^wordpress|^xenu link sleuth|^yahoo|^yandex|^zdm/\\d|^zoom marketplace/|^{{.*}}$|adscanner/|analyzer|archive|ask jeeves/teoma|audit|bit\\.ly/|bluecoat drtr|browsex|burpcollaborator|capture|catch|check\\b|checker|chrome-lighthouse|chromeframe|classifier|cloudflare|convertify|cookiehubscan|crawl|cypress/|dareboost|datanyze|dejaclick|detect|dmbrowser|download|evc-batch/|exaleadcloudview|feed|firephp|functionize|gomezagent|headless|httrack|hubspot marketing grader|hydra|ibisbrowser|images|infrawatch|insight|inspect|iplabel|ips-agent|java(?!;)|jsjcw_scanner|library|linkcheck|mail\\.ru/|manager|measure|neustar wpm|node|nutch|offbyone|optimize|pageburst|pagespeed|parser|perl|phantomjs|pingdom|powermarks|preview|proxy|ptst[ /]\\d|reputation|resolver|retriever|rexx;|rigor|rss\\b|scanner\\.|scrape|server|sogou|sparkler/|speedcurve|spider|splash|statuscake|supercleaner|synapse|synthetic|tools|torrent|trace|transcoder|url|validator|virtuoso|wappalyzer|webglance|webkit2png|whatcms/|zgrab", Ze = /bot|crawl|http|lighthouse|scan|search|spider/i, N;
-function Ye() {
-  if (N instanceof RegExp) return N;
+var pt = " daum[ /]| deusu/| yadirectfetcher|(?:^|[^g])news(?!sapphire)|(?<! (?:channel/|google/))google(?!(app|/google| pixel))|(?<! cu)bots?(?:\\b|_)|(?<!(?:lib))http|(?<![hg]m)score|@[a-z][\\w-]+\\.|\\(\\)|\\.com\\b|\\btime/|\\||^<|^[\\w \\.\\-\\(?:\\):%]+(?:/v?\\d+(?:\\.\\d+)?(?:\\.\\d{1,10})*?)?(?:,|$)|^[^ ]{50,}$|^\\d+\\b|^\\w*search\\b|^\\w+/[\\w\\(\\)]*$|^active|^ad muncher|^amaya|^avsdevicesdk/|^biglotron|^bot|^bw/|^clamav[ /]|^client/|^cobweb/|^custom|^ddg[_-]android|^discourse|^dispatch/\\d|^downcast/|^duckduckgo|^email|^facebook|^getright/|^gozilla/|^hobbit|^hotzonu|^hwcdn/|^igetter/|^jeode/|^jetty/|^jigsaw|^microsoft bits|^movabletype|^mozilla/5\\.0\\s[a-z\\.-]+$|^mozilla/\\d\\.\\d \\(compatible;?\\)$|^mozilla/\\d\\.\\d \\w*$|^navermailapp|^netsurf|^offline|^openai/|^owler|^php|^postman|^python|^rank|^read|^reed|^rest|^rss|^snapchat|^space bison|^svn|^swcd |^taringa|^thumbor/|^track|^w3c|^webbandit/|^webcopier|^wget|^whatsapp|^wordpress|^xenu link sleuth|^yahoo|^yandex|^zdm/\\d|^zoom marketplace/|^{{.*}}$|adscanner/|analyzer|archive|ask jeeves/teoma|audit|bit\\.ly/|bluecoat drtr|browsex|burpcollaborator|capture|catch|check\\b|checker|chrome-lighthouse|chromeframe|classifier|cloudflare|convertify|cookiehubscan|crawl|cypress/|dareboost|datanyze|dejaclick|detect|dmbrowser|download|evc-batch/|exaleadcloudview|feed|firephp|functionize|gomezagent|headless|httrack|hubspot marketing grader|hydra|ibisbrowser|images|infrawatch|insight|inspect|iplabel|ips-agent|java(?!;)|jsjcw_scanner|library|linkcheck|mail\\.ru/|manager|measure|neustar wpm|node|nutch|offbyone|optimize|pageburst|pagespeed|parser|perl|phantomjs|pingdom|powermarks|preview|proxy|ptst[ /]\\d|reputation|resolver|retriever|rexx;|rigor|rss\\b|scanner\\.|scrape|server|sogou|sparkler/|speedcurve|spider|splash|statuscake|supercleaner|synapse|synthetic|tools|torrent|trace|transcoder|url|validator|virtuoso|wappalyzer|webglance|webkit2png|whatcms/|zgrab", mt = /bot|crawl|http|lighthouse|scan|search|spider/i, L;
+function yt() {
+  if (L instanceof RegExp) return L;
   try {
-    N = new RegExp(Xe, "i");
+    L = new RegExp(pt, "i");
   } catch {
-    N = Ze;
+    L = mt;
   }
-  return N;
+  return L;
 }
-function de(e) {
-  return !!e && Ye().test(e);
+function ye(e) {
+  return !!e && yt().test(e);
 }
-function Qe(e) {
+function gt(e) {
   return e instanceof Error ? { name: e.name, message: e.message } : { data: e };
 }
 const k = Symbol.for("TSR_DEFERRED_PROMISE");
-function et(e, r) {
+function wt(e, r) {
   const t = e;
   return t[k] || (t[k] = { status: "pending" }, t.then((n) => {
     t[k].status = "success", t[k].data = n;
   }).catch((n) => {
-    t[k].status = "error", t[k].error = { data: Qe(n), __isServerError: true };
+    t[k].status = "error", t[k].error = { data: gt(n), __isServerError: true };
   })), t;
 }
-function tt(e, r) {
+function _t(e, r) {
   return r.reduce((t, n) => (t[n] = e[n], t), {});
 }
-function O(e) {
-  if (!ue(e)) return false;
+function A(e) {
+  if (!ge(e)) return false;
   const r = e.constructor;
   if (typeof r > "u") return true;
   const t = r.prototype;
-  return !(!ue(t) || !t.hasOwnProperty("isPrototypeOf"));
+  return !(!ge(t) || !t.hasOwnProperty("isPrototypeOf"));
 }
-function ue(e) {
+function ge(e) {
   return Object.prototype.toString.call(e) === "[object Object]";
 }
-function rt(e) {
+function St(e) {
   return Array.isArray(e) && e.length === Object.keys(e).length;
 }
-function nt(e) {
+function vt(e) {
   let r, t;
-  const n = new Promise((s, i) => {
-    r = s, t = i;
+  const n = new Promise((s, o) => {
+    r = s, t = o;
   });
   return n.status = "pending", n.resolve = (s) => {
     n.status = "resolved", n.value = s, r(s);
@@ -3177,14 +3178,26 @@ function nt(e) {
     n.status = "rejected", t(s);
   }, n;
 }
-function st(e, r) {
-  return he(e, r);
+function bt(e, r) {
+  let t, n, s, o = "";
+  for (t in e) if ((s = e[t]) !== void 0) if (Array.isArray(s)) for (n = 0; n < s.length; n++) o && (o += "&"), o += encodeURIComponent(t) + "=" + encodeURIComponent(s[n]);
+  else o && (o += "&"), o += encodeURIComponent(t) + "=" + encodeURIComponent(s);
+  return "" + o;
 }
-function at(e, r) {
-  return Readable.fromWeb(he(e, Readable.toWeb(r)));
+function Re(e) {
+  return !!(e == null ? void 0 : e.isRedirect);
 }
-const ot = /(<body)/, it = /(<\/body>)/, ct = /(<\/html>)/, lt = /(<head.*?>)/, dt = /(<\/[a-zA-Z][\w:.-]*?>)/g, ut = new TextDecoder();
-function ft() {
+function Ce(e) {
+  return !!(e == null ? void 0 : e.isNotFound);
+}
+function xt(e, r) {
+  return Ee(e, r);
+}
+function Rt(e, r) {
+  return Readable.fromWeb(Ee(e, Readable.toWeb(r)));
+}
+const Ct = /(<body)/, Et = /(<\/body>)/, jt = /(<\/html>)/, Tt = /(<head.*?>)/, kt = /(<\/[a-zA-Z][\w:.-]*?>)/g, At = new TextDecoder();
+function Ft() {
   let e;
   const r = new TextEncoder(), n = { stream: new ReadableStream$1({ start(s) {
     e = s;
@@ -3197,100 +3210,100 @@ function ft() {
   }, destroyed: false };
   return n;
 }
-async function pt(e, r) {
+async function Ot(e, r) {
   var t, n, s;
   try {
-    const i = e.getReader();
+    const o = e.getReader();
     let a;
-    for (; !(a = await i.read()).done; ) (t = r.onData) == null || t.call(r, a);
+    for (; !(a = await o.read()).done; ) (t = r.onData) == null || t.call(r, a);
     (n = r.onEnd) == null || n.call(r);
-  } catch (i) {
-    (s = r.onError) == null || s.call(r, i);
+  } catch (o) {
+    (s = r.onError) == null || s.call(r, o);
   }
 }
-function he(e, r) {
-  const t = ft();
-  let n = true, s = "", i = "", a = false, d = false, l = "", u = "";
-  function p() {
-    const f = s;
-    return s = "", f;
+function Ee(e, r) {
+  const t = Ft();
+  let n = true, s = "", o = "", a = false, i = false, c = "", u = "";
+  function h() {
+    const p = s;
+    return s = "", p;
   }
-  function v(f) {
-    return f instanceof Uint8Array ? ut.decode(f) : String(f);
+  function y(p) {
+    return p instanceof Uint8Array ? At.decode(p) : String(p);
   }
-  const _ = nt();
-  let w = 0;
-  e.serverSsr.injectedHtml.forEach((f) => {
-    C(f);
+  const f = vt();
+  let x = 0;
+  e.serverSsr.injectedHtml.forEach((p) => {
+    F(p);
   });
-  const z = e.subscribe("onInjectedHtml", (f) => {
-    C(f.promise);
+  const $ = e.subscribe("onInjectedHtml", (p) => {
+    F(p.promise);
   });
-  function C(f) {
-    w++, f.then((A) => {
-      a ? t.write(A) : s += A;
-    }).catch(_.reject).finally(() => {
-      w--, !n && w === 0 && (z(), _.resolve());
+  function F(p) {
+    x++, p.then((O) => {
+      a ? t.write(O) : s += O;
+    }).catch(f.reject).finally(() => {
+      x--, !n && x === 0 && ($(), f.resolve());
     });
   }
-  return _.then(() => {
-    const f = u + p() + i;
-    t.end(f);
-  }).catch((f) => {
-    console.error("Error reading routerStream:", f), t.destroy(f);
-  }), pt(r, { onData: (f) => {
-    const A = v(f.value);
-    let y = l + A;
-    const F = y.match(it), U = y.match(ct);
-    if (a || y.match(ot) && (a = true), !d) {
-      const m = y.match(lt);
-      if (m) {
-        d = true;
-        const o = m.index, c = m[0], S = y.slice(o + c.length);
-        t.write(y.slice(0, o) + c + p()), y = S;
+  return f.then(() => {
+    const p = u + h() + o;
+    t.end(p);
+  }).catch((p) => {
+    console.error("Error reading routerStream:", p), t.destroy(p);
+  }), Ot(r, { onData: (p) => {
+    const O = y(p.value);
+    let _ = c + O;
+    const B = _.match(Et), K = _.match(jt);
+    if (a || _.match(Ct) && (a = true), !i) {
+      const g = _.match(Tt);
+      if (g) {
+        i = true;
+        const l = g.index, d = g[0], S = _.slice(l + d.length);
+        t.write(_.slice(0, l) + d + h()), _ = S;
       }
     }
     if (!a) {
-      t.write(y), l = "";
+      t.write(_), c = "";
       return;
     }
-    if (F && U && F.index < U.index) {
-      const m = F.index;
-      i = y.slice(m), t.write(y.slice(0, m) + p()), l = "";
+    if (B && K && B.index < K.index) {
+      const g = B.index;
+      o = _.slice(g), t.write(_.slice(0, g) + h()), c = "";
       return;
     }
-    let I, T = 0;
-    for (; (I = dt.exec(y)) !== null; ) T = I.index + I[0].length;
-    if (T > 0) {
-      const m = y.slice(0, T) + p() + u;
-      t.write(m), l = y.slice(T);
-    } else l = y, u += p();
+    let z, H = 0;
+    for (; (z = kt.exec(_)) !== null; ) H = z.index + z[0].length;
+    if (H > 0) {
+      const g = _.slice(0, H) + h() + u;
+      t.write(g), c = _.slice(H);
+    } else c = _, u += h();
   }, onEnd: () => {
-    n = false, w === 0 && _.resolve();
-  }, onError: (f) => {
-    console.error("Error reading appStream:", f), t.destroy(f);
+    n = false, x === 0 && f.resolve();
+  }, onError: (p) => {
+    console.error("Error reading appStream:", p), t.destroy(p);
   } }), t.stream;
 }
-const q = "__TSR_index";
-function ht(e) {
+const J = "__TSR_index";
+function Ht(e) {
   let r = e.getLocation();
   const t = /* @__PURE__ */ new Set(), n = (a) => {
-    r = e.getLocation(), t.forEach((d) => d({ location: r, action: a }));
+    r = e.getLocation(), t.forEach((i) => i({ location: r, action: a }));
   }, s = (a) => {
     var _a;
     ((_a = e.notifyOnIndexChange) != null ? _a : true) ? n(a) : r = e.getLocation();
-  }, i = async ({ task: a, navigateOpts: d, ...l }) => {
+  }, o = async ({ task: a, navigateOpts: i, ...c }) => {
     var _a, _b;
-    var u, p;
-    if ((_a = d == null ? void 0 : d.ignoreBlocker) != null ? _a : false) {
+    var u, h;
+    if ((_a = i == null ? void 0 : i.ignoreBlocker) != null ? _a : false) {
       a();
       return;
     }
-    const _ = (_b = (u = e.getBlockers) == null ? void 0 : u.call(e)) != null ? _b : [], w = l.type === "PUSH" || l.type === "REPLACE";
-    if (typeof document < "u" && _.length && w) for (const z of _) {
-      const C = me(l.path, l.state);
-      if (await z.blockerFn({ currentLocation: r, nextLocation: C, action: l.type })) {
-        (p = e.onBlocked) == null || p.call(e);
+    const f = (_b = (u = e.getBlockers) == null ? void 0 : u.call(e)) != null ? _b : [], x = c.type === "PUSH" || c.type === "REPLACE";
+    if (typeof document < "u" && f.length && x) for (const $ of f) {
+      const F = je(c.path, c.state);
+      if (await $.blockerFn({ currentLocation: r, nextLocation: F, action: c.type })) {
+        (h = e.onBlocked) == null || h.call(e);
         return;
       }
     }
@@ -3302,41 +3315,41 @@ function ht(e) {
     return e.getLength();
   }, subscribers: t, subscribe: (a) => (t.add(a), () => {
     t.delete(a);
-  }), push: (a, d, l) => {
-    const u = r.state[q];
-    d = re(u + 1, d), i({ task: () => {
-      e.pushState(a, d), n({ type: "PUSH" });
-    }, navigateOpts: l, type: "PUSH", path: a, state: d });
-  }, replace: (a, d, l) => {
-    const u = r.state[q];
-    d = re(u, d), i({ task: () => {
-      e.replaceState(a, d), n({ type: "REPLACE" });
-    }, navigateOpts: l, type: "REPLACE", path: a, state: d });
-  }, go: (a, d) => {
-    i({ task: () => {
+  }), push: (a, i, c) => {
+    const u = r.state[J];
+    i = ie(u + 1, i), o({ task: () => {
+      e.pushState(a, i), n({ type: "PUSH" });
+    }, navigateOpts: c, type: "PUSH", path: a, state: i });
+  }, replace: (a, i, c) => {
+    const u = r.state[J];
+    i = ie(u, i), o({ task: () => {
+      e.replaceState(a, i), n({ type: "REPLACE" });
+    }, navigateOpts: c, type: "REPLACE", path: a, state: i });
+  }, go: (a, i) => {
+    o({ task: () => {
       e.go(a), s({ type: "GO", index: a });
-    }, navigateOpts: d, type: "GO" });
+    }, navigateOpts: i, type: "GO" });
   }, back: (a) => {
-    i({ task: () => {
+    o({ task: () => {
       var _a;
       e.back((_a = a == null ? void 0 : a.ignoreBlocker) != null ? _a : false), s({ type: "BACK" });
     }, navigateOpts: a, type: "BACK" });
   }, forward: (a) => {
-    i({ task: () => {
+    o({ task: () => {
       var _a;
       e.forward((_a = a == null ? void 0 : a.ignoreBlocker) != null ? _a : false), s({ type: "FORWARD" });
     }, navigateOpts: a, type: "FORWARD" });
-  }, canGoBack: () => r.state[q] !== 0, createHref: (a) => e.createHref(a), block: (a) => {
+  }, canGoBack: () => r.state[J] !== 0, createHref: (a) => e.createHref(a), block: (a) => {
     var _a;
-    var d;
+    var i;
     if (!e.setBlockers) return () => {
     };
-    const l = (_a = (d = e.getBlockers) == null ? void 0 : d.call(e)) != null ? _a : [];
-    return e.setBlockers([...l, a]), () => {
+    const c = (_a = (i = e.getBlockers) == null ? void 0 : i.call(e)) != null ? _a : [];
+    return e.setBlockers([...c, a]), () => {
       var _a2;
-      var u, p;
-      const v = (_a2 = (u = e.getBlockers) == null ? void 0 : u.call(e)) != null ? _a2 : [];
-      (p = e.setBlockers) == null || p.call(e, v.filter((_) => _ !== a));
+      var u, h;
+      const y = (_a2 = (u = e.getBlockers) == null ? void 0 : u.call(e)) != null ? _a2 : [];
+      (h = e.setBlockers) == null || h.call(e, y.filter((f) => f !== a));
     };
   }, flush: () => {
     var a;
@@ -3346,83 +3359,83 @@ function ht(e) {
     return (a = e.destroy) == null ? void 0 : a.call(e);
   }, notify: n };
 }
-function re(e, r) {
-  return r || (r = {}), { ...r, key: ge(), [q]: e };
+function ie(e, r) {
+  return r || (r = {}), { ...r, key: Te(), [J]: e };
 }
-function mt(e = { initialEntries: ["/"] }) {
+function Pt(e = { initialEntries: ["/"] }) {
   const r = e.initialEntries;
   let t = e.initialIndex ? Math.min(Math.max(e.initialIndex, 0), r.length - 1) : r.length - 1;
-  const n = r.map((i, a) => re(a, void 0));
-  return ht({ getLocation: () => me(r[t], n[t]), getLength: () => r.length, pushState: (i, a) => {
-    t < r.length - 1 && (r.splice(t + 1), n.splice(t + 1)), n.push(a), r.push(i), t = Math.max(r.length - 1, 0);
-  }, replaceState: (i, a) => {
-    n[t] = a, r[t] = i;
+  const n = r.map((o, a) => ie(a, void 0));
+  return Ht({ getLocation: () => je(r[t], n[t]), getLength: () => r.length, pushState: (o, a) => {
+    t < r.length - 1 && (r.splice(t + 1), n.splice(t + 1)), n.push(a), r.push(o), t = Math.max(r.length - 1, 0);
+  }, replaceState: (o, a) => {
+    n[t] = a, r[t] = o;
   }, back: () => {
     t = Math.max(t - 1, 0);
   }, forward: () => {
     t = Math.min(t + 1, r.length - 1);
-  }, go: (i) => {
-    t = Math.min(Math.max(t + i, 0), r.length - 1);
-  }, createHref: (i) => i });
+  }, go: (o) => {
+    t = Math.min(Math.max(t + o, 0), r.length - 1);
+  }, createHref: (o) => o });
 }
-function me(e, r) {
+function je(e, r) {
   const t = e.indexOf("#"), n = e.indexOf("?");
-  return { href: e, pathname: e.substring(0, t > 0 ? n > 0 ? Math.min(t, n) : t : n > 0 ? n : e.length), hash: t > -1 ? e.substring(t) : "", search: n > -1 ? e.slice(n, t === -1 ? void 0 : t) : "", state: r || { [q]: 0, key: ge() } };
+  return { href: e, pathname: e.substring(0, t > 0 ? n > 0 ? Math.min(t, n) : t : n > 0 ? n : e.length), hash: t > -1 ? e.substring(t) : "", search: n > -1 ? e.slice(n, t === -1 ? void 0 : t) : "", state: r || { [J]: 0, key: Te() } };
 }
-function ge() {
+function Te() {
   return (Math.random() + 1).toString(36).substring(7);
 }
-function ye(e) {
-  if (Array.isArray(e)) return e.flatMap((p) => ye(p));
+function ke(e) {
+  if (Array.isArray(e)) return e.flatMap((h) => ke(h));
   if (typeof e != "string") return [];
   const r = [];
-  let t = 0, n, s, i, a, d;
-  const l = () => {
+  let t = 0, n, s, o, a, i;
+  const c = () => {
     for (; t < e.length && /\s/.test(e.charAt(t)); ) t += 1;
     return t < e.length;
   }, u = () => (s = e.charAt(t), s !== "=" && s !== ";" && s !== ",");
   for (; t < e.length; ) {
-    for (n = t, d = false; l(); ) if (s = e.charAt(t), s === ",") {
-      for (i = t, t += 1, l(), a = t; t < e.length && u(); ) t += 1;
-      t < e.length && e.charAt(t) === "=" ? (d = true, t = a, r.push(e.slice(n, i)), n = t) : t = i + 1;
+    for (n = t, i = false; c(); ) if (s = e.charAt(t), s === ",") {
+      for (o = t, t += 1, c(), a = t; t < e.length && u(); ) t += 1;
+      t < e.length && e.charAt(t) === "=" ? (i = true, t = a, r.push(e.slice(n, o)), n = t) : t = o + 1;
     } else t += 1;
-    (!d || t >= e.length) && r.push(e.slice(n, e.length));
+    (!i || t >= e.length) && r.push(e.slice(n, e.length));
   }
   return r;
 }
-function gt(e) {
+function Dt(e) {
   return e instanceof Headers ? new Headers(e) : Array.isArray(e) ? new Headers(e) : typeof e == "object" ? new Headers(e) : new Headers();
 }
-function fe(...e) {
+function G(...e) {
   return e.reduce((r, t) => {
-    const n = gt(t);
-    for (const [s, i] of n.entries()) s === "set-cookie" ? ye(i).forEach((d) => r.append("set-cookie", d)) : r.set(s, i);
+    const n = Dt(t);
+    for (const [s, o] of n.entries()) s === "set-cookie" ? ke(o).forEach((i) => r.append("set-cookie", i)) : r.set(s, o);
     return r;
   }, new Headers());
 }
-const L = { stringify: (e) => JSON.stringify(e, function(t, n) {
-  const s = this[t], i = Z.find((a) => a.stringifyCondition(s));
-  return i ? i.stringify(s) : n;
+const b = { stringify: (e) => JSON.stringify(e, function(t, n) {
+  const s = this[t], o = ee.find((a) => a.stringifyCondition(s));
+  return o ? o.stringify(s) : n;
 }), parse: (e) => JSON.parse(e, function(t, n) {
   const s = this[t];
-  if (O(s)) {
-    const i = Z.find((a) => a.parseCondition(s));
-    if (i) return i.parse(s);
+  if (A(s)) {
+    const o = ee.find((a) => a.parseCondition(s));
+    if (o) return o.parse(s);
   }
   return n;
 }), encode: (e) => {
-  if (Array.isArray(e)) return e.map((t) => L.encode(t));
-  if (O(e)) return Object.fromEntries(Object.entries(e).map(([t, n]) => [t, L.encode(n)]));
-  const r = Z.find((t) => t.stringifyCondition(e));
+  if (Array.isArray(e)) return e.map((t) => b.encode(t));
+  if (A(e)) return Object.fromEntries(Object.entries(e).map(([t, n]) => [t, b.encode(n)]));
+  const r = ee.find((t) => t.stringifyCondition(e));
   return r ? r.stringify(e) : e;
 }, decode: (e) => {
-  if (O(e)) {
-    const r = Z.find((t) => t.parseCondition(e));
+  if (A(e)) {
+    const r = ee.find((t) => t.parseCondition(e));
     if (r) return r.parse(e);
   }
-  return Array.isArray(e) ? e.map((r) => L.decode(r)) : O(e) ? Object.fromEntries(Object.entries(e).map(([r, t]) => [r, L.decode(t)])) : e;
-} }, $ = (e, r, t, n) => ({ key: e, stringifyCondition: r, stringify: (s) => ({ [`$${e}`]: t(s) }), parseCondition: (s) => Object.hasOwn(s, `$${e}`), parse: (s) => n(s[`$${e}`]) }), Z = [$("undefined", (e) => e === void 0, () => 0, () => {
-}), $("date", (e) => e instanceof Date, (e) => e.toISOString(), (e) => new Date(e)), $("error", (e) => e instanceof Error, (e) => ({ ...e, message: e.message, stack: void 0, cause: e.cause }), (e) => Object.assign(new Error(e.message), e)), $("formData", (e) => e instanceof FormData, (e) => {
+  return Array.isArray(e) ? e.map((r) => b.decode(r)) : A(e) ? Object.fromEntries(Object.entries(e).map(([r, t]) => [r, b.decode(t)])) : e;
+} }, U = (e, r, t, n) => ({ key: e, stringifyCondition: r, stringify: (s) => ({ [`$${e}`]: t(s) }), parseCondition: (s) => Object.hasOwn(s, `$${e}`), parse: (s) => n(s[`$${e}`]) }), ee = [U("undefined", (e) => e === void 0, () => 0, () => {
+}), U("date", (e) => e instanceof Date, (e) => e.toISOString(), (e) => new Date(e)), U("error", (e) => e instanceof Error, (e) => ({ ...e, message: e.message, stack: void 0, cause: e.cause }), (e) => Object.assign(new Error(e.message), e)), U("formData", (e) => e instanceof FormData, (e) => {
   const r = {};
   return e.forEach((t, n) => {
     const s = r[n];
@@ -3433,142 +3446,256 @@ const L = { stringify: (e) => JSON.stringify(e, function(t, n) {
   return Object.entries(e).forEach(([t, n]) => {
     Array.isArray(n) ? n.forEach((s) => r.append(t, s)) : r.append(t, n);
   }), r;
-}), $("bigint", (e) => typeof e == "bigint", (e) => e.toString(), (e) => BigInt(e))];
-var yt = "Invariant failed";
-function St(e, r) {
-  if (!e) throw new Error(yt);
+}), U("bigint", (e) => typeof e == "bigint", (e) => e.toString(), (e) => BigInt(e))];
+var It = "Invariant failed";
+function de(e, r) {
+  if (!e) throw new Error(It);
 }
-const bt = [];
-function _t(e) {
-  bt.push(...e.middleware);
+const Ae = [];
+function Mt(e) {
+  Ae.push(...e.middleware);
 }
-function H(e, r) {
+function q(e, r) {
   const t = r || e || {};
-  return { options: t, middleware: (n) => H(void 0, Object.assign(t, { middleware: n })), validator: (n) => H(void 0, Object.assign(t, { validator: n })), client: (n) => H(void 0, Object.assign(t, { client: n })), server: (n) => H(void 0, Object.assign(t, { server: n })) };
+  return typeof t.method > "u" && (t.method = "GET"), { options: t, middleware: (n) => q(void 0, Object.assign(t, { middleware: n })), validator: (n) => q(void 0, Object.assign(t, { validator: n })), type: (n) => q(void 0, Object.assign(t, { type: n })), handler: (...n) => {
+    const [s, o] = n;
+    Object.assign(t, { ...s, extractedFn: s, serverFn: o });
+    const a = [...t.middleware || [], Ut(t)];
+    return Object.assign(async (i) => we(a, "client", { ...s, ...t, data: i == null ? void 0 : i.data, headers: i == null ? void 0 : i.headers, signal: i == null ? void 0 : i.signal, context: {} }).then((c) => {
+      if (t.response === "full") return c;
+      if (c.error) throw c.error;
+      return c.result;
+    }), { ...s, __executeServer: async (i, c) => {
+      const u = i instanceof FormData ? $t(i) : i;
+      u.type = typeof t.type == "function" ? t.type(u) : t.type;
+      const h = { ...s, ...u, signal: c }, y = () => we(a, "server", h).then((f) => ({ result: f.result, error: f.error, context: f.sendContext }));
+      if (h.type === "static") {
+        let f;
+        if ((R == null ? void 0 : R.getItem) && (f = await R.getItem(h)), f || (f = await y().then((x) => ({ ctx: x, error: null })).catch((x) => ({ ctx: void 0, error: x })), (R == null ? void 0 : R.setItem) && await R.setItem(h, f)), de(f), f.error) throw f.error;
+        return f.ctx;
+      }
+      return y();
+    } });
+  } };
 }
-function wt(e) {
+async function we(e, r, t) {
+  const n = Bt([...Ae, ...e]), s = async (o) => {
+    const a = n.shift();
+    if (!a) return o;
+    a.options.validator && (r !== "client" || a.options.validateClient) && (o.data = await Lt(a.options.validator, o.data));
+    const i = r === "client" ? a.options.client : a.options.server;
+    return i ? zt(i, o, async (c) => s(c).catch((u) => {
+      if (Re(u) || Ce(u)) return { ...c, error: u };
+      throw u;
+    })) : s(o);
+  };
+  return s({ ...t, headers: t.headers || {}, sendContext: t.sendContext || {}, context: t.context || {} });
+}
+let R;
+function Nt(e) {
+  const r = R;
+  return R = typeof e == "function" ? e() : e, () => {
+    R = r;
+  };
+}
+Nt(() => {
+  const e = (n, s) => `/__tsr/staticServerFnCache/${n.functionId}__${s}.json`, r = (n) => JSON.stringify(n != null ? n : "", (a, i) => i && typeof i == "object" && !Array.isArray(i) ? Object.keys(i).sort().reduce((c, u) => (c[u] = i[u], c), {}) : i).replace(/[/\\?%*:|"<>]/g, "-").replace(/\s+/g, "_"), t = typeof document < "u" ? /* @__PURE__ */ new Map() : null;
+  return { getItem: async (n) => {
+    if (typeof document > "u") {
+      const s = r(n.data), o = e(n, s), a = "/Users/martinrodriguez/personal/guesser-game/dist", { promises: i } = await import('node:fs'), u = (await import('node:path')).join(a, o), [h, y] = await i.readFile(u, "utf-8").then((f) => [b.parse(f), null]).catch((f) => [null, f]);
+      if (y && y.code !== "ENOENT") throw y;
+      return h;
+    }
+  }, setItem: async (n, s) => {
+    const { promises: o } = await import('node:fs'), a = await import('node:path'), i = r(n.data), c = e(n, i), h = a.join("/Users/martinrodriguez/personal/guesser-game/dist", c);
+    await o.mkdir(a.dirname(h), { recursive: true }), await o.writeFile(h, b.stringify(s));
+  }, fetchItem: async (n) => {
+    const s = r(n.data), o = e(n, s);
+    let a = t == null ? void 0 : t.get(o);
+    return a || (a = await fetch(o, { method: "GET" }).then((i) => i.text()).then((i) => b.parse(i)), t == null ? void 0 : t.set(o, a)), a;
+  } };
+});
+function $t(e) {
+  const r = e.get("__TSR_CONTEXT");
+  if (e.delete("__TSR_CONTEXT"), typeof r != "string") return { context: {}, data: e };
+  try {
+    return { context: b.parse(r), data: e };
+  } catch {
+    return { data: e };
+  }
+}
+function Bt(e) {
+  const r = /* @__PURE__ */ new Set(), t = [], n = (s) => {
+    s.forEach((o) => {
+      o.options.middleware && n(o.options.middleware), r.has(o) || (r.add(o), t.push(o));
+    });
+  };
+  return n(e), t;
+}
+const zt = async (e, r, t) => e({ ...r, next: async (n = {}) => {
+  var _a, _b;
+  return t({ ...r, ...n, context: { ...r.context, ...n.context }, sendContext: { ...r.sendContext, ...(_a = n.sendContext) != null ? _a : {} }, headers: G(r.headers, n.headers), result: n.result !== void 0 ? n.result : r.response === "raw" ? n : r.result, error: (_b = n.error) != null ? _b : r.error });
+} });
+function Lt(e, r) {
+  if (e == null) return {};
+  if ("~standard" in e) {
+    const t = e["~standard"].validate(r);
+    if (t instanceof Promise) throw new Error("Async validation not supported");
+    if (t.issues) throw new Error(JSON.stringify(t.issues, void 0, 2));
+    return t.value;
+  }
+  if ("parse" in e) return e.parse(r);
+  if (typeof e == "function") return e(r);
+  throw new Error("Invalid validator type!");
+}
+function Ut(e) {
+  return { _types: void 0, options: { validator: e.validator, validateClient: e.validateClient, client: async ({ next: r, sendContext: t, ...n }) => {
+    var s;
+    const o = { ...n, context: t, type: typeof n.type == "function" ? n.type(n) : n.type };
+    if (n.type === "static" && typeof document < "u") {
+      de(R);
+      const i = await R.fetchItem(o);
+      if (i) {
+        if (i.error) throw i.error;
+        return r(i.ctx);
+      }
+      `${o.functionId}${JSON.stringify(o.data)}`;
+    }
+    const a = await ((s = e.extractedFn) == null ? void 0 : s.call(e, o));
+    return r(a);
+  }, server: async ({ next: r, ...t }) => {
+    var n;
+    const s = await ((n = e.serverFn) == null ? void 0 : n.call(e, t));
+    return r({ ...t, result: s });
+  } } };
+}
+function I(e, r) {
+  const t = r || e || {};
+  return { options: t, middleware: (n) => I(void 0, Object.assign(t, { middleware: n })), validator: (n) => I(void 0, Object.assign(t, { validator: n })), client: (n) => I(void 0, Object.assign(t, { client: n })), server: (n) => I(void 0, Object.assign(t, { server: n })) };
+}
+function Jt(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
-var ee, pe;
-function xt() {
-  if (pe) return ee;
-  pe = 1;
-  const e = {}, r = e.hasOwnProperty, t = (o, c) => {
-    for (const S in o) r.call(o, S) && c(S, o[S]);
-  }, n = (o, c) => (c && t(c, (S, R) => {
-    o[S] = R;
-  }), o), s = (o, c) => {
-    const S = o.length;
-    let R = -1;
-    for (; ++R < S; ) c(o[R]);
-  }, i = (o) => "\\u" + ("0000" + o).slice(-4), a = (o, c) => {
-    let S = o.toString(16);
-    return c ? S : S.toUpperCase();
-  }, d = e.toString, l = Array.isArray, u = (o) => typeof Buffer == "function" && Buffer.isBuffer(o), p = (o) => d.call(o) == "[object Object]", v = (o) => typeof o == "string" || d.call(o) == "[object String]", _ = (o) => typeof o == "number" || d.call(o) == "[object Number]", w = (o) => typeof o == "bigint", z = (o) => typeof o == "function", C = (o) => d.call(o) == "[object Map]", f = (o) => d.call(o) == "[object Set]", A = { "\\": "\\\\", "\b": "\\b", "\f": "\\f", "\n": "\\n", "\r": "\\r", "	": "\\t" }, y = /[\\\b\f\n\r\t]/, F = /[0-9]/, U = /[\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/, I = /([\uD800-\uDBFF][\uDC00-\uDFFF])|([\uD800-\uDFFF])|(['"`])|[^]/g, T = /([\uD800-\uDBFF][\uDC00-\uDFFF])|([\uD800-\uDFFF])|(['"`])|[^ !#-&\(-\[\]-_a-~]/g, m = (o, c) => {
+var se, _e;
+function qt() {
+  if (_e) return se;
+  _e = 1;
+  const e = {}, r = e.hasOwnProperty, t = (l, d) => {
+    for (const S in l) r.call(l, S) && d(S, l[S]);
+  }, n = (l, d) => (d && t(d, (S, E) => {
+    l[S] = E;
+  }), l), s = (l, d) => {
+    const S = l.length;
+    let E = -1;
+    for (; ++E < S; ) d(l[E]);
+  }, o = (l) => "\\u" + ("0000" + l).slice(-4), a = (l, d) => {
+    let S = l.toString(16);
+    return d ? S : S.toUpperCase();
+  }, i = e.toString, c = Array.isArray, u = (l) => typeof Buffer == "function" && Buffer.isBuffer(l), h = (l) => i.call(l) == "[object Object]", y = (l) => typeof l == "string" || i.call(l) == "[object String]", f = (l) => typeof l == "number" || i.call(l) == "[object Number]", x = (l) => typeof l == "bigint", $ = (l) => typeof l == "function", F = (l) => i.call(l) == "[object Map]", p = (l) => i.call(l) == "[object Set]", O = { "\\": "\\\\", "\b": "\\b", "\f": "\\f", "\n": "\\n", "\r": "\\r", "	": "\\t" }, _ = /[\\\b\f\n\r\t]/, B = /[0-9]/, K = /[\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/, z = /([\uD800-\uDBFF][\uDC00-\uDFFF])|([\uD800-\uDFFF])|(['"`])|[^]/g, H = /([\uD800-\uDBFF][\uDC00-\uDFFF])|([\uD800-\uDFFF])|(['"`])|[^ !#-&\(-\[\]-_a-~]/g, g = (l, d) => {
     const S = () => {
-      Y = G, ++c.indentLevel, G = c.indent.repeat(c.indentLevel);
-    }, R = { escapeEverything: false, minimal: false, isScriptContext: false, quotes: "single", wrap: false, es6: false, json: false, compact: true, lowercaseHex: false, numbers: "decimal", indent: "	", indentLevel: 0, __inline1__: false, __inline2__: false }, j = c && c.json;
-    j && (R.quotes = "double", R.wrap = true), c = n(R, c), c.quotes != "single" && c.quotes != "double" && c.quotes != "backtick" && (c.quotes = "single");
-    const W = c.quotes == "double" ? '"' : c.quotes == "backtick" ? "`" : "'", E = c.compact, D = c.lowercaseHex;
-    let G = c.indent.repeat(c.indentLevel), Y = "";
-    const ve = c.__inline1__, J = c.__inline2__, P = E ? "" : `
+      re = V, ++d.indentLevel, V = d.indent.repeat(d.indentLevel);
+    }, E = { escapeEverything: false, minimal: false, isScriptContext: false, quotes: "single", wrap: false, es6: false, json: false, compact: true, lowercaseHex: false, numbers: "decimal", indent: "	", indentLevel: 0, __inline1__: false, __inline2__: false }, j = d && d.json;
+    j && (E.quotes = "double", E.wrap = true), d = n(E, d), d.quotes != "single" && d.quotes != "double" && d.quotes != "backtick" && (d.quotes = "single");
+    const W = d.quotes == "double" ? '"' : d.quotes == "backtick" ? "`" : "'", T = d.compact, P = d.lowercaseHex;
+    let V = d.indent.repeat(d.indentLevel), re = "";
+    const $e = d.__inline1__, X = d.__inline2__, D = T ? "" : `
 `;
-    let b, K = true;
-    const Re = c.numbers == "binary", je = c.numbers == "octal", Ee = c.numbers == "decimal", ke = c.numbers == "hexadecimal";
-    if (j && o && z(o.toJSON) && (o = o.toJSON()), !v(o)) {
-      if (C(o)) return o.size == 0 ? "new Map()" : (E || (c.__inline1__ = true, c.__inline2__ = false), "new Map(" + m(Array.from(o), c) + ")");
-      if (f(o)) return o.size == 0 ? "new Set()" : "new Set(" + m(Array.from(o), c) + ")";
-      if (u(o)) return o.length == 0 ? "Buffer.from([])" : "Buffer.from(" + m(Array.from(o), c) + ")";
-      if (l(o)) return b = [], c.wrap = true, ve && (c.__inline1__ = false, c.__inline2__ = true), J || S(), s(o, (g) => {
-        K = false, J && (c.__inline2__ = false), b.push((E || J ? "" : G) + m(g, c));
-      }), K ? "[]" : J ? "[" + b.join(", ") + "]" : "[" + P + b.join("," + P) + P + (E ? "" : Y) + "]";
-      if (_(o) || w(o)) {
-        if (j) return JSON.stringify(Number(o));
-        let g;
-        if (Ee) g = String(o);
-        else if (ke) {
-          let x = o.toString(16);
-          D || (x = x.toUpperCase()), g = "0x" + x;
-        } else Re ? g = "0b" + o.toString(2) : je && (g = "0o" + o.toString(8));
-        return w(o) ? g + "n" : g;
-      } else return w(o) ? j ? JSON.stringify(Number(o)) : o + "n" : p(o) ? (b = [], c.wrap = true, S(), t(o, (g, x) => {
-        K = false, b.push((E ? "" : G) + m(g, c) + ":" + (E ? "" : " ") + m(x, c));
-      }), K ? "{}" : "{" + P + b.join("," + P) + P + (E ? "" : Y) + "}") : j ? JSON.stringify(o) || "null" : String(o);
+    let v, Z = true;
+    const Be = d.numbers == "binary", ze = d.numbers == "octal", Le = d.numbers == "decimal", Ue = d.numbers == "hexadecimal";
+    if (j && l && $(l.toJSON) && (l = l.toJSON()), !y(l)) {
+      if (F(l)) return l.size == 0 ? "new Map()" : (T || (d.__inline1__ = true, d.__inline2__ = false), "new Map(" + g(Array.from(l), d) + ")");
+      if (p(l)) return l.size == 0 ? "new Set()" : "new Set(" + g(Array.from(l), d) + ")";
+      if (u(l)) return l.length == 0 ? "Buffer.from([])" : "Buffer.from(" + g(Array.from(l), d) + ")";
+      if (c(l)) return v = [], d.wrap = true, $e && (d.__inline1__ = false, d.__inline2__ = true), X || S(), s(l, (w) => {
+        Z = false, X && (d.__inline2__ = false), v.push((T || X ? "" : V) + g(w, d));
+      }), Z ? "[]" : X ? "[" + v.join(", ") + "]" : "[" + D + v.join("," + D) + D + (T ? "" : re) + "]";
+      if (f(l) || x(l)) {
+        if (j) return JSON.stringify(Number(l));
+        let w;
+        if (Le) w = String(l);
+        else if (Ue) {
+          let C = l.toString(16);
+          P || (C = C.toUpperCase()), w = "0x" + C;
+        } else Be ? w = "0b" + l.toString(2) : ze && (w = "0o" + l.toString(8));
+        return x(l) ? w + "n" : w;
+      } else return x(l) ? j ? JSON.stringify(Number(l)) : l + "n" : h(l) ? (v = [], d.wrap = true, S(), t(l, (w, C) => {
+        Z = false, v.push((T ? "" : V) + g(w, d) + ":" + (T ? "" : " ") + g(C, d));
+      }), Z ? "{}" : "{" + D + v.join("," + D) + D + (T ? "" : re) + "}") : j ? JSON.stringify(l) || "null" : String(l);
     }
-    const Ce = c.escapeEverything ? I : T;
-    return b = o.replace(Ce, (g, x, ae, V, Ae, Te) => {
-      if (x) {
-        if (c.minimal) return x;
-        const oe = x.charCodeAt(0), ie = x.charCodeAt(1);
-        if (c.es6) {
-          const De = (oe - 55296) * 1024 + ie - 56320 + 65536;
-          return "\\u{" + a(De, D) + "}";
+    const Je = d.escapeEverything ? z : H;
+    return v = l.replace(Je, (w, C, ue, Q, qe, Ge) => {
+      if (C) {
+        if (d.minimal) return C;
+        const fe = C.charCodeAt(0), he = C.charCodeAt(1);
+        if (d.es6) {
+          const Ke = (fe - 55296) * 1024 + he - 56320 + 65536;
+          return "\\u{" + a(Ke, P) + "}";
         }
-        return i(a(oe, D)) + i(a(ie, D));
+        return o(a(fe, P)) + o(a(he, P));
       }
-      if (ae) return i(a(ae.charCodeAt(0), D));
-      if (g == "\0" && !j && !F.test(Te.charAt(Ae + 1))) return "\\0";
-      if (V) return V == W || c.escapeEverything ? "\\" + V : V;
-      if (y.test(g)) return A[g];
-      if (c.minimal && !U.test(g)) return g;
-      const Q = a(g.charCodeAt(0), D);
-      return j || Q.length > 2 ? i(Q) : "\\x" + ("00" + Q).slice(-2);
-    }), W == "`" && (b = b.replace(/\$\{/g, "\\${")), c.isScriptContext && (b = b.replace(/<\/(script|style)/gi, "<\\/$1").replace(/<!--/g, j ? "\\u003C!--" : "\\x3C!--")), c.wrap && (b = W + b + W), b;
+      if (ue) return o(a(ue.charCodeAt(0), P));
+      if (w == "\0" && !j && !B.test(Ge.charAt(qe + 1))) return "\\0";
+      if (Q) return Q == W || d.escapeEverything ? "\\" + Q : Q;
+      if (_.test(w)) return O[w];
+      if (d.minimal && !K.test(w)) return w;
+      const ne = a(w.charCodeAt(0), P);
+      return j || ne.length > 2 ? o(ne) : "\\x" + ("00" + ne).slice(-2);
+    }), W == "`" && (v = v.replace(/\$\{/g, "\\${")), d.isScriptContext && (v = v.replace(/<\/(script|style)/gi, "<\\/$1").replace(/<!--/g, j ? "\\u003C!--" : "\\x3C!--")), d.wrap && (v = W + v + W), v;
   };
-  return m.version = "3.0.2", ee = m, ee;
+  return g.version = "3.0.2", se = g, se;
 }
-var vt = xt();
-const B = wt(vt), Rt = `const __TSR_SSR__={matches:[],streamedValues:{},initMatch:o=>(__TSR_SSR__.matches.push(o),o.extracted?.forEach(l=>{if(l.type==="stream"){let r;l.value=new ReadableStream({start(e){r={enqueue:t=>{try{e.enqueue(t)}catch{}},close:()=>{try{e.close()}catch{}}}}}),l.value.controller=r}else{let r,e;l.value=new Promise((t,a)=>{e=a,r=t}),l.value.reject=e,l.value.resolve=r}}),!0),resolvePromise:({matchId:o,id:l,promiseState:r})=>{const e=__TSR_SSR__.matches.find(t=>t.id===o);if(e){const t=e.extracted?.[l];if(t&&t.type==="promise"&&t.value&&r.status==="success")return t.value.resolve(r.data),!0}return!1},injectChunk:({matchId:o,id:l,chunk:r})=>{const e=__TSR_SSR__.matches.find(t=>t.id===o);if(e){const t=e.extracted?.[l];if(t&&t.type==="stream"&&t.value?.controller)return t.value.controller.enqueue(new TextEncoder().encode(r.toString())),!0}return!1},closeStream:({matchId:o,id:l})=>{const r=__TSR_SSR__.matches.find(e=>e.id===o);if(r){const e=r.extracted?.[l];if(e&&e.type==="stream"&&e.value?.controller)return e.value.controller.close(),!0}return!1},cleanScripts:()=>{document.querySelectorAll(".tsr-once").forEach(o=>{o.remove()})}};window.__TSR_SSR__=__TSR_SSR__;
+var Gt = qt();
+const M = Jt(Gt), Kt = `const __TSR_SSR__={matches:[],streamedValues:{},initMatch:o=>(__TSR_SSR__.matches.push(o),o.extracted?.forEach(l=>{if(l.type==="stream"){let r;l.value=new ReadableStream({start(e){r={enqueue:t=>{try{e.enqueue(t)}catch{}},close:()=>{try{e.close()}catch{}}}}}),l.value.controller=r}else{let r,e;l.value=new Promise((t,a)=>{e=a,r=t}),l.value.reject=e,l.value.resolve=r}}),!0),resolvePromise:({matchId:o,id:l,promiseState:r})=>{const e=__TSR_SSR__.matches.find(t=>t.id===o);if(e){const t=e.extracted?.[l];if(t&&t.type==="promise"&&t.value&&r.status==="success")return t.value.resolve(r.data),!0}return!1},injectChunk:({matchId:o,id:l,chunk:r})=>{const e=__TSR_SSR__.matches.find(t=>t.id===o);if(e){const t=e.extracted?.[l];if(t&&t.type==="stream"&&t.value?.controller)return t.value.controller.enqueue(new TextEncoder().encode(r.toString())),!0}return!1},closeStream:({matchId:o,id:l})=>{const r=__TSR_SSR__.matches.find(e=>e.id===o);if(r){const e=r.extracted?.[l];if(e&&e.type==="stream"&&e.value?.controller)return e.value.controller.close(),!0}return!1},cleanScripts:()=>{document.querySelectorAll(".tsr-once").forEach(o=>{o.remove()})}};window.__TSR_SSR__=__TSR_SSR__;
 `;
-function jt(e, r) {
-  e.ssr = { manifest: r, serializer: L }, e.serverSsr = { injectedHtml: [], streamedKeys: /* @__PURE__ */ new Set(), injectHtml: (t) => {
+function Wt(e, r) {
+  e.ssr = { manifest: r, serializer: b }, e.serverSsr = { injectedHtml: [], streamedKeys: /* @__PURE__ */ new Set(), injectHtml: (t) => {
     const n = Promise.resolve().then(t);
     return e.serverSsr.injectedHtml.push(n), e.emit({ type: "onInjectedHtml", promise: n }), n.then(() => {
     });
   }, injectScript: (t, n) => e.serverSsr.injectHtml(async () => `<script class='tsr-once'>${await t()}; if (typeof __TSR_SSR__ !== 'undefined') __TSR_SSR__.cleanScripts()<\/script>`), streamValue: (t, n) => {
-    e.serverSsr.streamedKeys.has(t), e.serverSsr.streamedKeys.add(t), e.serverSsr.injectScript(() => `__TSR_SSR__.streamedValues['${t}'] = { value: ${B(e.ssr.serializer.stringify(n), { isScriptContext: true, wrap: true, json: true })}}`);
-  }, onMatchSettled: Ct }, e.serverSsr.injectScript(() => Rt, { logScript: false });
+    e.serverSsr.streamedKeys.has(t), e.serverSsr.streamedKeys.add(t), e.serverSsr.injectScript(() => `__TSR_SSR__.streamedValues['${t}'] = { value: ${M(e.ssr.serializer.stringify(n), { isScriptContext: true, wrap: true, json: true })}}`);
+  }, onMatchSettled: Zt }, e.serverSsr.injectScript(() => Kt, { logScript: false });
 }
-function Et(e) {
+function Vt(e) {
   var r, t;
   const n = { manifest: e.ssr.manifest, dehydratedData: (t = (r = e.options).dehydrate) == null ? void 0 : t.call(r) };
-  e.serverSsr.injectScript(() => `__TSR_SSR__.dehydrated = ${B(e.ssr.serializer.stringify(n), { isScriptContext: true, wrap: true, json: true })}`);
+  e.serverSsr.injectScript(() => `__TSR_SSR__.dehydrated = ${M(e.ssr.serializer.stringify(n), { isScriptContext: true, wrap: true, json: true })}`);
 }
-function kt(e, r) {
+function Xt(e, r) {
   const t = [];
-  return { replaced: se(e, (s, i) => {
+  return { replaced: le(e, (s, o) => {
     if (s instanceof ReadableStream) {
-      const [a, d] = s.tee(), l = { type: "stream", path: i, id: t.length, matchIndex: r.match.index, stream: d };
-      return t.push(l), a;
+      const [a, i] = s.tee(), c = { type: "stream", path: o, id: t.length, matchIndex: r.match.index, stream: i };
+      return t.push(c), a;
     } else if (s instanceof Promise) {
-      const a = et(s), d = { type: "promise", path: i, id: t.length, matchIndex: r.match.index, promise: a };
-      t.push(d);
+      const a = wt(s), i = { type: "promise", path: o, id: t.length, matchIndex: r.match.index, promise: a };
+      t.push(i);
     }
     return s;
   }), extracted: t };
 }
-function Ct(e) {
+function Zt(e) {
   const { router: r, match: t } = e;
   let n, s;
   if (t.loaderData !== void 0) {
-    const l = kt(t.loaderData, { match: t });
-    t.loaderData = l.replaced, n = l.extracted, s = n.reduce((u, p) => ne(u, ["temp", ...p.path], void 0), { temp: l.replaced }).temp;
+    const c = Xt(t.loaderData, { match: t });
+    t.loaderData = c.replaced, n = c.extracted, s = n.reduce((u, h) => ce(u, ["temp", ...h.path], void 0), { temp: c.replaced }).temp;
   }
-  const i = `__TSR_SSR__.initMatch(${B({ id: t.id, __beforeLoadContext: r.ssr.serializer.stringify(t.__beforeLoadContext), loaderData: r.ssr.serializer.stringify(s), error: r.ssr.serializer.stringify(t.error), extracted: n == null ? void 0 : n.map((l) => tt(l, ["type", "path"])), updatedAt: t.updatedAt, status: t.status }, { isScriptContext: true, wrap: true, json: true })})`;
-  r.serverSsr.injectScript(() => i), n && n.forEach((l) => l.type === "promise" ? a(l) : d(l));
-  function a(l) {
-    r.serverSsr.injectScript(async () => (await l.promise, `__TSR_SSR__.resolvePromise(${B({ matchId: t.id, id: l.id, promiseState: l.promise[k] }, { isScriptContext: true, wrap: true, json: true })})`));
+  const o = `__TSR_SSR__.initMatch(${M({ id: t.id, __beforeLoadContext: r.ssr.serializer.stringify(t.__beforeLoadContext), loaderData: r.ssr.serializer.stringify(s), error: r.ssr.serializer.stringify(t.error), extracted: n == null ? void 0 : n.map((c) => _t(c, ["type", "path"])), updatedAt: t.updatedAt, status: t.status }, { isScriptContext: true, wrap: true, json: true })})`;
+  r.serverSsr.injectScript(() => o), n && n.forEach((c) => c.type === "promise" ? a(c) : i(c));
+  function a(c) {
+    r.serverSsr.injectScript(async () => (await c.promise, `__TSR_SSR__.resolvePromise(${M({ matchId: t.id, id: c.id, promiseState: c.promise[k] }, { isScriptContext: true, wrap: true, json: true })})`));
   }
-  function d(l) {
+  function i(c) {
     r.serverSsr.injectHtml(async () => {
       try {
-        const u = l.stream.getReader();
-        let p = null;
-        for (; !(p = await u.read()).done; ) if (p.value) {
-          const v = `__TSR_SSR__.injectChunk(${B({ matchId: t.id, id: l.id, chunk: p.value }, { isScriptContext: true, wrap: true, json: true })})`;
-          r.serverSsr.injectScript(() => v);
+        const u = c.stream.getReader();
+        let h = null;
+        for (; !(h = await u.read()).done; ) if (h.value) {
+          const y = `__TSR_SSR__.injectChunk(${M({ matchId: t.id, id: c.id, chunk: h.value }, { isScriptContext: true, wrap: true, json: true })})`;
+          r.serverSsr.injectScript(() => y);
         }
-        r.serverSsr.injectScript(() => `__TSR_SSR__.closeStream(${B({ matchId: t.id, id: l.id }, { isScriptContext: true, wrap: true, json: true })})`);
+        r.serverSsr.injectScript(() => `__TSR_SSR__.closeStream(${M({ matchId: t.id, id: c.id }, { isScriptContext: true, wrap: true, json: true })})`);
       } catch (u) {
         console.error("stream read error", u);
       }
@@ -3576,78 +3703,160 @@ function Ct(e) {
     });
   }
 }
-function ne(e, r, t) {
+function ce(e, r, t) {
   if (r.length === 0) return t;
   const [n, ...s] = r;
-  return Array.isArray(e) ? e.map((i, a) => a === Number(n) ? ne(i, s, t) : i) : O(e) ? { ...e, [n]: ne(e[n], s, t) } : e;
+  return Array.isArray(e) ? e.map((o, a) => a === Number(n) ? ce(o, s, t) : o) : A(e) ? { ...e, [n]: ce(e[n], s, t) } : e;
 }
-function se(e, r, t = []) {
-  if (rt(e)) return e.map((s, i) => se(s, r, [...t, `${i}`]));
-  if (O(e)) {
+function le(e, r, t = []) {
+  if (St(e)) return e.map((s, o) => le(s, r, [...t, `${o}`]));
+  if (A(e)) {
     const s = {};
-    for (const i in e) s[i] = se(e[i], r, [...t, i]);
+    for (const o in e) s[o] = le(e[o], r, [...t, o]);
     return s;
   }
   const n = r(e, t);
   return n !== e ? n : e;
 }
-function At({ createRouter: e, getRouterManifest: r }) {
+function Qt({ createRouter: e, getRouterManifest: r }) {
   return (t) => eventHandler(async (n) => {
-    const s = toWebRequest(n), i = new URL(s.url), a = i.href.replace(i.origin, ""), d = mt({ initialEntries: [a] }), l = e();
-    jt(l, await (r == null ? void 0 : r())), l.update({ history: d }), await l.load(), Et(l);
-    const u = Tt({ event: n, router: l });
-    return await t({ request: s, router: l, responseHeaders: u });
+    const s = toWebRequest(n), o = new URL(s.url), a = o.href.replace(o.origin, ""), i = Pt({ initialEntries: [a] }), c = e();
+    Wt(c, await (r == null ? void 0 : r())), c.update({ history: i }), await c.load(), Vt(c);
+    const u = Yt({ event: n, router: c });
+    return await t({ request: s, router: c, responseHeaders: u });
   });
 }
-function Tt(e) {
-  let r = fe(getResponseHeaders(e.event), e.event.___ssrRpcResponseHeaders, { "Content-Type": "text/html; charset=UTF-8" }, ...e.router.state.matches.map((n) => n.headers));
+function Yt(e) {
+  let r = G(getResponseHeaders(e.event), e.event.___ssrRpcResponseHeaders, { "Content-Type": "text/html; charset=UTF-8" }, ...e.router.state.matches.map((n) => n.headers));
   const { redirect: t } = e.router.state;
-  return t && (r = fe(r, t.headers, { Location: t.href })), r;
+  return t && (r = G(r, t.headers, { Location: t.href })), r;
 }
-const Dt = async ({ request: e, router: r, responseHeaders: t }) => {
-  if (typeof X$1.renderToReadableStream == "function") {
-    const n = await X$1.renderToReadableStream(jsx(le, { router: r }), { signal: e.signal });
-    de(e.headers.get("User-Agent")) && await n.allReady;
-    const s = st(r, n);
+function er(e = {}) {
+  let r, t = false;
+  const n = (a) => {
+    if (r && r !== a) throw new Error("Context conflict");
+  };
+  let s;
+  if (e.asyncContext) {
+    const a = e.AsyncLocalStorage || globalThis.AsyncLocalStorage;
+    a ? s = new a() : console.warn("[unctx] `AsyncLocalStorage` is not provided.");
+  }
+  const o = () => {
+    if (s) {
+      const a = s.getStore();
+      if (a !== void 0) return a;
+    }
+    return r;
+  };
+  return { use: () => {
+    const a = o();
+    if (a === void 0) throw new Error("Context is not available");
+    return a;
+  }, tryUse: () => o(), set: (a, i) => {
+    i || n(a), r = a, t = true;
+  }, unset: () => {
+    r = void 0, t = false;
+  }, call: (a, i) => {
+    n(a), r = a;
+    try {
+      return s ? s.run(a, i) : i();
+    } finally {
+      t || (r = void 0);
+    }
+  }, async callAsync(a, i) {
+    r = a;
+    const c = () => {
+      r = a;
+    }, u = () => r === a ? c : void 0;
+    be.add(u);
+    try {
+      const h = s ? s.run(a, i) : i();
+      return t || (r = void 0), await h;
+    } finally {
+      be.delete(u);
+    }
+  } };
+}
+function tr(e = {}) {
+  const r = {};
+  return { get(t, n = {}) {
+    return r[t] || (r[t] = er({ ...e, ...n })), r[t];
+  } };
+}
+const te = typeof globalThis < "u" ? globalThis : typeof self < "u" ? self : typeof global < "u" ? global : {}, Se = "__unctx__", rr = te[Se] || (te[Se] = tr()), nr = (e, r = {}) => rr.get(e, r), ve = "__unctx_async_handlers__", be = te[ve] || (te[ve] = /* @__PURE__ */ new Set());
+function sr() {
+  return Oe();
+}
+const Fe = Symbol("$HTTPEvent");
+function ar(e) {
+  return typeof e == "object" && (e instanceof H3Event || (e == null ? void 0 : e[Fe]) instanceof H3Event || (e == null ? void 0 : e.__is_event__) === true);
+}
+function or(e) {
+  return function(...r) {
+    var t;
+    const n = r[0];
+    if (ar(n)) r[0] = n instanceof H3Event || n.__is_event__ ? n : n[Fe];
+    else {
+      if (!((t = globalThis.app.config.server.experimental) != null && t.asyncContext)) throw new Error("AsyncLocalStorage was not enabled. Use the `server.experimental.asyncContext: true` option in your app configuration to enable it. Or, pass the instance of HTTPEvent that you have as the first argument to the function.");
+      r.unshift(sr());
+    }
+    return e(...r);
+  };
+}
+const ir = or(getHeaders);
+function cr() {
+  var e;
+  return nr("nitro-app", { asyncContext: !!((e = globalThis.app.config.server.experimental) != null && e.asyncContext), AsyncLocalStorage: AsyncLocalStorage });
+}
+function Oe() {
+  const e = cr().use().event;
+  if (!e) throw new Error("No HTTPEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.");
+  return e;
+}
+const lr = async ({ request: e, router: r, responseHeaders: t }) => {
+  if (typeof Y$1.renderToReadableStream == "function") {
+    const n = await Y$1.renderToReadableStream(jsx(me, { router: r }), { signal: e.signal });
+    ye(e.headers.get("User-Agent")) && await n.allReady;
+    const s = xt(r, n);
     return new Response(s, { status: r.state.statusCode, headers: t });
   }
-  if (typeof X$1.renderToPipeableStream == "function") {
+  if (typeof Y$1.renderToPipeableStream == "function") {
     const n = new PassThrough();
     try {
-      const i = X$1.renderToPipeableStream(jsx(le, { router: r }), { ...de(e.headers.get("User-Agent")) ? { onAllReady() {
-        i.pipe(n);
+      const o = Y$1.renderToPipeableStream(jsx(me, { router: r }), { ...ye(e.headers.get("User-Agent")) ? { onAllReady() {
+        o.pipe(n);
       } } : { onShellReady() {
-        i.pipe(n);
-      } }, onError: (a, d) => {
-        console.error("Error in renderToPipeableStream:", a, d);
+        o.pipe(n);
+      } }, onError: (a, i) => {
+        console.error("Error in renderToPipeableStream:", a, i);
       } });
-    } catch (i) {
-      console.error("Error in renderToPipeableStream:", i);
+    } catch (o) {
+      console.error("Error in renderToPipeableStream:", o);
     }
-    const s = at(r, n);
+    const s = Rt(r, n);
     return new Response(s, { status: r.state.statusCode, headers: t });
   }
   throw new Error("No renderToReadableStream or renderToPipeableStream found in react-dom/server. Ensure you are using a version of react-dom that supports streaming.");
-}, Pt = () => ({ routes: { __root__: { filePath: "__root.tsx", children: ["/"], preloads: ["/_build/assets/client-BaDX-hYO.js", "/_build/assets/client-DONT5KoR.js"] }, "/": { filePath: "index.tsx" } } });
-function Ot(e) {
+}, dr = () => ({ routes: { __root__: { filePath: "__root.tsx", children: ["/"], preloads: ["/_build/assets/client-udtKSpht.js", "/_build/assets/client-BWad5ax2.js"] }, "/": { filePath: "index.tsx" } } });
+function ur(e) {
   return globalThis.MANIFEST[e];
 }
-function Ht() {
+function fr() {
   var _a;
-  const e = Pt(), r = e.routes.__root__ = e.routes.__root__ || {};
+  const e = dr(), r = e.routes.__root__ = e.routes.__root__ || {};
   r.assets = r.assets || [];
   let t = "";
-  const n = Ot("client"), s = (_a = n.inputs[n.handler]) == null ? void 0 : _a.output.path;
-  return s || St(s), r.assets.push({ tag: "script", attrs: { type: "module", suppressHydrationWarning: true, async: true }, children: `${t}import("${s}")` }), e;
+  const n = ur("client"), s = (_a = n.inputs[n.handler]) == null ? void 0 : _a.output.path;
+  return s || de(s), r.assets.push({ tag: "script", attrs: { type: "module", suppressHydrationWarning: true, async: true }, children: `${t}import("${s}")` }), e;
 }
-function Bt() {
-  const e = Ht();
+function hr() {
+  const e = fr();
   return { ...e, routes: Object.fromEntries(Object.entries(e.routes).map(([r, t]) => {
     const { preloads: n, assets: s } = t;
     return [r, { preloads: n, assets: s }];
   })) };
 }
-function Se({ error: e }) {
+function He({ error: e }) {
   const r = useRouter(), t = useMatch({ strict: false, select: (n) => n.id === rootRouteId });
   return console.error("DefaultCatchBoundary Error:", e), jsxs("div", { className: "min-w-0 flex-1 p-4 flex flex-col items-center justify-center gap-6", children: [jsx(ErrorComponent, { error: e }), jsxs("div", { className: "flex gap-2 items-center flex-wrap", children: [jsx("button", { onClick: () => {
     r.invalidate();
@@ -3655,34 +3864,80 @@ function Se({ error: e }) {
     n.preventDefault(), window.history.back();
   }, children: "Go Back" })] })] });
 }
-function be({ children: e }) {
+function Pe({ children: e }) {
   return jsxs("div", { className: "space-y-2 p-2", children: [jsx("div", { className: "text-gray-600 dark:text-gray-400", children: e || jsx("p", { children: "The page you are looking for does not exist." }) }), jsxs("p", { className: "flex items-center gap-2 flex-wrap", children: [jsx("button", { onClick: () => window.history.back(), className: "bg-emerald-500 text-white px-2 py-1 rounded uppercase font-black text-sm", children: "Go back" }), jsx(Link, { to: "/", className: "bg-cyan-600 text-white px-2 py-1 rounded uppercase font-black text-sm", children: "Start Over" })] })] });
 }
-const Mt = "/_build/assets/app-CrcVEtZX.css", zt = ({ title: e, description: r, keywords: t, image: n }) => [{ title: e }, { name: "description", content: r }, { name: "keywords", content: t }, { name: "twitter:title", content: e }, { name: "twitter:description", content: r }, { name: "twitter:creator", content: "@tannerlinsley" }, { name: "twitter:site", content: "@tannerlinsley" }, { name: "og:type", content: "website" }, { name: "og:title", content: e }, { name: "og:description", content: r }, ...n ? [{ name: "twitter:image", content: n }, { name: "twitter:card", content: "summary_large_image" }, { name: "og:image", content: n }] : []], _e = createRootRoute({ head: () => ({ meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, ...zt({ title: "Guesser Game", description: "Browser game where you guess a random character of a show.", keywords: "browser, game, guesser, show" })], links: [{ rel: "stylesheet", href: Mt }, { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" }, { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" }, { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" }, { rel: "manifest", href: "/site.webmanifest", color: "#fffff" }, { rel: "icon", href: "/favicon.ico" }] }), errorComponent: (e) => jsx(we, { children: jsx(Se, { ...e }) }), notFoundComponent: () => jsx(be, {}), component: Ft });
-function Ft() {
-  return jsx(we, { children: jsx(Outlet, {}) });
+const pr = "/_build/assets/app-CFX127wN.css", mr = ({ title: e, description: r, keywords: t, image: n }) => [{ title: e }, { name: "description", content: r }, { name: "keywords", content: t }, { name: "twitter:title", content: e }, { name: "twitter:description", content: r }, { name: "twitter:creator", content: "@tannerlinsley" }, { name: "twitter:site", content: "@tannerlinsley" }, { name: "og:type", content: "website" }, { name: "og:title", content: e }, { name: "og:description", content: r }, ...n ? [{ name: "twitter:image", content: n }, { name: "twitter:card", content: "summary_large_image" }, { name: "og:image", content: n }] : []], De = createRootRoute({ head: () => ({ meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, ...mr({ title: "Guesser Game", description: "Browser game where you guess a random character of a show.", keywords: "browser, game, guesser, show" })], links: [{ rel: "stylesheet", href: pr }, { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" }, { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" }, { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" }, { rel: "manifest", href: "/site.webmanifest", color: "#fffff" }, { rel: "icon", href: "/favicon.ico" }] }), errorComponent: (e) => jsx(Ie, { children: jsx(He, { ...e }) }), notFoundComponent: () => jsx(Pe, {}), component: yr });
+function yr() {
+  return jsx(Ie, { children: jsx(Outlet, {}) });
 }
-function we({ children: e }) {
+function Ie({ children: e }) {
   return jsxs("html", { children: [jsx("head", { children: jsx(HeadContent, {}) }), jsxs("body", { children: [e, jsx(TanStackRouterDevtools, { position: "bottom-right" }), jsx(Scripts, {})] })] });
 }
-const It = () => import('../build/index-3QrZu9Ae.mjs'), xe = createFileRoute("/")({ component: lazyRouteComponent(It, "component", () => xe.ssr) }), Nt = xe.update({ id: "/", path: "/", getParentRoute: () => _e }), $t = { IndexRoute: Nt }, Lt = _e._addFileChildren($t)._addFileTypes();
-function qt() {
-  return createRouter$2({ routeTree: Lt, defaultPreload: "intent", defaultErrorComponent: Se, defaultNotFoundComponent: () => jsx(be, {}), scrollRestoration: true });
+async function gr(e, r, t) {
+  var n;
+  const s = r[0];
+  if (A(s) && s.method) {
+    const i = s, c = i.data instanceof FormData ? "formData" : "payload", u = new Headers({ ...c === "payload" ? { "content-type": "application/json", accept: "application/json" } : {}, ...i.headers instanceof Headers ? Object.fromEntries(i.headers.entries()) : i.headers });
+    if (i.method === "GET") {
+      const f = bt({ payload: b.stringify({ data: i.data, context: i.context }) });
+      f && (e.includes("?") ? e += `&${f}` : e += `?${f}`);
+    }
+    e.includes("?") ? e += "&createServerFn" : e += "?createServerFn", i.response === "raw" && (e += "&raw");
+    const h = await t(e, { method: i.method, headers: u, signal: i.signal, ...wr(i) }), y = await xe(h);
+    if ((n = y.headers.get("content-type")) != null && n.includes("application/json")) {
+      const f = b.decode(await y.json());
+      if (Re(f) || Ce(f) || f instanceof Error) throw f;
+      return f;
+    }
+    return y;
+  }
+  const o = await xe(await t(e, { method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json" }, body: JSON.stringify(r) })), a = o.headers.get("content-type");
+  return a && a.includes("application/json") ? b.decode(await o.json()) : o.text();
 }
-const Ut = H().client(async (e) => {
+function wr(e) {
+  var _a;
+  return e.method === "POST" ? e.data instanceof FormData ? (e.data.set("__TSR_CONTEXT", b.stringify(e.context)), { body: e.data }) : { body: b.stringify({ data: (_a = e.data) != null ? _a : null, context: e.context }) } : {};
+}
+async function xe(e) {
+  if (!e.ok) {
+    const r = e.headers.get("content-type");
+    throw r && r.includes("application/json") ? b.decode(await e.json()) : new Error(await e.text());
+  }
+  return e;
+}
+function _r(e) {
+  return e.replace(/^\/|\/$/g, "");
+}
+const Me = (e, r) => {
+  const t = `/${_r(r)}/${e}`;
+  return Object.assign((...s) => gr(t, s, async (o, a) => {
+    a.headers = G(ir(), a.headers);
+    const i = await $fetch.native(o, a), c = Oe(), u = G(i.headers, c.___ssrRpcResponseHeaders);
+    return c.___ssrRpcResponseHeaders = u, i;
+  }), { url: t, functionId: e });
+}, Sr = Me("src_api_characters_ts--getCharacters_createServerFn_handler", "/_server"), $r = q({ method: "GET" }).handler(Sr), vr = Me("src_api_characters_ts--getRandomCharacter_createServerFn_handler", "/_server"), br = q({ method: "GET" }).handler(vr), xr = () => import('../build/index-CGDgSbVy.mjs'), Ne = createFileRoute("/")({ component: lazyRouteComponent(xr, "component", () => Ne.ssr), loader: async () => {
+  const e = await br();
+  if (!e) throw new Error("Failed to load character of the day");
+  return { characterOfTheDay: e };
+} }), Rr = Ne.update({ id: "/", path: "/", getParentRoute: () => De }), Cr = { IndexRoute: Rr }, Er = De._addFileChildren(Cr)._addFileTypes();
+function jr() {
+  return createRouter$2({ routeTree: Er, defaultPreload: "intent", defaultErrorComponent: He, defaultNotFoundComponent: () => jsx(Pe, {}), scrollRestoration: true });
+}
+const Tr = I().client(async (e) => {
   const r = /* @__PURE__ */ new Date();
   return e.next({ context: { clientTime: r }, sendContext: { clientTime: r } });
-}), Wt = H().middleware([Ut]).client(async (e) => {
+}), kr = I().middleware([Tr]).client(async (e) => {
   const r = await e.next(), t = /* @__PURE__ */ new Date();
   return console.log("Client Req/Res:", { duration: r.context.clientTime.getTime() - t.getTime(), durationToServer: r.context.durationToServer, durationFromServer: t.getTime() - r.context.serverTime.getTime() }), r;
 });
-_t({ middleware: [Wt] });
-const er = At({ createRouter: qt, getRouterManifest: Bt })(Dt);
+Mt({ middleware: [kr] });
+const Br = Qt({ createRouter: jr, getRouterManifest: hr })(lr);
 
 const handlers = [
-  { route: '/_server', handler: we$1, lazy: false, middleware: true, method: undefined },
+  { route: '/_server', handler: me$1, lazy: false, middleware: true, method: undefined },
   { route: '/api', handler: d, lazy: false, middleware: true, method: undefined },
-  { route: '/', handler: er, lazy: false, middleware: true, method: undefined }
+  { route: '/', handler: Br, lazy: false, middleware: true, method: undefined }
 ];
 
 function wrapToPromise(value) {
@@ -5445,12 +5700,12 @@ function createNitroApp() {
     preemptive: true
   });
   const nodeHandler = toNodeListener(h3App);
-  const localCall = (aRequest) => b$1(nodeHandler, aRequest);
+  const localCall = (aRequest) => b$2(nodeHandler, aRequest);
   const localFetch = (input, init) => {
     if (!input.toString().startsWith("/")) {
       return globalThis.fetch(input, init);
     }
-    return O$1(
+    return O(
       nodeHandler,
       input,
       init
@@ -5564,5 +5819,5 @@ function getCacheHeaders(url) {
   return {};
 }
 
-export { D, handler as h };
+export { $r as $, D, L$2 as L, Ne as N, Q, V, handler as h, j, l };
 //# sourceMappingURL=nitro.mjs.map

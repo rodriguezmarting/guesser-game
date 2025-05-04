@@ -307,7 +307,7 @@ async function main() {
     const cleanedCharacters = cleanCharacterData(characters);
     console.log("Data cleaning completed");
 
-    const outputPath = join(__dirname, "..", "src", "api", "characters.json");
+    const outputPath = join(process.cwd(), "public", "characters.json");
     await fs.writeFile(outputPath, JSON.stringify(cleanedCharacters, null, 2));
 
     console.log(

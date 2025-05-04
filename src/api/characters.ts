@@ -1,10 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { promises as fs } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { join } from "path";
 
 export interface Character {
   value: string;
@@ -25,9 +21,9 @@ async function loadCharacters(): Promise<Character[]> {
   if (charactersCache) {
     return charactersCache;
   }
-
   try {
-    const filePath = join(__dirname, "characters.json");
+    // Always read from filesystem (server-side)
+    const filePath = join(process.cwd(), "public", "characters.json");
     const data = await fs.readFile(filePath, "utf-8");
     const characters = JSON.parse(data) as Character[];
     charactersCache = characters;

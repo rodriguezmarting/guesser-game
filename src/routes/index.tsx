@@ -47,7 +47,7 @@ function Home() {
   };
 
   return (
-    <div className="p-4 min-h-[200vh] bg-[#8B8B6E] bg-opacity-40 relative">
+    <div className="p-4 min-h-[130vh] bg-[#8B8B6E] bg-opacity-40 relative">
       <div className="absolute inset-0 bg-gradient-to-br from-[#A5A58D] via-[#8B8B6E] to-[#6B705C] opacity-60" />
       <div className="absolute inset-0 backdrop-filter backdrop-blur-[1px]" />
       <div className="mt-2 font-herculanum relative flex flex-col items-center bg-transparent text-center">
