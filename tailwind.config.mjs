@@ -12,7 +12,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        herculanum: ["Herculanum", "sans-serif"],
+        herculanum: ["Herculanum", "Times New Roman", "Times", "serif"],
       },
       colors: {
         olive: {

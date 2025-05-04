@@ -1,137 +1,53 @@
-export const characters = [
-  {
-    value: "Aang",
-    label: "Aang",
-    gender: "male",
-    fightingStyle: "Air bending",
-    nationality: "Air Nomad",
-    firstAppearance: "The Boy in the Iceberg",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Zuko",
-    label: "Zuko",
-    gender: "male",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Katara",
-    label: "Katara",
-    gender: "female",
-    fightingStyle: "Water bending",
-    nationality: "Water Tribe",
-    firstAppearance: "The Avatar Returns",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Sokka",
-    label: "Sokka",
-    gender: "male",
-    fightingStyle: "Water bending",
-    nationality: "Water Tribe",
-    firstAppearance: "The Avatar Returns",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Azula",
-    label: "Azula",
-    gender: "female",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Iroh",
-    label: "Iroh",
-    gender: "male",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Mai",
-    label: "Mai",
-    gender: "female",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Toph",
-    label: "Toph",
-    gender: "female",
-    fightingStyle: "Earth bending",
-    nationality: "Earth Kingdom",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Appa",
-    label: "Appa",
-    gender: "male",
-    fightingStyle: "Air bending",
-    nationality: "Air Nomad",
-    firstAppearance: "The Boy in the Iceberg",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Bumi",
-    label: "Bumi",
-    gender: "male",
-    fightingStyle: "Earth bending",
-    nationality: "Earth Kingdom",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Korra",
-    label: "Korra",
-    gender: "female",
-    fightingStyle: "Air bending",
-    nationality: "Air Nomad",
-    firstAppearance: "The Boy in the Iceberg",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Mako",
-    label: "Mako",
-    gender: "male",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Asami",
-    label: "Asami",
-    gender: "female",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "The Rooftop",
-    image: "/images/avatar-emblem.avif",
-  },
-  {
-    value: "Ozai",
-    label: "Ozai",
-    gender: "male",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "Winter Solstice, Part 2",
-    image: "https://static.wikia.nocookie.net/avatar/images/4/4a/Ozai.png",
-  },
-  {
-    value: "Azulon",
-    label: "Azulon",
-    gender: "male",
-    fightingStyle: "Fire bending",
-    nationality: "Fire Nation",
-    firstAppearance: "Zuko Alone",
-    image: "/images/avatar-emblem.avif",
-  },
-];
+import { createServerFn } from "@tanstack/react-start";
+import { promises as fs } from "fs";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export interface Character {
+  value: string;
+  label: string;
+  gender: string;
+  fightingStyle: string;
+  nationality: string;
+  firstAppearance: string;
+  imageUrl: string;
+  silhouetteUrl: string;
+  quote: string;
+  voiceUrl: string;
+}
+
+let charactersCache: Character[] | null = null;
+
+async function loadCharacters(): Promise<Character[]> {
+  if (charactersCache) {
+    return charactersCache;
+  }
+
+  try {
+    const filePath = join(__dirname, "characters.json");
+    const data = await fs.readFile(filePath, "utf-8");
+    const characters = JSON.parse(data) as Character[];
+    charactersCache = characters;
+    return characters;
+  } catch (error) {
+    console.error("Error loading characters:", error);
+    return [];
+  }
+}
+
+export const getCharacters = createServerFn({
+  method: "GET",
+}).handler(async () => {
+  return loadCharacters();
+});
+
+export const getRandomCharacter = createServerFn({
+  method: "GET",
+}).handler(async () => {
+  const characters = await loadCharacters();
+  if (characters.length === 0) return null;
+  return characters[Math.floor(Math.random() * characters.length)];
+});

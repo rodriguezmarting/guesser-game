@@ -1,8 +1,0 @@
-A mobile browser guessing game (like wordle) where the user guesses the character of Avatar: The Last Airbender. After each guess the game tells the user categories where the guess was right/wrong (i.e. bending element (or spirit world or pet), era aang/korra (or both), region, first appearance, etc). After guess #5, #8 and #10 the game gives you clues (i.e. a phrase, a visual clue, and a sound). Ideally the user can easily compare between his own guesses (maybe like a table layout? just to make it easier to contrast guesses to make a smart guess the next time). Ideally also include some retention elements (i.e. # of people who guessed it, a streak count of how many characters has the user guessed, etc).
-
-
-The color palette I used:
-Light olive: #A5A58D
-Mid olive: #8B8B6E
-Dark olive: #6B705C
-Text colors: #2F2F1E (dark) and #4A4A2F (muted)

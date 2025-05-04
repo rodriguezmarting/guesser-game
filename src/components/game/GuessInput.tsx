@@ -1,14 +1,23 @@
+import { useState, useEffect } from "react";
+import { Command } from "cmdk";
+import { getCharacters, type Character } from "~/api/characters";
 import { Button } from "~/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "~/components/ui/popover";
+import { ChevronsUpDown } from "lucide-react";
+import { cn } from "~/lib/utils";
 import { CharacterSelector } from "~/components/ui/combobox";
-import { characters } from "~/api/characters";
 
-type GuessInputProps = {
-  selectedCharacter: (typeof characters)[number] | undefined;
-  setSelectedCharacter: (char: (typeof characters)[number] | undefined) => void;
+interface GuessInputProps {
+  selectedCharacter: Character | undefined;
+  setSelectedCharacter: (character: Character | undefined) => void;
   handleSubmit: () => void;
   hasWon: boolean;
   duplicateGuess: string | null;
-};
+}
 
 export function GuessInput({
   selectedCharacter,
@@ -17,8 +26,21 @@ export function GuessInput({
   hasWon,
   duplicateGuess,
 }: GuessInputProps) {
+  const [open, setOpen] = useState(false);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const data = await getCharacters();
+      setCharacters(data);
+      setLoading(false);
+    }
+    load();
+  }, []);
+
   return (
-    <>
+    <div className="flex flex-col items-center gap-4 w-full max-w-sm">
       <div className="mt-4 flex justify-center max-w-sm items-center space-x-2">
         <CharacterSelector
           selectedCharacter={selectedCharacter}
@@ -34,16 +56,18 @@ export function GuessInput({
           &#9654;
         </Button>
       </div>
+
       {duplicateGuess && (
-        <p className="text-content-muted mt-2 text-sm">
-          You already tried with {duplicateGuess}
+        <p className="text-red-500 text-sm font-herculanum">
+          You already guessed {duplicateGuess}
         </p>
       )}
+
       {hasWon && (
         <p className="text-content mt-3 text-lg font-bold">
           Congratulations! You've guessed the character!
         </p>
       )}
-    </>
+    </div>
   );
 }

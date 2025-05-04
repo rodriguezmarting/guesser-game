@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Check } from "lucide-react";
+import { getCharacters, type Character } from "~/api/characters";
+import { useEffect, useState } from "react";
 
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -16,18 +18,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-import { characters } from "~/api/characters";
 
 export function CharacterSelector({
   selectedCharacter,
   setSelectedCharacter,
   disabled,
 }: {
-  selectedCharacter?: (typeof characters)[number];
-  setSelectedCharacter: (value: (typeof characters)[number]) => void;
+  selectedCharacter?: Character;
+  setSelectedCharacter: (value: Character) => void;
   disabled?: boolean;
 }) {
   const [open, setOpen] = React.useState(false);
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      const data = await getCharacters();
+      setCharacters(data);
+      setLoading(false);
+    }
+    load();
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,37 +60,41 @@ export function CharacterSelector({
           <CommandList>
             <CommandEmpty>No character found.</CommandEmpty>
             <CommandGroup>
-              {characters.map((character) => (
-                <CommandItem
-                  key={character.value}
-                  value={character.value}
-                  onSelect={(currentValue) => {
-                    const character = characters.find(
-                      (character) => character.value === currentValue
-                    );
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                characters.map((character) => (
+                  <CommandItem
+                    key={character.value}
+                    value={character.value}
+                    onSelect={(currentValue) => {
+                      const character = characters.find(
+                        (character) => character.value === currentValue
+                      );
 
-                    if (character) {
-                      setSelectedCharacter(character);
-                      setOpen(false);
-                    }
-                  }}
-                >
-                  <img
-                    src={character.image}
-                    alt={character.label}
-                    className="shadow-md w-11 h-11 border-[1px] border-content rounded-sm"
-                  />
-                  {character.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      selectedCharacter?.value === character.value
-                        ? "opacity-100"
-                        : "opacity-0"
-                    )}
-                  />
-                </CommandItem>
-              ))}
+                      if (character) {
+                        setSelectedCharacter(character);
+                        setOpen(false);
+                      }
+                    }}
+                  >
+                    <img
+                      src={character.imageUrl}
+                      alt={character.label}
+                      className="shadow-md w-11 h-11 border-[1px] border-content rounded-sm"
+                    />
+                    {character.label}
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        selectedCharacter?.value === character.value
+                          ? "opacity-100"
+                          : "opacity-0"
+                      )}
+                    />
+                  </CommandItem>
+                ))
+              )}
             </CommandGroup>
           </CommandList>
         </Command>

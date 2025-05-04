@@ -17,3 +17,8 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Fallback font stack */
+.font-herculanum {
+  font-family: "Herculanum", "Times New Roman", Times, serif;
+}

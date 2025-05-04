@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { characters } from "~/api/characters";
+import { Character, getRandomCharacter } from "~/api/characters";
 import { ClueSystem, CLUES } from "~/components/game/ClueSystem";
 import { GuessInput } from "~/components/game/GuessInput";
 import { GuessHistory } from "~/components/game/GuessHistory";
@@ -8,16 +8,17 @@ import { GuessHistory } from "~/components/game/GuessHistory";
 export const Route = createFileRoute("/")({
   component: Home,
   loader: async () => {
-    const characterOfTheDay =
-      characters[Math.floor(Math.random() * characters.length)];
+    const characterOfTheDay = await getRandomCharacter();
+    if (!characterOfTheDay) {
+      throw new Error("Failed to load character of the day");
+    }
     return { characterOfTheDay };
   },
 });
 
 function Home() {
-  const [selectedCharacter, setSelectedCharacter] =
-    useState<(typeof characters)[number]>();
-  const [guesses, setGuesses] = useState<(typeof characters)[number][]>([]);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>();
+  const [guesses, setGuesses] = useState<Character[]>([]);
   const [hasWon, setHasWon] = useState(false);
   const [duplicateGuess, setDuplicateGuess] = useState<string | null>(null);
   const [activeClue, setActiveClue] = useState<(typeof CLUES)[number] | null>(
@@ -46,7 +47,7 @@ function Home() {
   };
 
   return (
-    <div className="p-4 min-h-screen bg-[#8B8B6E] bg-opacity-40 relative">
+    <div className="p-4 min-h-[200vh] bg-[#8B8B6E] bg-opacity-40 relative">
       <div className="absolute inset-0 bg-gradient-to-br from-[#A5A58D] via-[#8B8B6E] to-[#6B705C] opacity-60" />
       <div className="absolute inset-0 backdrop-filter backdrop-blur-[1px]" />
       <div className="mt-2 font-herculanum relative flex flex-col items-center bg-transparent text-center">

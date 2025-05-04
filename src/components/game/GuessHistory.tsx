@@ -27,7 +27,7 @@ export function GuessHistory({
         <div className="w-16 border-b-2 border-content">Nationality</div>
         <div className="w-16 border-b-2 border-content">Debut</div>
       </div>
-      <ScrollArea className="h-[300px]">
+      <div className="h-[300px] overflow-y-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {guesses.map((guess) => (
           <GuessRow
             key={guess.value}
@@ -36,7 +36,7 @@ export function GuessHistory({
           />
         ))}
         {!guesses.length && !hasWon && <EmptyRow />}
-      </ScrollArea>
+      </div>
     </>
   );
 }

@@ -1,17 +1,17 @@
-import { characters } from "~/api/characters";
+import { Character } from "~/api/characters";
 import { Cell } from "./Cell";
 import { Row } from "./Row";
 
 type GuessRowProps = {
-  userGuess: (typeof characters)[number];
-  characterOfTheDay: (typeof characters)[number];
+  userGuess: Character;
+  characterOfTheDay: Character;
 };
 
 export function GuessRow({ userGuess, characterOfTheDay }: GuessRowProps) {
   return (
     <Row>
       <img
-        src={userGuess.image}
+        src={userGuess.imageUrl}
         alt={userGuess.value}
         className="shadow-md w-16 h-16 border-[1px] border-content rounded-sm"
       />
