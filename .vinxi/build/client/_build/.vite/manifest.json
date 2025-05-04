@@ -1,6 +1,6 @@
 {
   "/Users/martinrodriguez/personal/guesser-game/src/styles/app.css": {
-    "file": "assets/app-CFX127wN.css",
+    "file": "assets/app-71J-vQMP.css",
     "src": "/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"
   },
   "__vite-browser-external": {
@@ -9,8 +9,8 @@
     "src": "__vite-browser-external",
     "isDynamicEntry": true
   },
-  "_client-BWad5ax2.js": {
-    "file": "assets/client-BWad5ax2.js",
+  "_client-CHYJYyHM.js": {
+    "file": "assets/client-CHYJYyHM.js",
     "name": "client",
     "dynamicImports": [
       "__vite-browser-external",
@@ -20,25 +20,25 @@
       "src/routes/index.tsx?tsr-split=component"
     ],
     "assets": [
-      "assets/app-CFX127wN.css"
+      "assets/app-71J-vQMP.css"
     ]
   },
   "src/routes/index.tsx?tsr-split=component": {
-    "file": "assets/index-B6LnUdPb.js",
+    "file": "assets/index-frBxBb4I.js",
     "name": "index",
     "src": "src/routes/index.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_client-BWad5ax2.js"
+      "_client-CHYJYyHM.js"
     ]
   },
   "virtual:$vinxi/handler/client": {
-    "file": "assets/client-udtKSpht.js",
+    "file": "assets/client-uCXmvcEY.js",
     "name": "client",
     "src": "virtual:$vinxi/handler/client",
     "isEntry": true,
     "imports": [
-      "_client-BWad5ax2.js"
+      "_client-CHYJYyHM.js"
     ]
   }
 }

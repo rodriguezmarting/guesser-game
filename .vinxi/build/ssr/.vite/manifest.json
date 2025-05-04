@@ -1,25 +1,25 @@
 {
   "/Users/martinrodriguez/personal/guesser-game/src/styles/app.css": {
-    "file": "assets/app-CFX127wN.css",
+    "file": "assets/app-71J-vQMP.css",
     "src": "/Users/martinrodriguez/personal/guesser-game/src/styles/app.css"
   },
-  "_ssr-TvXHcaGv.js": {
-    "file": "assets/ssr-TvXHcaGv.js",
+  "_ssr-Ct8CJKuc.js": {
+    "file": "assets/ssr-Ct8CJKuc.js",
     "name": "ssr",
     "dynamicImports": [
       "src/routes/index.tsx?tsr-split=component"
     ],
     "assets": [
-      "assets/app-CFX127wN.css"
+      "assets/app-71J-vQMP.css"
     ]
   },
   "src/routes/index.tsx?tsr-split=component": {
-    "file": "assets/index-CGDgSbVy.js",
+    "file": "assets/index-gGV71BbL.js",
     "name": "index",
     "src": "src/routes/index.tsx?tsr-split=component",
     "isDynamicEntry": true,
     "imports": [
-      "_ssr-TvXHcaGv.js"
+      "_ssr-Ct8CJKuc.js"
     ]
   },
   "virtual:$vinxi/handler/ssr": {
@@ -28,7 +28,7 @@
     "src": "virtual:$vinxi/handler/ssr",
     "isEntry": true,
     "imports": [
-      "_ssr-TvXHcaGv.js"
+      "_ssr-Ct8CJKuc.js"
     ]
   }
 }

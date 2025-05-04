@@ -1,6 +1,6 @@
 {
-  "_server-CrcJzzp2.js": {
-    "file": "assets/server-CrcJzzp2.js",
+  "_server-DT3i-Qqa.js": {
+    "file": "assets/server-DT3i-Qqa.js",
     "name": "server",
     "dynamicImports": [
       "src/api/characters.ts?tsr-directive-use-server=",
@@ -8,12 +8,12 @@
     ]
   },
   "src/api/characters.ts?tsr-directive-use-server=": {
-    "file": "assets/characters-DIEoQwIW.js",
+    "file": "assets/characters-DlopIIqq.js",
     "name": "characters",
     "src": "src/api/characters.ts?tsr-directive-use-server=",
     "isDynamicEntry": true,
     "imports": [
-      "_server-CrcJzzp2.js"
+      "_server-DT3i-Qqa.js"
     ]
   },
   "virtual:$vinxi/handler/server": {
@@ -22,7 +22,7 @@
     "src": "virtual:$vinxi/handler/server",
     "isEntry": true,
     "imports": [
-      "_server-CrcJzzp2.js"
+      "_server-DT3i-Qqa.js"
     ]
   }
 }
