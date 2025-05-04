@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { promises as fs } from "fs";
+import { join } from "path";
 
 export interface Character {
   value: string;
@@ -9,18 +11,16 @@ export interface Character {
   firstAppearance: string;
   imageUrl: string;
   silhouetteUrl: string;
-  quote: string;
   voiceUrl: string;
+  quoteText: string;
+  quoteAttribution: string;
 }
 
 let charactersCache: Character[] | null = null;
 
 async function loadCharacters(): Promise<Character[]> {
-  if (charactersCache) {
-    return charactersCache;
-  }
+  if (charactersCache) return charactersCache;
   try {
-    // Always fetch via HTTP for Netlify compatibility
     const baseUrl =
       typeof window !== "undefined"
         ? ""
@@ -31,8 +31,17 @@ async function loadCharacters(): Promise<Character[]> {
     charactersCache = characters;
     return characters;
   } catch (error) {
-    console.error("Error loading characters:", error);
-    return [];
+    // Fallback to filesystem for local dev
+    try {
+      const filePath = join(process.cwd(), "public", "characters.json");
+      const data = await fs.readFile(filePath, "utf-8");
+      const characters = JSON.parse(data) as Character[];
+      charactersCache = characters;
+      return characters;
+    } catch (fsError) {
+      console.error("Error loading characters from filesystem:", fsError);
+      return [];
+    }
   }
 }
 

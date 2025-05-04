@@ -3,12 +3,11 @@
     "value": "aang",
     "label": "Aang",
     "gender": "male",
-    "fightingStyle": "Water Bending",
+    "fightingStyle": "Avatar Bending",
     "nationality": "southern air temple",
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/a/ae/Aang_at_Jasmine_Dragon.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/a/ae/Aang_at_Jasmine_Dragon.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I wasn't there when the Fire Nation attacked my people. I'm gonna make a difference this time.\"",
     "quoteAttribution": "— Avatar Aang to Chief Arnook."
@@ -22,7 +21,6 @@
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/6/65/Appa_flying.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/6/65/Appa_flying.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I guess this means we'll always be together.\"",
     "quoteAttribution": "— Aang to Appa."
@@ -36,7 +34,6 @@
     "firstAppearance": "the storm\" (flashback only)",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/1/12/Azula.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/1/12/Azula.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"Well what choice do I have? Trust is for fools! Fear is the only reliable way. Even you fear me.\"",
     "quoteAttribution": "— Azula to a hallucination of her mother."
@@ -50,7 +47,6 @@
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/c/c1/Iroh_smiling.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/c/c1/Iroh_smiling.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"After I reconquer Ba Sing Se, I'm going to reconquer my tea shop, and I'm going to play Pai Sho every day!\"",
     "quoteAttribution": "— Iroh to Team Avatar."
@@ -64,7 +60,6 @@
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/7/7a/Katara_smiles_at_coronation.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/7/7a/Katara_smiles_at_coronation.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I will never, ever turn my back on people who need me!\"",
     "quoteAttribution": "— Katara asserting her protective nature to Sokka."
@@ -73,12 +68,11 @@
     "value": "momo",
     "label": "Momo",
     "gender": "male",
-    "fightingStyle": "",
+    "fightingStyle": "None",
     "nationality": "southern air temple",
     "firstAppearance": "the southern air temple\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/8/80/Momo_staring.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/8/80/Momo_staring.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"Someone's missing from your group, someone very important ... Where's Momo?\"",
     "quoteAttribution": "— Bumi to Team Avatar."
@@ -92,7 +86,6 @@
     "firstAppearance": "winter solstice, part 2: avatar roku\" (silhouette)",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/4/4a/Ozai.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/4/4a/Ozai.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"What I'm trying to say is -- There is no right or wrong apart from what you decide. Whom you choose to defend deserves to be defended simply because you chose them. You are the Fire Lord. What you choose, by definition, is right.\"",
     "quoteAttribution": "— Ozai explaining his views about being Fire Lord to Zuko."
@@ -101,12 +94,11 @@
     "value": "sokka",
     "label": "Sokka",
     "gender": "male",
-    "fightingStyle": "fightingstyles\n\t\n\twater tribe warrior style, tessenjutsu (basics), swordsmanship (jian-fencing)",
+    "fightingStyle": "Swordsmanship",
     "nationality": "Water Tribe",
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/c/cc/Sokka.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/c/cc/Sokka.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"That's all I got. It's pretty much my whole identity. Sokka, the meat and sarcasm guy.\"",
     "quoteAttribution": "— Sokka to the universe after getting trapped in a small fissure."
@@ -120,7 +112,6 @@
     "firstAppearance": "the swamp\" (vision)",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/4/46/Toph_Beifong.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/4/46/Toph_Beifong.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I am the greatest earthbender in the world! Don't you two dunderheads ever forget it!\"",
     "quoteAttribution": "— Toph to Xin Fu and Yu."
@@ -129,12 +120,11 @@
     "value": "zuko",
     "label": "Zuko",
     "gender": "male",
-    "fightingStyle": "Fire Bending",
+    "fightingStyle": "Swordsmanship",
     "nationality": "Fire Nation",
     "firstAppearance": "the boy in the iceberg\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/4/4b/Zuko.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/4/4b/Zuko.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I used to think this scar marked me – the mark of the banished prince, cursed to chase the Avatar forever. But lately, I've realized I'm free to determine my own destiny, even if I'll never be free of my mark.\"",
     "quoteAttribution": "— Zuko to Katara."
@@ -148,7 +138,6 @@
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/0/00/Amon_and_his_Equalists.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/0/00/Amon_and_his_Equalists.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"The era of bending is over! A new era of equality has begun!\"",
     "quoteAttribution": "— Amon giving a speech during the \"Revelation\" rally."
@@ -162,7 +151,6 @@
     "firstAppearance": "the voice in the night\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/b/b6/Asami_Sato.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/b/b6/Asami_Sato.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"It's all right. People usually assume that I'm daddy's helpless little girl, but I can handle myself.\"",
     "quoteAttribution": "— Asami accepting Korra's apology."
@@ -176,7 +164,6 @@
     "firstAppearance": "a leaf in the wind\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/d/d4/Bolin.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/d/d4/Bolin.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"Maybe I just can't turn my back on people when they're down!\"",
     "quoteAttribution": "— Bolin to Mako."
@@ -190,7 +177,6 @@
     "firstAppearance": "endgame\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/0/06/Bumi.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/0/06/Bumi.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I've tried my best to keep the world safe. Hope I made you proud.\"",
     "quoteAttribution": "— Bumi to a statue of his father."
@@ -199,12 +185,11 @@
     "value": "iknik-blackstone-varrick",
     "label": "Iknik Blackstone Varrick",
     "gender": "male",
-    "fightingStyle": "",
+    "fightingStyle": "None",
     "nationality": "Water Tribe",
     "firstAppearance": "rebel spirit\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/4/48/Varrick_looking_smug.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/4/48/Varrick_looking_smug.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"Yep, I like to think I'm always there to stand up for the little guy. Especially if that little guy can help this guy become a bigger guy.\"",
     "quoteAttribution": "— Varrick explaining his buying of a controlling interest in Future Industries to Mako."
@@ -218,7 +203,6 @@
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/0/01/Jinora.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/0/01/Jinora.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"The world's in trouble ... I have to go help.\"",
     "quoteAttribution": "— Jinora to Tenzin."
@@ -227,12 +211,11 @@
     "value": "korra",
     "label": "Korra",
     "gender": "female",
-    "fightingStyle": "Water Bending",
+    "fightingStyle": "Avatar Bending",
     "nationality": "Water Tribe",
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/3/31/Korra_smiling.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/3/31/Korra_smiling.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"No matter what happens, no matter how crazy things get, I'll always try to restore balance.\"",
     "quoteAttribution": "— Korra about her duty as the Avatar to Asami and Tenzin."
@@ -246,7 +229,6 @@
     "firstAppearance": "the metal clan\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/e/ec/Kuvira.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/e/ec/Kuvira.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I was cast aside by my own parents like I meant nothing to them! How could I just stand by and watch the same thing happen to my nation when it needed someone to guide it?\"",
     "quoteAttribution": "— Kuvira explaining to Korra why she usurped power in the Earth Kingdom."
@@ -260,7 +242,6 @@
     "firstAppearance": "rebel spirit\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/7/77/Kya_%28waterbender%29.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/7/77/Kya_%28waterbender%29.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"You think you're the responsible one? Where were you after Dad died and Mom was all alone? Because I was the only one who packed up and moved my whole life to be with her.\"",
     "quoteAttribution": "— Kya to Tenzin."
@@ -274,7 +255,6 @@
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/8/83/Lin_Beifong.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/8/83/Lin_Beifong.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"When I was younger, all I wanted to do was please my mother. I became a police chief because I thought it would make her happy ... but it didn't. You need to make decisions based on what you want. Don't make the same mistakes I did.\"",
     "quoteAttribution": "— Lin to Opal."
@@ -288,7 +268,6 @@
     "firstAppearance": "a leaf in the wind\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/a/a6/Mako.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/a/a6/Mako.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I did what I had to do to survive and protect my little brother.\"",
     "quoteAttribution": "— Mako explaining his past to Korra."
@@ -297,26 +276,24 @@
     "value": "naga",
     "label": "Naga",
     "gender": "female",
-    "fightingStyle": "",
+    "fightingStyle": "None",
     "nationality": "Water Tribe",
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/3/35/Naga.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/3/35/Naga.png",
-    "quote": "No quote available",
     "voiceUrl": "",
-    "quoteText": "\"My best friend. And a great tracker.\"",
-    "quoteAttribution": "— Korra to Mako about Naga."
+    "quoteText": "Avatar Wiki has47 imagesrelated to Naga.",
+    "quoteAttribution": ""
   },
   {
     "value": "pabu",
     "label": "Pabu",
     "gender": "male",
-    "fightingStyle": "",
+    "fightingStyle": "None",
     "nationality": "united republic",
     "firstAppearance": "the revelation\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/c/c8/Pabu_about_to_comfort_Korra.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/c/c8/Pabu_about_to_comfort_Korra.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"See? Pabu's not just a one trick poodle pony.\"",
     "quoteAttribution": "— Bolin to Mako and Korra about Pabu."
@@ -330,7 +307,6 @@
     "firstAppearance": "the metal clan\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/2/26/Suyin.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/2/26/Suyin.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"It took me a while, but I finally realized what I was looking for was a family. So I bought this plot of land, found a brilliant architect who later became my husband, and created a place I could truly call home.\"",
     "quoteAttribution": "— Suyin to Korra."
@@ -344,7 +320,6 @@
     "firstAppearance": "the voice in the night\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/d/d1/Tarrlok.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/d/d1/Tarrlok.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"That's what I admire about you, Korra. Your willingness to go to extremes in order to get what you want. It is a quality we both share.\"",
     "quoteAttribution": "— Tarrlok to Korra."
@@ -358,7 +333,6 @@
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/d/d6/Tenzin.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/d/d6/Tenzin.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I am not a reflection of my father. I am Tenzin.\"",
     "quoteAttribution": "— Tenzin finding his spiritual enlightenment."
@@ -372,7 +346,6 @@
     "firstAppearance": "welcome to republic city\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/2/2a/Tonraq.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/2/2a/Tonraq.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"I was protecting you from the shame I brought on the family.\"",
     "quoteAttribution": "— Tonraq explaining the reason for his secrecy to Korra."
@@ -386,7 +359,6 @@
     "firstAppearance": "rebel spirit\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/7/7c/Unalaq.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/7/7c/Unalaq.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"You think what Avatar Wan did was good? Driving almost all the spirits from this world? The Avatar hasn't brought balance, only chaos. You call yourself the bridge between the two worlds, but there shouldn't be a bridge; we should live together as one.\"",
     "quoteAttribution": "— Unalaq to Korra."
@@ -400,7 +372,6 @@
     "firstAppearance": "a breath of fresh air\"",
     "imageUrl": "https://static.wikia.nocookie.net/avatar/images/e/e1/Zaheer.png",
     "silhouetteUrl": "https://static.wikia.nocookie.net/avatar/images/e/e1/Zaheer.png",
-    "quote": "No quote available",
     "voiceUrl": "",
     "quoteText": "\"The idea of having nations and governments is as foolish as keeping the human and spirit realms separate. You've had to deal with a moronic president and a tyrannical queen. Don't you think the world would be better off if leaders like them were eliminated?\"",
     "quoteAttribution": "— Zaheer explaining his ideals to Korra."

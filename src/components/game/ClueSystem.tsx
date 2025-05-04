@@ -82,8 +82,17 @@ export function ClueSystem({
         return (
           <div className="flex flex-col items-center gap-4">
             <blockquote className="text-content text-lg italic border-l-2 border-content pl-4">
-              "{getCharacterQuote(characterOfTheDay.value)}"
+              {characterOfTheDay.quoteText ? (
+                `"${characterOfTheDay.quoteText}"`
+              ) : (
+                <span className="text-content-muted">No quote available</span>
+              )}
             </blockquote>
+            {hasWon && characterOfTheDay.quoteAttribution && (
+              <p className="text-content-muted text-sm mt-2">
+                {characterOfTheDay.quoteAttribution}
+              </p>
+            )}
             <p className="text-content-muted text-sm">
               A memorable line that reveals their personality
             </p>

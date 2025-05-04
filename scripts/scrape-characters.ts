@@ -15,7 +15,6 @@ interface Character {
   firstAppearance: string;
   imageUrl: string;
   silhouetteUrl: string;
-  quote: string;
   voiceUrl: string;
   quoteText: string;
   quoteAttribution: string;
@@ -79,19 +78,34 @@ async function findVoiceUrl(document: Document): Promise<string> {
 }
 
 function extractQuoteParts(document: Document) {
-  const quoteTable = document.querySelector(".quote");
-  if (!quoteTable) return { quoteText: "", quoteAttribution: "" };
+  // Select all tables with a class containing 'quote'
+  const quoteTables = Array.from(
+    document.querySelectorAll('table[class*="quote"]')
+  );
+  if (!quoteTables.length) return { quoteText: "", quoteAttribution: "" };
+
+  // Use the quote table with the longest quote text
+  let quoteTable = quoteTables[0];
+  let maxLength = 0;
+  for (const table of quoteTables) {
+    const rows = table.querySelectorAll("tr");
+    if (rows[0]) {
+      const text = rows[0].textContent?.replace(/\s+/g, " ").trim() || "";
+      if (text.length > maxLength) {
+        maxLength = text.length;
+        quoteTable = table;
+      }
+    }
+  }
 
   const rows = quoteTable.querySelectorAll("tr");
   let quoteText = "";
   let quoteAttribution = "";
 
   if (rows[0]) {
-    // Get the quote text, remove HTML tags, and trim
     quoteText = rows[0].textContent?.replace(/\s+/g, " ").trim() || "";
   }
   if (rows[1]) {
-    // Get the attribution, remove <sup> tags and trim
     const td = rows[1].querySelector("td");
     if (td) {
       td.querySelectorAll("sup").forEach((sup) => sup.remove());
@@ -159,7 +173,6 @@ async function scrapeCharacterData(
       firstAppearance,
       imageUrl,
       silhouetteUrl,
-      quote,
       voiceUrl,
       quoteText,
       quoteAttribution,
@@ -230,13 +243,22 @@ function cleanCharacterData(characters: Character[]): Character[] {
 
     // Clean fighting style
     let fightingStyle = char.fightingStyle.toLowerCase();
-    if (fightingStyle.includes("waterbending")) {
+    const hasWater = fightingStyle.includes("waterbending");
+    const hasEarth = fightingStyle.includes("earthbending");
+    const hasFire = fightingStyle.includes("firebending");
+    const hasAir = fightingStyle.includes("airbending");
+
+    if (hasWater && hasEarth && hasFire && hasAir) {
+      fightingStyle = "Avatar Bending";
+    } else if (fightingStyle.includes("swordsmanship")) {
+      fightingStyle = "Swordsmanship";
+    } else if (hasWater) {
       fightingStyle = "Waterbending";
-    } else if (fightingStyle.includes("earthbending")) {
+    } else if (hasEarth) {
       fightingStyle = "Earthbending";
-    } else if (fightingStyle.includes("firebending")) {
+    } else if (hasFire) {
       fightingStyle = "Firebending";
-    } else if (fightingStyle.includes("airbending")) {
+    } else if (hasAir) {
       fightingStyle = "Airbending";
     } else if (fightingStyle.includes("nonbender")) {
       fightingStyle = "Nonbender";
@@ -249,6 +271,10 @@ function cleanCharacterData(characters: Character[]): Character[] {
           return `${capitalize(p1)} Bending`;
         }
       );
+    }
+    // Set to 'None' if empty
+    if (!fightingStyle.trim()) {
+      fightingStyle = "None";
     }
 
     // Clean first appearance
@@ -296,7 +322,7 @@ async function main() {
         console.log(`Successfully scraped ${character.label}`);
         console.log(`- Gender: ${character.gender}`);
         console.log(`- First Appearance: ${character.firstAppearance}`);
-        console.log(`- Quote: ${character.quote.substring(0, 50)}...`);
+        console.log(`- Quote: ${character.quoteText.substring(0, 50)}...`);
         console.log(`- Has Silhouette: ${!!character.silhouetteUrl}`);
         console.log(`- Has Voice: ${!!character.voiceUrl}`);
       }
