@@ -10,25 +10,18 @@ import {
 // Clue configuration
 export const CLUES = [
   {
-    tries: 5,
-    label: "5 tries left",
-    type: "visual",
-    title: "Visual Clue",
-    description: "A glimpse of the character's appearance",
+    tries: 4,
+    label: "4 tries left",
+    type: "quote",
+    title: "Quote Clue",
+    description: "A memorable line that reveals their personality",
   },
   {
     tries: 8,
     label: "8 tries left",
-    type: "quote",
-    title: "Quote Clue",
-    description: "A memorable line from the character",
-  },
-  {
-    tries: 10,
-    label: "10 tries left",
-    type: "sound",
-    title: "Sound Clue",
-    description: "Listen to the character's voice",
+    type: "visual",
+    title: "Visual Clue",
+    description: "A glimpse of the character's appearance",
   },
 ] as const;
 
@@ -69,11 +62,11 @@ export function ClueSystem({
           <div className="flex flex-col items-center gap-4">
             <img
               src={characterOfTheDay.image}
-              alt="Character silhouette"
+              alt="Character zoomed in"
               className="w-48 h-48 object-cover filter brightness-0 border-[1px] border-content rounded-sm"
             />
             <p className="text-content-muted text-sm">
-              This is a silhouette of the character. Notice any distinctive
+              This is a zoomed in image of the character. Notice any distinctive
               features?
             </p>
           </div>
@@ -83,7 +76,14 @@ export function ClueSystem({
           <div className="flex flex-col items-center gap-4">
             <blockquote className="text-content text-lg italic border-l-2 border-content pl-4">
               {characterOfTheDay.quoteText ? (
-                `"${characterOfTheDay.quoteText}"`
+                `"${
+                  hasWon
+                    ? characterOfTheDay.quoteText
+                    : characterOfTheDay.quoteText.replace(
+                        new RegExp(`\\b${characterOfTheDay.label}\\b`, "gi"),
+                        "<character name>"
+                      )
+                }"`
               ) : (
                 <span className="text-content-muted">No quote available</span>
               )}
@@ -93,28 +93,6 @@ export function ClueSystem({
                 {characterOfTheDay.quoteAttribution}
               </p>
             )}
-            <p className="text-content-muted text-sm">
-              A memorable line that reveals their personality
-            </p>
-          </div>
-        );
-      case "sound":
-        return (
-          <div className="flex flex-col items-center gap-4">
-            <audio
-              controls
-              className="w-full [&::-webkit-media-controls-panel]:bg-olive [&::-webkit-media-controls-panel]:border-content [&::-webkit-media-controls-panel]:border [&::-webkit-media-controls-playback-rate-button]:hidden"
-              controlsList="noplaybackrate"
-            >
-              <source
-                src={getCharacterSound(characterOfTheDay.value)}
-                type="audio/mpeg"
-              />
-              Your browser does not support the audio element.
-            </audio>
-            <p className="text-content-muted text-sm">
-              Listen carefully to their voice and manner of speaking
-            </p>
           </div>
         );
     }

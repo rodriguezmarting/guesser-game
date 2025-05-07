@@ -8,6 +8,8 @@ export interface Character {
   gender: string;
   fightingStyle: string;
   nationality: string;
+  eyeColor: string;
+  skinColor: string;
   firstAppearance: string;
   imageUrl: string;
   silhouetteUrl: string;

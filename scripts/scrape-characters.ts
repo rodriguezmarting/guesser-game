@@ -1,10 +1,6 @@
 import { JSDOM } from "jsdom";
 import { promises as fs } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { join } from "path";
 
 interface Character {
   value: string;
@@ -12,10 +8,10 @@ interface Character {
   gender: string;
   fightingStyle: string;
   nationality: string;
+  eyeColor: string;
+  skinColor: string;
   firstAppearance: string;
   imageUrl: string;
-  silhouetteUrl: string;
-  voiceUrl: string;
   quoteText: string;
   quoteAttribution: string;
 }
@@ -24,57 +20,6 @@ async function fetchPage(url: string) {
   const response = await fetch(url);
   const html = await response.text();
   return new JSDOM(html);
-}
-
-async function findFirstAppearance(document: Document): Promise<string> {
-  const selectors = [
-    '[data-source="firstappearance"]',
-    '[data-source="first appearance"]',
-    '[data-source="debut"]',
-  ];
-
-  for (const selector of selectors) {
-    const element = document.querySelector(selector);
-    if (element?.textContent?.trim()) {
-      return element.textContent.trim();
-    }
-  }
-
-  return "Unknown";
-}
-
-async function findQuote(document: Document): Promise<string> {
-  const quoteElement = document.querySelector('[data-source="quote"]');
-  if (quoteElement?.textContent?.trim()) {
-    return quoteElement.textContent.trim();
-  }
-
-  return "No quote available";
-}
-
-async function findSilhouette(document: Document): Promise<string> {
-  const imageElement = document.querySelector(".pi-image-thumbnail");
-  return imageElement?.getAttribute("src") || "";
-}
-
-async function findVoiceUrl(document: Document): Promise<string> {
-  const voiceSection = Array.from(document.querySelectorAll("h2, h3")).find(
-    (el) => el.textContent?.toLowerCase().includes("voice")
-  );
-
-  if (voiceSection) {
-    const nextElement = voiceSection.nextElementSibling;
-    if (nextElement) {
-      const soundLink = nextElement.querySelector(
-        'a[href*=".mp3"], a[href*=".wav"]'
-      );
-      if (soundLink?.getAttribute("href")) {
-        return soundLink.getAttribute("href") || "";
-      }
-    }
-  }
-
-  return "";
 }
 
 function extractQuoteParts(document: Document) {
@@ -152,17 +97,19 @@ async function scrapeCharacterData(
     }
 
     const fightingStyle = getInfoboxData(["fighting style", "fightingstyle"]);
-    const firstAppearance = getInfoboxData([
+    let firstAppearance = getInfoboxData([
       "appearance",
       "first appearance",
       "firstappearance",
       "debut",
     ]);
 
+    // Handle first appearance to only use part before ":"
+    if (firstAppearance.includes(":")) {
+      firstAppearance = firstAppearance.split(":")[0].trim();
+    }
+
     const { quoteText, quoteAttribution } = extractQuoteParts(document);
-    const quote = await findQuote(document);
-    const silhouetteUrl = await findSilhouette(document);
-    const voiceUrl = await findVoiceUrl(document);
 
     const character: Character = {
       value: title.toLowerCase().replace(/\s+/g, "-"),
@@ -170,10 +117,10 @@ async function scrapeCharacterData(
       gender,
       fightingStyle,
       nationality: getInfoboxData(["nationality"]),
+      eyeColor: getInfoboxData(["eyes"]),
+      skinColor: getInfoboxData(["skincolor"]),
       firstAppearance,
       imageUrl,
-      silhouetteUrl,
-      voiceUrl,
       quoteText,
       quoteAttribution,
     };
@@ -280,6 +227,7 @@ function cleanCharacterData(characters: Character[]): Character[] {
     // Clean first appearance
     let firstAppearance = char.firstAppearance
       .replace(/^first appearance\s*\n\t\n\t"?/i, "")
+      .replace(/^"+|"+$/g, "")
       .toLowerCase();
     if (firstAppearance.includes("book 1")) {
       firstAppearance = "Book 1";
@@ -293,7 +241,16 @@ function cleanCharacterData(characters: Character[]): Character[] {
 
     // Clean image URLs
     const imageUrl = char.imageUrl.replace(/\/revision\/.*$/, "");
-    const silhouetteUrl = char.silhouetteUrl.replace(/\/revision\/.*$/, "");
+
+    // Clean eye and skin color
+    const eyeColor =
+      char.eyeColor.replace(/^eye color\s*\n\t\n\t/i, "").trim() || "Unknown";
+    const skinColor =
+      char.skinColor.replace(/^skin color\s*\n\t\n\t/i, "").trim() || "Unknown";
+
+    // Clean quote text by removing quotes
+    const quoteText = char.quoteText.replace(/^"|"$/g, "").trim();
+    const quoteAttribution = char.quoteAttribution.trim();
 
     return {
       ...char,
@@ -301,7 +258,10 @@ function cleanCharacterData(characters: Character[]): Character[] {
       fightingStyle,
       firstAppearance,
       imageUrl,
-      silhouetteUrl,
+      eyeColor,
+      skinColor,
+      quoteText,
+      quoteAttribution,
     };
   });
 }
@@ -320,11 +280,6 @@ async function main() {
       if (character) {
         characters.push(character);
         console.log(`Successfully scraped ${character.label}`);
-        console.log(`- Gender: ${character.gender}`);
-        console.log(`- First Appearance: ${character.firstAppearance}`);
-        console.log(`- Quote: ${character.quoteText.substring(0, 50)}...`);
-        console.log(`- Has Silhouette: ${!!character.silhouetteUrl}`);
-        console.log(`- Has Voice: ${!!character.voiceUrl}`);
       }
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }

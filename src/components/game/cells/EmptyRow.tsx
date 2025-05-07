@@ -9,6 +9,8 @@ export function EmptyRow() {
       <EmptyCell />
       <EmptyCell />
       <EmptyCell />
+      <EmptyCell />
+      <EmptyCell />
     </Row>
   );
 }

@@ -3,9 +3,5 @@ type RowProps = {
 };
 
 export function Row({ children }: RowProps) {
-  return (
-    <div className="mt-2 flex justify-center max-w-sm items-end space-x-2 text-xs">
-      {children}
-    </div>
-  );
+  return <div className="flex items-end space-x-2 text-xs">{children}</div>;
 }

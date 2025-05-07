@@ -37,12 +37,25 @@ export function GuessRow({ userGuess, characterOfTheDay }: GuessRowProps) {
         index={2}
       />
       <Cell
+        title={userGuess.eyeColor}
+        status={getGuessStatus(userGuess.eyeColor, characterOfTheDay.eyeColor)}
+        index={3}
+      />
+      <Cell
+        title={userGuess.skinColor}
+        status={getGuessStatus(
+          userGuess.skinColor,
+          characterOfTheDay.skinColor
+        )}
+        index={4}
+      />
+      <Cell
         title={userGuess.firstAppearance}
         status={getGuessStatus(
           userGuess.firstAppearance,
           characterOfTheDay.firstAppearance
         )}
-        index={3}
+        index={5}
       />
     </Row>
   );

@@ -11,7 +11,7 @@ export function Cell({ title, status, index }: CellProps) {
     <div className="relative w-16 h-16">
       <div
         className={cn(
-          "relative w-full h-full transition-all duration-500 [transform-style:preserve-3d]",
+          "relative w-16 h-16 transition-all duration-500 [transform-style:preserve-3d]",
           "animate-flip"
         )}
         style={{ animationDelay: `${index * 200}ms` }}
@@ -28,7 +28,7 @@ export function Cell({ title, status, index }: CellProps) {
         {/* Back of card (with status) */}
         <div
           className={cn(
-            "absolute w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)]",
+            "absolute w-16 h-16 [backface-visibility:hidden] [transform:rotateY(180deg)]",
             "flex justify-center items-center shadow-md border-[1px] border-content rounded-sm",
             status === "right"
               ? "bg-[#514A05]"
