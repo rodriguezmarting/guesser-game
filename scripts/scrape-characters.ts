@@ -60,76 +60,177 @@ function extractQuoteParts(document: Document) {
   return { quoteText, quoteAttribution };
 }
 
-async function scrapeCharacterData(
-  characterUrl: string
-): Promise<Character | null> {
-  try {
-    const dom = await fetchPage(characterUrl);
-    const document = dom.window.document;
+async function scrapeCharacterData(url: string): Promise<Character> {
+  const dom = await fetchPage(url);
+  const document = dom.window.document;
 
-    const title = document
-      .querySelector(".page-header__title")
-      ?.textContent?.trim();
-    if (!title) return null;
+  // Get the character name from the title
+  const name =
+    document.querySelector(".page-header__title")?.textContent?.trim() || "";
+  if (!name) {
+    console.warn(`⚠️  No name found for character at ${url}`);
+  }
 
-    const infobox = document.querySelector(".portable-infobox");
-    if (!infobox) return null;
+  // Get the infobox data
+  const getInfoboxData = (keys: string[], fieldName: string) => {
+    for (const key of keys) {
+      const element = document.querySelector(`[data-source="${key}"]`);
+      if (element?.textContent?.trim()) {
+        return element.textContent.trim();
+      }
+    }
+    console.warn(
+      `⚠️  No ${fieldName} found for ${name} (tried keys: ${keys.join(", ")})`
+    );
+    return "";
+  };
 
-    const getInfoboxData = (labels: string[]) => {
-      for (const label of labels) {
-        const element = infobox.querySelector(`[data-source="${label}"]`);
-        if (element?.textContent?.trim()) {
-          return element.textContent.trim();
+  // Get the character image
+  const imageElement = document.querySelector(".pi-image-thumbnail");
+  const imageUrl = imageElement?.getAttribute("src") || "";
+  if (!imageUrl) {
+    console.warn(`⚠️  No image found for ${name}`);
+  }
+
+  // Get the quote and attribution
+  let quoteText = "";
+  let quoteAttribution = "";
+
+  // Find any quote table (handling different classes)
+  const quoteTable = document.querySelector(
+    "table.quote, table.quote.quote_link_color, table.quote.quote_link_color_light"
+  );
+  if (quoteTable) {
+    const rows = quoteTable.querySelectorAll("tr");
+
+    // Get the quote text (first row)
+    const quoteRow = rows[0];
+    if (quoteRow) {
+      const quoteCell = quoteRow.querySelector("td");
+      if (quoteCell) {
+        // Get the text content and clean it
+        quoteText = quoteCell.innerHTML
+          .replace(/<br\s*\/?>/g, " ") // Replace <br> with space
+          .replace(/<i>/g, "") // Remove italic tags
+          .replace(/<\/i>/g, "")
+          .replace(/^"/, "") // Remove opening quote
+          .replace(/"$/, "") // Remove closing quote
+          .trim();
+
+        // If the quote is still empty after cleaning, try textContent as fallback
+        if (!quoteText) {
+          quoteText =
+            quoteCell.textContent?.trim().replace(/^"/, "").replace(/"$/, "") ||
+            "";
         }
       }
-      return "";
-    };
-
-    const imageElement = infobox.querySelector(".pi-image-thumbnail");
-    const imageUrl = imageElement?.getAttribute("src") || "";
-
-    const pronouns = getInfoboxData(["pronouns"]).toLowerCase();
-    let gender = "unknown";
-    if (pronouns.includes("he/him")) {
-      gender = "male";
-    } else if (pronouns.includes("she/her")) {
-      gender = "female";
+    }
+    if (!quoteText) {
+      console.warn(`⚠️  No quote text found for ${name}`);
     }
 
-    const fightingStyle = getInfoboxData(["fighting style", "fightingstyle"]);
-    let firstAppearance = getInfoboxData([
-      "appearance",
-      "first appearance",
-      "firstappearance",
-      "debut",
-    ]);
+    // Get the attribution (last row)
+    const attributionRow = rows[rows.length - 1];
+    if (attributionRow) {
+      const attributionCell = attributionRow.querySelector("td");
+      if (attributionCell) {
+        // First, replace links with their text content
+        attributionCell.querySelectorAll("a").forEach((link) => {
+          const text = link.textContent || "";
+          link.replaceWith(text);
+        });
 
-    // Handle first appearance to only use part before ":"
-    if (firstAppearance.includes(":")) {
-      firstAppearance = firstAppearance.split(":")[0].trim();
+        // Then remove citation references
+        attributionCell.querySelectorAll("sup").forEach((sup) => sup.remove());
+
+        // Get the text content and clean it
+        quoteAttribution =
+          attributionCell.textContent
+            ?.trim()
+            .replace(/^—\s*/, "") // Remove the em dash and any following space
+            .replace(/\s*\[.*?\]$/, "") // Remove any remaining citation references
+            .replace(/\s*\.$/, "") // Remove trailing period
+            .trim() || "";
+
+        // Log the raw attribution for debugging
+        console.log(`\n🔍 Raw attribution for ${name}:`);
+        console.log(`Before cleaning: "${attributionCell.innerHTML}"`);
+        console.log(`After cleaning: "${quoteAttribution}"\n`);
+      }
+    }
+    if (!quoteAttribution) {
+      console.warn(`⚠️  No quote attribution found for ${name}`);
     }
 
-    const { quoteText, quoteAttribution } = extractQuoteParts(document);
-
-    const character: Character = {
-      value: title.toLowerCase().replace(/\s+/g, "-"),
-      label: title,
-      gender,
-      fightingStyle,
-      nationality: getInfoboxData(["nationality"]),
-      eyeColor: getInfoboxData(["eyes"]),
-      skinColor: getInfoboxData(["skincolor"]),
-      firstAppearance,
-      imageUrl,
-      quoteText,
-      quoteAttribution,
-    };
-
-    return character;
-  } catch (error) {
-    console.error(`Error scraping ${characterUrl}:`, error);
-    return null;
+    // Log the quote details for debugging
+    console.log(`\n📝 Quote details for ${name}:`);
+    console.log(`Text: "${quoteText}"`);
+    console.log(`Attribution: "${quoteAttribution}"`);
+    console.log(`Table class: ${quoteTable.className}\n`);
+  } else {
+    console.warn(
+      `⚠️  No quote table found for ${name} (tried classes: quote, quote.quote_link_color, quote.quote_link_color_light)`
+    );
   }
+
+  // Get other character data
+  const pronouns = getInfoboxData(["pronouns"], "pronouns").toLowerCase();
+  let gender = "unknown";
+  if (pronouns.includes("he/him")) {
+    gender = "male";
+  } else if (pronouns.includes("she/her")) {
+    gender = "female";
+  }
+  if (gender === "unknown") {
+    console.warn(
+      `⚠️  Could not determine gender for ${name} (pronouns: "${pronouns}")`
+    );
+  }
+
+  const fightingStyle = getInfoboxData(
+    ["fighting style", "fightingstyle"],
+    "fighting style"
+  );
+  let firstAppearance = getInfoboxData(
+    ["appearance", "first appearance", "firstappearance", "debut"],
+    "first appearance"
+  );
+
+  // Handle first appearance to only use part before ":"
+  if (firstAppearance.includes(":")) {
+    firstAppearance = firstAppearance.split(":")[0].trim();
+  }
+
+  const nationality = getInfoboxData(["nationality"], "nationality");
+  const eyeColor = getInfoboxData(["eyes"], "eye color");
+  const skinColor = getInfoboxData(["skincolor", "skintype"], "skin color");
+
+  const character = {
+    value: name.toLowerCase().replace(/\s+/g, "-"),
+    label: name,
+    imageUrl,
+    gender,
+    fightingStyle,
+    nationality,
+    eyeColor,
+    skinColor,
+    firstAppearance,
+    quoteText,
+    quoteAttribution,
+  };
+
+  // Log a summary of empty fields for this character
+  const emptyFields = Object.entries(character)
+    .filter(([_, value]) => !value || value === "unknown")
+    .map(([key]) => key);
+
+  if (emptyFields.length > 0) {
+    console.warn(`\n📊 Character Summary for ${name}:`);
+    console.warn(`Empty or unknown fields: ${emptyFields.join(", ")}`);
+    console.warn(`URL: ${url}\n`);
+  }
+
+  return character;
 }
 
 async function getCharacterUrls(): Promise<string[]> {
@@ -171,7 +272,32 @@ function capitalize(str: string) {
 }
 
 function cleanCharacterData(characters: Character[]): Character[] {
+  // Define all possible fighting styles
+  const FIGHTING_STYLES = [
+    "Firebending",
+    "Airbending",
+    "Earthbending",
+    "Waterbending",
+    "Energybending",
+    "Bloodbending",
+    "Healing",
+    "Metalbending",
+    "Lavabending",
+    "Lighting generation",
+    "Lighting redirection",
+    "Spiritbending",
+    "Hand-to-hand combat",
+    "Swordsmanship",
+    "Flight",
+    "Martial arts",
+  ] as const;
+
   return characters.map((char) => {
+    // Special case for Zaheer's skin color
+    if (char.value === "zaheer" && !char.skinColor) {
+      char.skinColor = "Light";
+    }
+
     // Clean nationality
     let nationality = char.nationality
       .replace(/^nationality\s*\n\t\n\t/i, "")
@@ -186,42 +312,28 @@ function cleanCharacterData(characters: Character[]): Character[] {
       nationality = "Air Nomads";
     } else if (nationality.includes("republic city")) {
       nationality = "United Republic";
+    } else if (!nationality.trim()) {
+      nationality = "Unknown";
     }
 
     // Clean fighting style
     let fightingStyle = char.fightingStyle.toLowerCase();
-    const hasWater = fightingStyle.includes("waterbending");
-    const hasEarth = fightingStyle.includes("earthbending");
-    const hasFire = fightingStyle.includes("firebending");
-    const hasAir = fightingStyle.includes("airbending");
-
-    if (hasWater && hasEarth && hasFire && hasAir) {
-      fightingStyle = "Avatar Bending";
-    } else if (fightingStyle.includes("swordsmanship")) {
-      fightingStyle = "Swordsmanship";
-    } else if (hasWater) {
-      fightingStyle = "Waterbending";
-    } else if (hasEarth) {
-      fightingStyle = "Earthbending";
-    } else if (hasFire) {
-      fightingStyle = "Firebending";
-    } else if (hasAir) {
-      fightingStyle = "Airbending";
-    } else if (fightingStyle.includes("nonbender")) {
-      fightingStyle = "Nonbender";
-    }
-    // Split element and 'bending' (e.g., 'Firebending' -> 'Fire Bending')
-    if (fightingStyle.match(/^[a-z]+bending$/i)) {
-      fightingStyle = fightingStyle.replace(
-        /([a-z]+)bending$/i,
-        (match, p1) => {
-          return `${capitalize(p1)} Bending`;
-        }
-      );
-    }
-    // Set to 'None' if empty
     if (!fightingStyle.trim()) {
-      fightingStyle = "None";
+      fightingStyle = "Unknown";
+    } else {
+      // Find all matching fighting styles
+      const foundStyles = FIGHTING_STYLES.filter((style) =>
+        fightingStyle.includes(style.toLowerCase())
+      );
+
+      if (foundStyles.length === 0) {
+        fightingStyle = "Unknown";
+      } else if (foundStyles.length === 1) {
+        fightingStyle = foundStyles[0];
+      } else {
+        // Multiple styles found, join with commas
+        fightingStyle = foundStyles.join(", ");
+      }
     }
 
     // Clean first appearance
@@ -246,7 +358,9 @@ function cleanCharacterData(characters: Character[]): Character[] {
     const eyeColor =
       char.eyeColor.replace(/^eye color\s*\n\t\n\t/i, "").trim() || "Unknown";
     const skinColor =
-      char.skinColor.replace(/^skin color\s*\n\t\n\t/i, "").trim() || "Unknown";
+      char.skinColor
+        .replace(/^(skin color|skin type)\s*\n\t\n\t/i, "")
+        .trim() || "Unknown";
 
     // Clean quote text by removing quotes
     const quoteText = char.quoteText.replace(/^"|"$/g, "").trim();

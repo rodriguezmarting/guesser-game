@@ -48,7 +48,7 @@ export function CharacterSelector({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] justify-between border-[#78D6FF] border-2"
           disabled={disabled}
         >
           {selectedCharacter ? selectedCharacter.label : "Select character..."}

@@ -52,7 +52,6 @@ export function GuessHistory({
                 characterOfTheDay={characterOfTheDay}
               />
             ))}
-            {!guesses.length && !hasWon && <EmptyRow />}
           </div>
         </div>
       </div>

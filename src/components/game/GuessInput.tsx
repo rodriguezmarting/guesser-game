@@ -1,60 +1,48 @@
-import { useState, useEffect } from "react";
-import { Command } from "cmdk";
-import { getCharacters, type Character } from "~/api/characters";
-import { Button } from "~/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
-import { ChevronsUpDown } from "lucide-react";
-import { cn } from "~/lib/utils";
+import { Character } from "~/api/characters";
 import { CharacterSelector } from "~/components/ui/combobox";
 
 interface GuessInputProps {
-  selectedCharacter: Character | undefined;
-  setSelectedCharacter: (character: Character | undefined) => void;
-  handleSubmit: () => void;
+  characterOfTheDay: Character;
+  guesses: Character[];
+  setGuesses: (guesses: Character[]) => void;
   hasWon: boolean;
+  setHasWon: (won: boolean) => void;
   duplicateGuess: string | null;
+  setDuplicateGuess: (dup: string | null) => void;
 }
 
 export function GuessInput({
-  selectedCharacter,
-  setSelectedCharacter,
-  handleSubmit,
+  characterOfTheDay,
+  guesses,
+  setGuesses,
   hasWon,
+  setHasWon,
   duplicateGuess,
+  setDuplicateGuess,
 }: GuessInputProps) {
-  const [open, setOpen] = useState(false);
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function load() {
-      const data = await getCharacters();
-      setCharacters(data);
-      setLoading(false);
+  // No local selectedCharacter state, just handle guess on select
+  const handleSelect = (character: Character) => {
+    // Check for duplicate
+    if (guesses.some((guess) => guess.value === character.value)) {
+      setDuplicateGuess(character.label);
+      return;
     }
-    load();
-  }, []);
+    setDuplicateGuess(null);
+    setGuesses([character, ...guesses]);
+    // Check for win
+    if (character.value === characterOfTheDay.value) {
+      setHasWon(true);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-sm">
       <div className="mt-4 flex justify-center max-w-sm items-center space-x-2">
         <CharacterSelector
-          selectedCharacter={selectedCharacter}
-          setSelectedCharacter={setSelectedCharacter}
+          selectedCharacter={undefined}
+          setSelectedCharacter={handleSelect}
           disabled={hasWon}
         />
-        <Button
-          type="submit"
-          onClick={handleSubmit}
-          disabled={!selectedCharacter || hasWon}
-          className="bg-olive hover:bg-olive/80 rounded-none text-[#78D6FF] text-2xl drop-shadow-[0_0_2px_rgba(120,214,255,0.6)] hover:drop-shadow-[0_0_4px_rgba(120,214,255,0.8)] disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          &#9654;
-        </Button>
       </div>
 
       {duplicateGuess && (

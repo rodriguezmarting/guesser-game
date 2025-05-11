@@ -1,0 +1,15 @@
+{
+  "characters": [
+    {
+      "date": "2025-05-10",
+      "characterValue": "aang",
+      "number": 2
+    },
+    {
+      "date": "2025-05-11",
+      "characterValue": "zuko",
+      "number": 1
+    }
+  ],
+  "nextNumber": 3
+}

@@ -60,14 +60,25 @@ export function ClueSystem({
       case "visual":
         return (
           <div className="flex flex-col items-center gap-4">
-            <img
-              src={characterOfTheDay.image}
-              alt="Character zoomed in"
-              className="w-48 h-48 object-cover filter brightness-0 border-[1px] border-content rounded-sm"
-            />
+            <div className="relative w-48 h-48 overflow-hidden border-[1px] border-content rounded-sm">
+              <img
+                src={characterOfTheDay.imageUrl}
+                alt="Character zoomed in"
+                className="w-full h-full object-cover object-[center_30%] scale-[9]"
+                style={{
+                  // Position the image to focus on the face area
+                  objectPosition: "center 30%",
+                  // Add a subtle vignette effect
+                  maskImage:
+                    "radial-gradient(circle at center, black 50%, transparent 100%)",
+                  WebkitMaskImage:
+                    "radial-gradient(circle at center, black 50%, transparent 100%)",
+                }}
+              />
+            </div>
             <p className="text-content-muted text-sm">
-              This is a zoomed in image of the character. Notice any distinctive
-              features?
+              This is a zoomed in view of the character's face. Notice any
+              distinctive features?
             </p>
           </div>
         );
