@@ -1,14 +1,16 @@
 import { Character } from "~/api/characters";
 import { CharacterSelector } from "~/components/ui/combobox";
+import { useState } from "react";
 
 interface GuessInputProps {
-  characterOfTheDay: Character;
+  characterOfTheDay: Character & { number: number };
   guesses: Character[];
   setGuesses: (guesses: Character[]) => void;
   hasWon: boolean;
-  setHasWon: (won: boolean) => void;
+  setHasWon: (hasWon: boolean) => void;
   duplicateGuess: string | null;
-  setDuplicateGuess: (dup: string | null) => void;
+  setDuplicateGuess: (guess: string | null) => void;
+  onGuess: (character: Character) => Promise<void>;
 }
 
 export function GuessInput({
@@ -19,20 +21,37 @@ export function GuessInput({
   setHasWon,
   duplicateGuess,
   setDuplicateGuess,
+  onGuess,
 }: GuessInputProps) {
-  // No local selectedCharacter state, just handle guess on select
-  const handleSelect = (character: Character) => {
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null
+  );
+
+  const handleSelect = async (character: Character) => {
     // Check for duplicate
     if (guesses.some((guess) => guess.value === character.value)) {
-      setDuplicateGuess(character.label);
+      setDuplicateGuess(character.value);
       return;
     }
+
+    setSelectedCharacter(character);
+    await onGuess(character);
     setDuplicateGuess(null);
-    setGuesses([character, ...guesses]);
-    // Check for win
-    if (character.value === characterOfTheDay.value) {
-      setHasWon(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedCharacter) return;
+
+    // Check for duplicate guess
+    if (guesses.some((g) => g.value === selectedCharacter.value)) {
+      setDuplicateGuess(selectedCharacter.value);
+      return;
     }
+
+    await onGuess(selectedCharacter);
+    setSelectedCharacter(null);
+    setDuplicateGuess(null);
   };
 
   return (
@@ -42,18 +61,13 @@ export function GuessInput({
           selectedCharacter={undefined}
           setSelectedCharacter={handleSelect}
           disabled={hasWon}
+          guesses={guesses}
         />
       </div>
 
       {duplicateGuess && (
         <p className="text-red-500 text-sm font-herculanum">
           You already guessed {duplicateGuess}
-        </p>
-      )}
-
-      {hasWon && (
-        <p className="text-content mt-3 text-lg font-bold">
-          Congratulations! You've guessed the character!
         </p>
       )}
     </div>

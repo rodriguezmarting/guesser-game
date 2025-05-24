@@ -1,0 +1,65 @@
+{
+  "characters": [
+    {
+      "date": "2025-05-23",
+      "number": 1,
+      "characterId": "aang",
+      "guesses": 1
+    },
+    {
+      "date": "2025-05-24",
+      "number": 2,
+      "characterId": "katara",
+      "guesses": 4
+    },
+    {
+      "date": "2025-05-25",
+      "number": 3,
+      "characterId": "zuko",
+      "guesses": 2
+    },
+    {
+      "date": "2025-05-26",
+      "number": 4,
+      "characterId": "azula",
+      "guesses": 2
+    },
+    {
+      "date": "2025-05-27",
+      "number": 5,
+      "characterId": "sokka",
+      "guesses": 1
+    },
+    {
+      "date": "2025-05-28",
+      "number": 6,
+      "characterId": "appa",
+      "guesses": 1
+    },
+    {
+      "date": "2025-05-29",
+      "number": 7,
+      "characterId": "iroh",
+      "guesses": 2
+    },
+    {
+      "date": "2025-05-30",
+      "number": 8,
+      "characterId": "momo",
+      "guesses": 1
+    },
+    {
+      "date": "2025-05-31",
+      "number": 9,
+      "characterId": "ozai",
+      "guesses": 0
+    },
+    {
+      "date": "2025-06-01",
+      "number": 10,
+      "characterId": "toph-beifong",
+      "guesses": 0
+    }
+  ],
+  "lastUpdated": "2025-05-24T16:33:33.658Z"
+}

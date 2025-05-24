@@ -23,10 +23,12 @@ export function CharacterSelector({
   selectedCharacter,
   setSelectedCharacter,
   disabled,
+  guesses = [],
 }: {
   selectedCharacter?: Character;
   setSelectedCharacter: (value: Character) => void;
   disabled?: boolean;
+  guesses?: Character[];
 }) {
   const [open, setOpen] = React.useState(false);
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -35,11 +37,15 @@ export function CharacterSelector({
   useEffect(() => {
     async function load() {
       const data = await getCharacters();
-      setCharacters(data);
+      // Filter out characters that have already been guessed
+      const filteredCharacters = data.filter(
+        (char) => !guesses.some((guess) => guess.value === char.value)
+      );
+      setCharacters(filteredCharacters);
       setLoading(false);
     }
     load();
-  }, []);
+  }, [guesses]); // Add guesses as a dependency to reload when guesses change
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,7 +54,9 @@ export function CharacterSelector({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between border-[#78D6FF] border-2"
+          className={`w-[200px] justify-between ${
+            disabled ? "border-black" : "border-[#78D6FF]"
+          } border-2`}
           disabled={disabled}
         >
           {selectedCharacter ? selectedCharacter.label : "Select character..."}

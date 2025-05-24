@@ -27,7 +27,7 @@ async function loadCharacters(): Promise<Character[]> {
       typeof window !== "undefined"
         ? ""
         : process.env.URL || process.env.DEPLOY_URL || "http://localhost:8888";
-    const response = await fetch(`${baseUrl}/characters.json`);
+    const response = await fetch(`${baseUrl}/data/characters.json`);
     if (!response.ok) throw new Error("Failed to fetch characters.json");
     const characters = (await response.json()) as Character[];
     charactersCache = characters;
@@ -35,7 +35,7 @@ async function loadCharacters(): Promise<Character[]> {
   } catch (error) {
     // Fallback to filesystem for local dev
     try {
-      const filePath = join(process.cwd(), "public", "characters.json");
+      const filePath = join(process.cwd(), "public", "data", "characters.json");
       const data = await fs.readFile(filePath, "utf-8");
       const characters = JSON.parse(data) as Character[];
       charactersCache = characters;
@@ -51,12 +51,4 @@ export const getCharacters = createServerFn({
   method: "GET",
 }).handler(async () => {
   return loadCharacters();
-});
-
-export const getRandomCharacter = createServerFn({
-  method: "GET",
-}).handler(async () => {
-  const characters = await loadCharacters();
-  if (characters.length === 0) return null;
-  return characters[Math.floor(Math.random() * characters.length)];
 });

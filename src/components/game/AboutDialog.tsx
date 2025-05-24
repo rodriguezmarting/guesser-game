@@ -16,7 +16,7 @@ export function AboutDialog() {
         <Button
           variant="ghost"
           size="icon"
-          className="fixed bottom-4 right-4 text-content hover:text-content-muted"
+          className="text-content hover:text-content-muted"
         >
           <Info className="h-6 w-6" />
           <span className="sr-only">About</span>

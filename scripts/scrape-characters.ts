@@ -247,6 +247,7 @@ async function getCharacterUrls(): Promise<string[]> {
     ...Array.from(atlaLinks)
       .map((link) => link.getAttribute("href"))
       .filter((href): href is string => href !== null)
+      .filter((href) => !href.includes("(Netflix)")) // Filter out Netflix characters
       .map((href) => `https://avatar.fandom.com${href}`)
   );
 
@@ -261,6 +262,7 @@ async function getCharacterUrls(): Promise<string[]> {
     ...Array.from(lokLinks)
       .map((link) => link.getAttribute("href"))
       .filter((href): href is string => href !== null)
+      .filter((href) => !href.includes("(Netflix)")) // Filter out Netflix characters
       .map((href) => `https://avatar.fandom.com${href}`)
   );
 
@@ -271,25 +273,116 @@ function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+function cleanFightingStyle(style: string): string {
+  // First, normalize the style to match our FIGHTING_STYLES format
+  const normalizedStyle = style
+    .toLowerCase()
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Split camelCase
+    .replace(/([a-z])([0-9])/g, "$1 $2") // Split before numbers
+    .replace(/([0-9])([a-z])/g, "$1 $2") // Split after numbers
+    .replace(/_/g, " ") // Replace underscores with spaces
+    .replace(/\s+/g, " ") // Normalize spaces
+    .trim();
+
+  // Split into individual styles if there are multiple
+  const styles = normalizedStyle.split(",").map((s) => s.trim());
+
+  // Map each style to our standardized format
+  const cleanedStyles = styles.map((singleStyle) => {
+    // Handle special cases
+    if (
+      singleStyle.includes("swordsmanship") ||
+      singleStyle.includes("dual dao") ||
+      singleStyle.includes("jian-fencing") ||
+      singleStyle.includes("jian fencing")
+    ) {
+      return "Sword Master";
+    }
+    if (singleStyle.includes("tessenjutsu")) {
+      return "Tessenjutsu";
+    }
+    if (
+      singleStyle.includes("water tribe warrior") ||
+      singleStyle.includes("warrior style")
+    ) {
+      return "Warrior";
+    }
+    if (singleStyle.includes("lightning")) {
+      if (singleStyle.includes("redirect")) {
+        return "Lightning Redirection";
+      }
+      return "Lightning Generation";
+    }
+    if (
+      singleStyle.includes("hand to hand") ||
+      singleStyle.includes("hand-to-hand")
+    ) {
+      return "Hand to Hand Combat";
+    }
+    if (singleStyle.includes("martial art")) {
+      return "Martial Arts";
+    }
+
+    // Handle elemental bending
+    for (const element of [
+      "fire",
+      "water",
+      "earth",
+      "air",
+      "energy",
+      "blood",
+      "metal",
+      "lava",
+      "spirit",
+    ]) {
+      // Skip water bending check if it's a warrior style
+      if (
+        element === "water" &&
+        (singleStyle.includes("warrior") || singleStyle.includes("tribe"))
+      ) {
+        continue;
+      }
+      if (singleStyle.includes(element)) {
+        return `${element.charAt(0).toUpperCase() + element.slice(1)} Bending`;
+      }
+    }
+
+    // Handle other cases
+    if (singleStyle === "healing") return "Healing";
+    if (singleStyle === "flight") return "Flight";
+
+    return singleStyle.charAt(0).toUpperCase() + singleStyle.slice(1);
+  });
+
+  // Remove duplicates and join
+  return [...new Set(cleanedStyles)].join(", ");
+}
+
 function cleanCharacterData(characters: Character[]): Character[] {
-  // Define all possible fighting styles
   const FIGHTING_STYLES = [
-    "Firebending",
-    "Airbending",
-    "Earthbending",
-    "Waterbending",
-    "Energybending",
-    "Bloodbending",
+    "Fire Bending",
+    "Air Bending",
+    "Earth Bending",
+    "Water Bending",
+    "Energy Bending",
+    "Blood Bending",
     "Healing",
-    "Metalbending",
-    "Lavabending",
-    "Lighting generation",
-    "Lighting redirection",
-    "Spiritbending",
-    "Hand-to-hand combat",
+    "Metal Bending",
+    "Lava Bending",
+    "Lightning Generation",
+    "Lightning Redirection",
+    "Spirit Bending",
+    "Hand to Hand Combat",
     "Swordsmanship",
     "Flight",
-    "Martial arts",
+    "Martial Arts",
+  ] as const;
+
+  const ELEMENTAL_BENDING = [
+    "Fire Bending",
+    "Air Bending",
+    "Earth Bending",
+    "Water Bending",
   ] as const;
 
   return characters.map((char) => {
@@ -321,26 +414,28 @@ function cleanCharacterData(characters: Character[]): Character[] {
     if (!fightingStyle.trim()) {
       fightingStyle = "Unknown";
     } else {
-      // Find all matching fighting styles
-      const foundStyles = FIGHTING_STYLES.filter((style) =>
-        fightingStyle.includes(style.toLowerCase())
+      fightingStyle = cleanFightingStyle(fightingStyle);
+
+      // Check if character has all four elemental bending abilities
+      const hasAllElements = ELEMENTAL_BENDING.every((element) =>
+        fightingStyle.includes(element)
       );
 
-      if (foundStyles.length === 0) {
-        fightingStyle = "Unknown";
-      } else if (foundStyles.length === 1) {
-        fightingStyle = foundStyles[0];
-      } else {
-        // Multiple styles found, join with commas
-        fightingStyle = foundStyles.join(", ");
+      if (hasAllElements) {
+        fightingStyle = "Avatar";
       }
     }
 
     // Clean first appearance
     let firstAppearance = char.firstAppearance
       .replace(/^first appearance\s*\n\t\n\t"?/i, "")
-      .replace(/^"+|"+$/g, "")
+      .replace(/^"+|"+$/g, "") // Remove quotes at start/end
+      .replace(/&nbsp;/g, " ") // Replace non-breaking spaces with regular spaces
+      .replace(/"/g, "") // Remove any remaining quotes
+      .replace(/\s+/g, " ") // Normalize spaces
+      .trim()
       .toLowerCase();
+
     if (firstAppearance.includes("book 1")) {
       firstAppearance = "Book 1";
     } else if (firstAppearance.includes("book 2")) {
@@ -402,7 +497,7 @@ async function main() {
     const cleanedCharacters = cleanCharacterData(characters);
     console.log("Data cleaning completed");
 
-    const outputPath = join(process.cwd(), "public", "characters.json");
+    const outputPath = join(process.cwd(), "public", "data", "characters.json");
     await fs.writeFile(outputPath, JSON.stringify(cleanedCharacters, null, 2));
 
     console.log(
