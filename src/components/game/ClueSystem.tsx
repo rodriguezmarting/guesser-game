@@ -86,11 +86,11 @@ export function ClueSystem({
         return (
           <div className="flex flex-col items-center gap-4">
             <blockquote className="text-content text-lg italic border-l-2 border-content pl-4">
-              {characterOfTheDay.quoteText ? (
+              {characterOfTheDay.quote ? (
                 `"${
                   hasWon
-                    ? characterOfTheDay.quoteText
-                    : characterOfTheDay.quoteText.replace(
+                    ? characterOfTheDay.quote
+                    : characterOfTheDay.quote.replace(
                         new RegExp(`\\b${characterOfTheDay.label}\\b`, "gi"),
                         "<character name>"
                       )

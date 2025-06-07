@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GameMode {
+  CLASSIC
+  // Add other game modes if needed, e.g., ENDLESS, TIMED
+}
+
+model Game {
+  id                    String                 @id @default(cuid())
+  name                  String                 @unique // e.g., "AvatarGuesser", "StarWarsGuesser"
+  description           String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  characters            Character[]
+  dailyCharacterLogs    DailyCharacterLog[]
+  attributeDefinitions  AttributeDefinition[]
+}
+
+model Character {
+  id                  String               @id @default(cuid()) // Internal DB ID
+  value               String // Game-specific unique value, e.g., "aang", "katara". Not globally unique.
+  label               String // e.g., "Aang", "Katara"
+  imageUrl            String?
+  quote               String? // Added field for quote
+  quoteAttribution    String? // Added field for quote attribution
+  gameId              String
+  game                Game                 @relation(fields: [gameId], references: [id])
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  dailyLogs           DailyCharacterLog[]
+  attributes          CharacterAttribute[]
+
+  @@unique([gameId, value]) // Ensures character 'value' is unique within a specific game
+  @@index([gameId])
+}
+
+// Defines the types of attributes a game can have
+model AttributeDefinition {
+  id          String    @id @default(cuid())
+  gameId      String
+  game        Game      @relation(fields: [gameId], references: [id])
+  name        String    // e.g., "Gender", "Eye Color", "Species", "Homeworld"
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  characterAttributes CharacterAttribute[]
+
+  @@unique([gameId, name]) // Attribute names must be unique within a game
+  @@index([gameId])
+}
+
+// Stores the actual value of an attribute for a specific character
+model CharacterAttribute {
+  id                    String              @id @default(cuid())
+  characterId           String
+  character             Character           @relation(fields: [characterId], references: [id])
+  attributeDefinitionId String
+  attributeDefinition   AttributeDefinition @relation(fields: [attributeDefinitionId], references: [id])
+  value                 String              // e.g., "Male", "Blue", "Human", "Tatooine"
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+
+  @@unique([characterId, attributeDefinitionId]) // A character can only have one value for each attribute type
+  @@index([characterId])
+  @@index([attributeDefinitionId])
+}
+
+model DailyCharacterLog {
+  id              String    @id @default(cuid())
+  gameId          String
+  game            Game      @relation(fields: [gameId], references: [id])
+  characterId     String    // Changed from characterValue to be Character.id
+  character       Character @relation(fields: [characterId], references: [id]) // Direct relation to Character.id
+  date            DateTime  @db.Date // The date this character was featured
+  assignedNumber  Int       // The '#{number}' for the character on this day
+  totalGuesses    Int       @default(0) // Count of how many times this character was guessed when it was daily
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@unique([gameId, date]) // Only one character per game per day
+  @@index([characterId])   // Index on the foreign key
+  @@index([gameId, date])
+}

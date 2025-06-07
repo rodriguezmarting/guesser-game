@@ -14,5 +14,8 @@ export default defineConfig({
         projects: ["./tsconfig.json"],
       }),
     ],
+    // ssr: {
+    //   noExternal: ["@prisma/client", /.*\/generated\/prisma(\/index\.js)?$/],
+    // },
   },
 });

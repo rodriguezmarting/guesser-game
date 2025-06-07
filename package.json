@@ -7,13 +7,17 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
-    "scrape": "tsx scripts/scrape-characters.ts"
+    "scrape": "tsx scripts/scrape-characters.ts",
+    "prisma:seed": "tsx prisma/seed.ts > prisma/seed.log 2> prisma/seed.error.log"
   },
   "dependencies": {
+    "@prisma/extension-accelerate": "^2.0.0",
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-popover": "^1.1.11",
     "@radix-ui/react-scroll-area": "^1.2.6",
     "@radix-ui/react-slot": "^1.2.0",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.8",
     "@tanstack/react-router": "^1.114.22",
     "@tanstack/react-router-devtools": "^1.114.22",
     "@tanstack/react-start": "^1.114.22",
@@ -34,11 +38,13 @@
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
+    "dotenv": "^16.5.0",
     "postcss": "^8.5.3",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.2",
     "vite-tsconfig-paths": "^5.1.4"
   }

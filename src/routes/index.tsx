@@ -30,8 +30,6 @@ export const Route = createFileRoute("/")({
       throw new Error("Failed to find today's character in character list");
     }
 
-    console.log(dailyChar);
-
     return {
       characterOfTheDay: {
         ...todayCharacter,

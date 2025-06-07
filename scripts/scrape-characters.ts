@@ -303,9 +303,10 @@ function cleanFightingStyle(style: string): string {
     }
     if (
       singleStyle.includes("water tribe warrior") ||
-      singleStyle.includes("warrior style")
+      singleStyle.includes("warrior style") ||
+      singleStyle.includes("hung gar kung fu") // Map Hung Gar Kung Fu to Martial Arts
     ) {
-      return "Warrior";
+      return "Martial Arts";
     }
     if (singleStyle.includes("lightning")) {
       if (singleStyle.includes("redirect")) {
