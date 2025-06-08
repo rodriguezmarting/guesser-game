@@ -139,5 +139,3 @@ dist
 .netlify
 
 todo.md
-
-/generated/prisma

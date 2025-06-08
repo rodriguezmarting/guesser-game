@@ -8,10 +8,10 @@
     "build": "vinxi build",
     "start": "vinxi start",
     "scrape": "tsx scripts/scrape-characters.ts",
-    "prisma:seed": "tsx prisma/seed.ts > prisma/seed.log 2> prisma/seed.error.log"
+    "seed": "tsx scripts/seed.ts",
+    "seed:daily": "tsx scripts/seedDailyCharacters.ts"
   },
   "dependencies": {
-    "@prisma/extension-accelerate": "^2.0.0",
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-popover": "^1.1.11",
     "@radix-ui/react-scroll-area": "^1.2.6",
