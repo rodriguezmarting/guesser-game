@@ -1,6 +1,15 @@
 import { JSDOM } from "jsdom";
-import { promises as fs } from "fs";
-import { join } from "path";
+import { join, dirname } from "path";
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+
+// ES Module equivalent of __filename and __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load environment variables from .env file (located in the project root)
+dotenv.config({ path: join(__dirname, "../.env") });
 
 interface Character {
   value: string;
@@ -233,44 +242,16 @@ async function scrapeCharacterData(url: string): Promise<Character> {
   return character;
 }
 
-async function getCharacterUrls(): Promise<string[]> {
-  const urls: string[] = [];
-
-  // Scrape ATLA main characters
-  const atlaDom = await fetchPage(
-    "https://avatar.fandom.com/wiki/Category:Main_characters"
-  );
-  const atlaLinks = atlaDom.window.document.querySelectorAll(
-    ".category-page__member-link"
-  );
-  urls.push(
-    ...Array.from(atlaLinks)
-      .map((link) => link.getAttribute("href"))
-      .filter((href): href is string => href !== null)
-      .filter((href) => !href.includes("(Netflix)")) // Filter out Netflix characters
-      .map((href) => `https://avatar.fandom.com${href}`)
-  );
-
-  // Scrape LOK main characters
-  const lokDom = await fetchPage(
-    "https://avatar.fandom.com/wiki/Category:Main_characters_(Legend_of_Korra)"
-  );
-  const lokLinks = lokDom.window.document.querySelectorAll(
-    ".category-page__member-link"
-  );
-  urls.push(
-    ...Array.from(lokLinks)
-      .map((link) => link.getAttribute("href"))
-      .filter((href): href is string => href !== null)
-      .filter((href) => !href.includes("(Netflix)")) // Filter out Netflix characters
-      .map((href) => `https://avatar.fandom.com${href}`)
-  );
-
-  return urls;
-}
-
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function cleanCharacterName(name: string): string {
+  // Special case for Varrick
+  if (name.toLowerCase().includes("iknik blackstone varrick")) {
+    return "Varrick";
+  }
+  return name;
 }
 
 function cleanFightingStyle(style: string): string {
@@ -282,6 +263,7 @@ function cleanFightingStyle(style: string): string {
     .replace(/([0-9])([a-z])/g, "$1 $2") // Split after numbers
     .replace(/_/g, " ") // Replace underscores with spaces
     .replace(/\s+/g, " ") // Normalize spaces
+    .replace(/\[.*?\]/g, "") // Remove anything in square brackets
     .trim();
 
   // Split into individual styles if there are multiple
@@ -290,6 +272,18 @@ function cleanFightingStyle(style: string): string {
   // Map each style to our standardized format
   const cleanedStyles = styles.map((singleStyle) => {
     // Handle special cases
+    if (singleStyle.includes("combustionbending")) {
+      return "Combustion Bending";
+    }
+    if (singleStyle.includes("knife-throwing")) {
+      return "Knife Throwing";
+    }
+    if (singleStyle.includes("fighting style shuriken-jutsu")) {
+      return "Shuriken Jutsu";
+    }
+    if (singleStyle.includes("chi-blocking")) {
+      return "Chi Blocking";
+    }
     if (
       singleStyle.includes("swordsmanship") ||
       singleStyle.includes("dual dao") ||
@@ -304,7 +298,7 @@ function cleanFightingStyle(style: string): string {
     if (
       singleStyle.includes("water tribe warrior") ||
       singleStyle.includes("warrior style") ||
-      singleStyle.includes("hung gar kung fu") // Map Hung Gar Kung Fu to Martial Arts
+      singleStyle.includes("hung gar kung fu")
     ) {
       return "Martial Arts";
     }
@@ -352,7 +346,11 @@ function cleanFightingStyle(style: string): string {
     if (singleStyle === "healing") return "Healing";
     if (singleStyle === "flight") return "Flight";
 
-    return singleStyle.charAt(0).toUpperCase() + singleStyle.slice(1);
+    // For any other style, capitalize each word
+    return singleStyle
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   });
 
   // Remove duplicates and join
@@ -387,6 +385,11 @@ function cleanCharacterData(characters: Character[]): Character[] {
   ] as const;
 
   return characters.map((char) => {
+    // Clean character name (value and label)
+    const cleanedName = cleanCharacterName(char.label);
+    char.label = cleanedName;
+    char.value = cleanedName.toLowerCase().replace(/\s+/g, "-");
+
     // Special case for Zaheer's skin color
     if (char.value === "zaheer" && !char.skinColor) {
       char.skinColor = "Light";
@@ -476,52 +479,322 @@ function cleanCharacterData(characters: Character[]): Character[] {
   });
 }
 
-async function main() {
+// Insert a new constant (CHARACTERS_LIST) with the provided list of characters and their wiki links
+const CHARACTERS_LIST: { name: string; url: string }[] = [
+  { name: "Aang", url: "https://avatar.fandom.com/wiki/Aang" },
+  { name: "Katara", url: "https://avatar.fandom.com/wiki/Katara" },
+  { name: "Sokka", url: "https://avatar.fandom.com/wiki/Sokka" },
+  { name: "Zuko", url: "https://avatar.fandom.com/wiki/Zuko" },
+  { name: "Toph Beifong", url: "https://avatar.fandom.com/wiki/Toph_Beifong" },
+  { name: "Iroh", url: "https://avatar.fandom.com/wiki/Iroh" },
+  { name: "Appa", url: "https://avatar.fandom.com/wiki/Appa" },
+  { name: "Momo", url: "https://avatar.fandom.com/wiki/Momo" },
+  { name: "Azula", url: "https://avatar.fandom.com/wiki/Azula" },
+  { name: "Suki", url: "https://avatar.fandom.com/wiki/Suki" },
+  { name: "Korra", url: "https://avatar.fandom.com/wiki/Korra" },
+  { name: "Mako", url: "https://avatar.fandom.com/wiki/Mako" },
+  { name: "Bolin", url: "https://avatar.fandom.com/wiki/Bolin" },
+  { name: "Asami Sato", url: "https://avatar.fandom.com/wiki/Asami_Sato" },
+  { name: "Lin Beifong", url: "https://avatar.fandom.com/wiki/Lin_Beifong" },
+  { name: "Tenzin", url: "https://avatar.fandom.com/wiki/Tenzin" },
+  { name: "Naga", url: "https://avatar.fandom.com/wiki/Naga" },
+  { name: "Varrick", url: "https://avatar.fandom.com/wiki/Varrick" },
+  { name: "Kuvira", url: "https://avatar.fandom.com/wiki/Kuvira" },
+  { name: "Zaheer", url: "https://avatar.fandom.com/wiki/Zaheer" },
+  { name: "Amon", url: "https://avatar.fandom.com/wiki/Amon" },
+  { name: "Unalaq", url: "https://avatar.fandom.com/wiki/Unalaq" },
+  { name: "Ty Lee", url: "https://avatar.fandom.com/wiki/Ty_Lee" },
+  { name: "Mai", url: "https://avatar.fandom.com/wiki/Mai" },
+  {
+    name: "King Bumi",
+    url: "https://avatar.fandom.com/wiki/Bumi_(King_of_Omashu)",
+  },
+  { name: "Fire Lord Ozai", url: "https://avatar.fandom.com/wiki/Ozai" },
+  { name: "Princess Yue", url: "https://avatar.fandom.com/wiki/Yue" },
+  { name: "Jet", url: "https://avatar.fandom.com/wiki/Jet" },
+  { name: "Long Feng", url: "https://avatar.fandom.com/wiki/Long_Feng" },
+  { name: "Hama", url: "https://avatar.fandom.com/wiki/Hama" },
+  {
+    name: "Combustion Man",
+    url: "https://avatar.fandom.com/wiki/Combustion_Man",
+  },
+  { name: "Guru Pathik", url: "https://avatar.fandom.com/wiki/Guru_Pathik" },
+  { name: "The Boulder", url: "https://avatar.fandom.com/wiki/The_Boulder" },
+  { name: "Fang", url: "https://avatar.fandom.com/wiki/Fang" },
+  { name: "Koh the Face Stealer", url: "https://avatar.fandom.com/wiki/Koh" },
+  { name: "Avatar Wan", url: "https://avatar.fandom.com/wiki/Wan" },
+  { name: "Jinora", url: "https://avatar.fandom.com/wiki/Jinora" },
+  { name: "Ikki", url: "https://avatar.fandom.com/wiki/Ikki" },
+  { name: "Meelo", url: "https://avatar.fandom.com/wiki/Meelo" },
+  { name: "Pema", url: "https://avatar.fandom.com/wiki/Pema" },
+  { name: "Bumi", url: "https://avatar.fandom.com/wiki/Bumi" },
+  { name: "Kya", url: "https://avatar.fandom.com/wiki/Kya" },
+  {
+    name: "Suyin Beifong",
+    url: "https://avatar.fandom.com/wiki/Suyin_Beifong",
+  },
+  { name: "Opal Beifong", url: "https://avatar.fandom.com/wiki/Opal" },
+  { name: "Kai", url: "https://avatar.fandom.com/wiki/Kai" },
+  { name: "P'Li", url: "https://avatar.fandom.com/wiki/P%27Li" },
+  { name: "Ming-Hua", url: "https://avatar.fandom.com/wiki/Ming-Hua" },
+  { name: "Ghazan", url: "https://avatar.fandom.com/wiki/Ghazan" },
+  { name: "Tarrlok", url: "https://avatar.fandom.com/wiki/Tarrlok" },
+  { name: "Hiroshi Sato", url: "https://avatar.fandom.com/wiki/Hiroshi_Sato" },
+  { name: "Zhu Li", url: "https://avatar.fandom.com/wiki/Zhu_Li" },
+  { name: "Raava", url: "https://avatar.fandom.com/wiki/Raava" },
+  { name: "Vaatu", url: "https://avatar.fandom.com/wiki/Vaatu" },
+  { name: "Admiral Zhao", url: "https://avatar.fandom.com/wiki/Zhao" },
+  { name: "Lieutenant (Amon)", url: "https://avatar.fandom.com/wiki/Amon" },
+  { name: "Eska", url: "https://avatar.fandom.com/wiki/Eska" },
+];
+
+// Insert Supabase client setup (using service role key) after dotenv config
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseServiceRoleKey) {
+  console.error(
+    "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY. Please check your .env file."
+  );
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceRoleKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+    detectSessionInUrl: false,
+  },
+  global: { headers: { Authorization: `Bearer ${supabaseServiceRoleKey}` } },
+});
+
+const GAME_NAME = "AvatarGuesser";
+
+// Insert a new function (uploadCharactersToSupabase) to upsert characters and their attributes
+async function uploadCharactersToSupabase(
+  characters: Character[]
+): Promise<boolean> {
+  console.log("Uploading characters to Supabase...");
   try {
-    console.log("Starting character data scraping...");
-
-    const characterUrls = await getCharacterUrls();
-    console.log(`Found ${characterUrls.length} characters to scrape`);
-
-    const characters: Character[] = [];
-    for (const url of characterUrls) {
-      console.log(`Scraping ${url}...`);
-      const character = await scrapeCharacterData(url);
-      if (character) {
-        characters.push(character);
-        console.log(`Successfully scraped ${character.label}`);
-      }
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    // 1. Upsert Game
+    console.log(`Upserting game: ${GAME_NAME}...`);
+    const { data: game, error: gameError } = await supabase
+      .from("Game")
+      .upsert(
+        { name: GAME_NAME },
+        { onConflict: "name", ignoreDuplicates: false }
+      )
+      .select("id, name")
+      .single();
+    if (gameError) {
+      throw gameError;
     }
+    if (!game) {
+      throw new Error("Failed to upsert game.");
+    }
+    console.log(`Game "${game.name}" (ID: ${game.id}) upserted successfully.`);
 
-    console.log("\nCleaning character data...");
-    const cleanedCharacters = cleanCharacterData(characters);
-    console.log("Data cleaning completed");
-
-    const outputPath = join(process.cwd(), "public", "data", "characters.json");
-    await fs.writeFile(outputPath, JSON.stringify(cleanedCharacters, null, 2));
-
-    console.log(
-      `\nSuccessfully processed ${cleanedCharacters.length} characters`
+    // 2. Define and Upsert AttributeDefinitions (using the same attribute names as in seedSupabase.ts)
+    const attributeNames = [
+      "Gender",
+      "Fighting Style",
+      "Nationality",
+      "Eye Color",
+      "Skin Color",
+      "First Appearance",
+    ];
+    console.log("Upserting attribute definitions...");
+    const attributeDefinitions: { id: string; name: string }[] = [];
+    for (const attrName of attributeNames) {
+      const { data: attrDef, error: attrDefError } = await supabase
+        .from("AttributeDefinition")
+        .upsert(
+          { gameId: game.id, name: attrName },
+          { onConflict: "gameId, name", ignoreDuplicates: false }
+        )
+        .select("id, name")
+        .single();
+      if (attrDefError) {
+        throw attrDefError;
+      }
+      if (!attrDef) {
+        throw new Error(`Failed to upsert attribute: ${attrName}`);
+      }
+      attributeDefinitions.push(attrDef);
+      console.log(
+        `  Attribute "${attrDef.name}" (ID: ${attrDef.id}) upserted.`
+      );
+    }
+    const attributeDefinitionMap = new Map(
+      attributeDefinitions.map((ad) => [ad.name, ad.id])
     );
-    console.log(`Data saved to ${outputPath}`);
 
-    // Print some statistics
-    const nationalities = new Set(cleanedCharacters.map((c) => c.nationality));
-    const fightingStyles = new Set(
-      cleanedCharacters.map((c) => c.fightingStyle)
-    );
-    const firstAppearances = new Set(
-      cleanedCharacters.map((c) => c.firstAppearance)
-    );
+    // 3. Upsert Characters and their Attributes
+    console.log("Upserting characters and their attributes...");
+    for (const char of characters) {
+      console.log(`  Processing character: ${char.label}...`);
+      const { data: character, error: charError } = await supabase
+        .from("Character")
+        .upsert(
+          {
+            gameId: game.id,
+            value: char.value,
+            label: char.label,
+            imageUrl: char.imageUrl,
+            quote: char.quoteText,
+            quoteAttribution: char.quoteAttribution,
+          },
+          { onConflict: "gameId, value", ignoreDuplicates: false }
+        )
+        .select("id, label")
+        .single();
+      if (charError) {
+        throw charError;
+      }
+      if (!character) {
+        throw new Error(`Failed to upsert character: ${char.label}`);
+      }
+      console.log(
+        `    Character "${character.label}" (ID: ${character.id}) upserted.`
+      );
 
-    console.log("\nData Statistics:");
-    console.log(`- Unique Nationalities: ${nationalities.size}`);
-    console.log(`- Unique Fighting Styles: ${fightingStyles.size}`);
-    console.log(`- Unique First Appearances: ${firstAppearances.size}`);
+      // Create CharacterAttribute entries (using the same mapping as in seedSupabase.ts)
+      for (const attrName of attributeNames) {
+        const attributeDefinitionId = attributeDefinitionMap.get(attrName);
+        // Convert attribute name to camelCase (e.g., "Fighting Style" -> "fightingStyle")
+        const jsonKey = attrName
+          .split(" ")
+          .map((word, index) =>
+            index === 0
+              ? word.toLowerCase()
+              : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+          )
+          .join("");
+        const characterAttributeValue = (char as any)[jsonKey];
+        if (attributeDefinitionId && characterAttributeValue !== undefined) {
+          console.log(
+            `      Upserting attribute "${attrName}" with value "${characterAttributeValue}"`
+          );
+          const { error: charAttrError } = await supabase
+            .from("CharacterAttribute")
+            .upsert(
+              {
+                characterId: character.id,
+                attributeDefinitionId,
+                value: String(characterAttributeValue),
+              },
+              {
+                onConflict: "characterId, attributeDefinitionId",
+                ignoreDuplicates: false,
+              }
+            );
+          if (charAttrError) {
+            throw charAttrError;
+          }
+        } else if (
+          attributeDefinitionId &&
+          characterAttributeValue === undefined
+        ) {
+          console.warn(
+            `      Attribute "${attrName}" (key: "${jsonKey}") not found or undefined for character "${char.label}". Skipping.`
+          );
+        }
+      }
+    }
+    console.log("Upload completed successfully.");
+    return true;
   } catch (error) {
-    console.error("Error during processing:", error);
+    console.error("Error uploading characters to Supabase:", error);
+    return false;
   }
 }
 
-main();
+// Update the main() function so that it scrapes only the provided list, cleans, and then uploads to Supabase (and logs any failures or null values)
+async function main() {
+  console.log("Starting character data scraping (using provided list)...");
+  const characters: Character[] = [];
+  const failedCharacters: { name: string; url: string; error?: any }[] = [];
+  const nullValuesCharacters: { name: string; nullFields: string[] }[] = [];
+
+  for (const { name, url } of CHARACTERS_LIST) {
+    console.log(`Scraping ${name} (${url})...`);
+    try {
+      const character = await scrapeCharacterData(url);
+      if (character) {
+        // (Optional) log if any field is null or empty (or "unknown")
+        const nullFields = Object.entries(character)
+          .filter(([_, v]) => !v || v === "unknown")
+          .map(([k]) => k);
+        if (nullFields.length > 0) {
+          console.warn(
+            `⚠️ Character "${name}" (${url}) has null or "unknown" fields: ${nullFields.join(
+              ", "
+            )}`
+          );
+          nullValuesCharacters.push({ name, nullFields });
+        }
+        characters.push(character);
+        console.log(`Successfully scraped "${character.label}" (${url}).`);
+      } else {
+        console.error(
+          `Failed to scrape "${name}" (${url}) (scrapeCharacterData returned null).`
+        );
+        failedCharacters.push({ name, url });
+      }
+    } catch (err) {
+      console.error(`Error scraping "${name}" (${url}):`, err);
+      failedCharacters.push({ name, url, error: err });
+    }
+    // (Optional) add a small delay (e.g., 1 second) between requests to avoid hammering the wiki
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+
+  console.log("\nCleaning character data...");
+  const cleanedCharacters = cleanCharacterData(characters);
+  console.log("Data cleaning completed.");
+
+  // (Optional) log statistics (e.g., unique nationalities, fighting styles, first appearances)
+  const nationalities = new Set(cleanedCharacters.map((c) => c.nationality));
+  const fightingStyles = new Set(cleanedCharacters.map((c) => c.fightingStyle));
+  const firstAppearances = new Set(
+    cleanedCharacters.map((c) => c.firstAppearance)
+  );
+  console.log("\nData Statistics:");
+  console.log(`- Unique Nationalities: ${nationalities.size}`);
+  console.log(`- Unique Fighting Styles: ${fightingStyles.size}`);
+  console.log(`- Unique First Appearances: ${firstAppearances.size}`);
+
+  // (Optional) log if any character failed to parse or has null values
+  if (failedCharacters.length > 0) {
+    console.warn("\n⚠️ Failed Characters (scrape or parse error):");
+    failedCharacters.forEach(({ name, url, error }) => {
+      console.warn(
+        `  "${name}" (${url}) – Error: ${
+          error ? error.message : "scrape returned null"
+        }`
+      );
+    });
+  }
+  if (nullValuesCharacters.length > 0) {
+    console.warn("\n⚠️ Characters with null or 'unknown' fields:");
+    nullValuesCharacters.forEach(({ name, nullFields }) => {
+      console.warn(`  "${name}" – Null fields: ${nullFields.join(", ")}`);
+    });
+  }
+
+  // Upload (upsert) characters to Supabase
+  const uploadSuccess = await uploadCharactersToSupabase(cleanedCharacters);
+  if (uploadSuccess) {
+    console.log(
+      "All characters (and their attributes) uploaded to Supabase successfully."
+    );
+  } else {
+    console.error("Upload to Supabase failed. (See error log above.)");
+  }
+}
+
+// Call main() at the end
+main().catch((err) => {
+  console.error("Uncaught error in main:", err);
+  process.exit(1);
+});

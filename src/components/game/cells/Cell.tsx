@@ -7,10 +7,16 @@ type CellProps = {
 };
 
 function getFontSizeClass(text: string): string {
-  // Count words and characters to determine appropriate font size
   const wordCount = text.split(/\s+/).length;
   const charCount = text.length;
+  const longestWord = text
+    .split(/\s+/)
+    .reduce((a, b) => (a.length > b.length ? a : b), "");
 
+  // If a single word is long (like "Unknown" or longer), shrink font
+  if (longestWord.length > 6) {
+    return "text-[10px] leading-tight";
+  }
   if (wordCount > 3 || charCount > 20) {
     return "text-[10px] leading-tight";
   } else if (wordCount > 2 || charCount > 15) {
