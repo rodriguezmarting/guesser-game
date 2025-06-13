@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Character, getCharacters } from "~/api/characters";
 import { ClueSystem, CLUES } from "~/components/game/ClueSystem";
 import { GuessInput } from "~/components/game/GuessInput";
@@ -53,6 +53,7 @@ function Home() {
     null
   );
   const [winstreak, setWinstreak] = useState(0);
+  const winMessageRef = useRef<HTMLDivElement>(null);
 
   // On mount, load saved guesses and winstreak
   useEffect(() => {
@@ -104,6 +105,19 @@ function Home() {
       }
     }
   }, [guesses, hasWon, winstreak]);
+
+  // Scroll to win message when user wins
+  useEffect(() => {
+    if (hasWon && winMessageRef.current) {
+      // Add a small delay to ensure the WinMessage component is rendered
+      setTimeout(() => {
+        winMessageRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 200);
+    }
+  }, [hasWon]);
 
   const handleGuess = async (character: Character) => {
     // Increment the guess count for this character
@@ -164,7 +178,11 @@ function Home() {
 
           {hasWon && (
             <>
-              <WinMessage character={characterOfTheDay} guesses={guesses} />
+              <WinMessage
+                ref={winMessageRef}
+                character={characterOfTheDay}
+                guesses={guesses}
+              />
               <SocialSharing
                 characterNumber={characterOfTheDay.number}
                 tries={guesses.length}

@@ -1,74 +1,113 @@
 import { Character } from "~/api/characters";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, forwardRef } from "react";
+import confetti from "canvas-confetti";
 
 interface WinMessageProps {
   character: Character & { number: number };
   guesses: Character[];
 }
 
-export function WinMessage({ character, guesses }: WinMessageProps) {
-  const [timeUntilNext, setTimeUntilNext] = useState<string>("");
+export const WinMessage = forwardRef<HTMLDivElement, WinMessageProps>(
+  ({ character, guesses }, ref) => {
+    const [timeUntilNext, setTimeUntilNext] = useState<string>("");
 
-  useEffect(() => {
-    const updateTimeUntilNext = () => {
-      const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
+    // Confetti effect with Avatar element emojis
+    const fireConfetti = () => {
+      const avatarEmojis = ["🪨", "🔥", "💧", "💨"];
 
-      const diff = tomorrow.getTime() - now.getTime();
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      // Create confetti with emojis as shapes
+      const createEmojiConfetti = (emoji: string) =>
+        confetti.shapeFromText({ text: emoji, scalar: 2 });
 
-      // Format with leading zeros
-      const formattedHours = hours.toString().padStart(2, "0");
-      const formattedMinutes = minutes.toString().padStart(2, "0");
-      const formattedSeconds = seconds.toString().padStart(2, "0");
+      setTimeout(() => {
+        const allShapes = avatarEmojis.map(createEmojiConfetti);
 
-      setTimeUntilNext(
-        `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
-      );
+        confetti({
+          particleCount: 200,
+          spread: 80,
+          origin: { x: 0.5, y: 0.4 },
+          shapes: allShapes,
+          scalar: 1,
+          drift: 0,
+          gravity: 1,
+          ticks: 400,
+        });
+      }, 100);
     };
 
-    // Update immediately and then every second
-    updateTimeUntilNext();
-    const interval = setInterval(updateTimeUntilNext, 1000);
+    useEffect(() => {
+      // Fire confetti when component mounts (when user wins)
+      const confettiTimer = setTimeout(() => {
+        fireConfetti();
+      }, 100);
 
-    return () => clearInterval(interval);
-  }, []);
+      return () => clearTimeout(confettiTimer);
+    }, []);
 
-  const tries = guesses.length;
-  const tryText = tries === 1 ? "try" : "tries";
+    useEffect(() => {
+      const updateTimeUntilNext = () => {
+        const now = new Date();
+        const tomorrow = new Date(now);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
 
-  return (
-    <div className="mt-6 p-4 bg-olive-light rounded-lg border-[#78D6FF] border-2 shadow-lg max-w-md mx-auto">
-      <div className="flex flex-col items-center gap-4">
-        <div className="text-content text-xl font-herculanum">
-          Congratulations! You've guessed today's character!
-        </div>
+        const diff = tomorrow.getTime() - now.getTime();
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-        <div className="flex items-center gap-4">
-          <img
-            src={character.imageUrl}
-            alt={character.label}
-            className="w-24 h-24 rounded-lg border-2 border-content shadow-md"
-          />
-          <div className="text-content text-left">
-            <div className="font-herculanum text-lg">
-              #{character.number}: {character.label}
-            </div>
-            <div className="text-sm text-content-muted mt-1">
-              Guessed in {tries} {tryText}
+        // Format with leading zeros
+        const formattedHours = hours.toString().padStart(2, "0");
+        const formattedMinutes = minutes.toString().padStart(2, "0");
+        const formattedSeconds = seconds.toString().padStart(2, "0");
+
+        setTimeUntilNext(
+          `${formattedHours}:${formattedMinutes}:${formattedSeconds}`
+        );
+      };
+
+      // Update immediately and then every second
+      updateTimeUntilNext();
+      const interval = setInterval(updateTimeUntilNext, 1000);
+
+      return () => clearInterval(interval);
+    }, []);
+
+    const tries = guesses.length;
+    const tryText = tries === 1 ? "try" : "tries";
+
+    return (
+      <div
+        ref={ref}
+        className="mt-6 p-4 bg-olive-light rounded-lg border-[#78D6FF] border-2 shadow-lg max-w-md mx-auto"
+      >
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-content text-xl font-herculanum">
+            Congratulations! You've guessed today's character!
+          </div>
+
+          <div className="flex items-center gap-4">
+            <img
+              src={character.imageUrl}
+              alt={character.label}
+              className="w-24 h-24 rounded-lg border-2 border-content shadow-md"
+            />
+            <div className="text-content text-left">
+              <div className="font-herculanum text-lg">
+                #{character.number}: {character.label}
+              </div>
+              <div className="text-sm text-content-muted mt-1">
+                Guessed in {tries} {tryText}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="text-sm text-content-muted mt-2 flex flex-col items-center">
-          Next character available in
-          <div className="text-xl font-herculanum">{timeUntilNext}</div>
+          <div className="text-sm text-content-muted mt-2 flex flex-col items-center">
+            Next character available in
+            <div className="text-xl font-herculanum">{timeUntilNext}</div>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
+);

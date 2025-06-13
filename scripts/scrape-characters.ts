@@ -185,11 +185,19 @@ async function scrapeCharacterData(url: string): Promise<Character> {
   // Get other character data
   const pronouns = getInfoboxData(["pronouns"], "pronouns").toLowerCase();
   let gender = "unknown";
-  if (pronouns.includes("he/him")) {
+
+  // Special case for Desna and Eska (twin characters)
+  if (
+    name.toLowerCase().includes("desna") ||
+    name.toLowerCase().includes("eska")
+  ) {
+    gender = "male and female";
+  } else if (pronouns.includes("he/him")) {
     gender = "male";
   } else if (pronouns.includes("she/her")) {
     gender = "female";
   }
+
   if (gender === "unknown") {
     console.warn(
       `⚠️  Could not determine gender for ${name} (pronouns: "${pronouns}")`
@@ -399,7 +407,15 @@ function cleanCharacterData(characters: Character[]): Character[] {
     let nationality = char.nationality
       .replace(/^nationality\s*\n\t\n\t/i, "")
       .toLowerCase();
-    if (nationality.includes("water tribe")) {
+
+    // Special cases for spirit characters
+    if (
+      char.value === "raava" ||
+      char.value === "vaatu" ||
+      char.value === "koh-the-face-stealer"
+    ) {
+      nationality = "Spirit World";
+    } else if (nationality.includes("water tribe")) {
       nationality = "Water Tribe";
     } else if (nationality.includes("earth kingdom")) {
       nationality = "Earth Kingdom";
@@ -543,9 +559,11 @@ const CHARACTERS_LIST: { name: string; url: string }[] = [
   { name: "Zhu Li", url: "https://avatar.fandom.com/wiki/Zhu_Li" },
   { name: "Raava", url: "https://avatar.fandom.com/wiki/Raava" },
   { name: "Vaatu", url: "https://avatar.fandom.com/wiki/Vaatu" },
+  { name: "Avatar Roku", url: "https://avatar.fandom.com/wiki/Roku" },
+  { name: "Avatar Kyoshi", url: "https://avatar.fandom.com/wiki/Kyoshi" },
   { name: "Admiral Zhao", url: "https://avatar.fandom.com/wiki/Zhao" },
-  { name: "Lieutenant (Amon)", url: "https://avatar.fandom.com/wiki/Amon" },
-  { name: "Eska", url: "https://avatar.fandom.com/wiki/Eska" },
+  { name: "Amon", url: "https://avatar.fandom.com/wiki/Amon" },
+  { name: "Desna and Eska", url: "https://avatar.fandom.com/wiki/Eska" },
 ];
 
 // Insert Supabase client setup (using service role key) after dotenv config

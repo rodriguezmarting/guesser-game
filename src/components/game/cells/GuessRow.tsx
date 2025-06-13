@@ -70,7 +70,7 @@ export function GuessRow({ userGuess, characterOfTheDay }: GuessRowProps) {
       <img
         src={userGuess.imageUrl}
         alt={userGuess.value}
-        className="shadow-md w-16 h-16 border-[1px] border-content rounded-sm"
+        className="shadow-md min-w-16 min-h-16 w-16 h-16 border-[1px] border-content rounded-sm"
       />
       <Cell
         title={userGuess.gender}

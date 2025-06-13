@@ -69,7 +69,8 @@ async function loadCharacters(): Promise<Character[]> {
         CharacterAttribute ( attributeDefinitionId, value )
       `
       )
-      .eq("gameId", game.id);
+      .eq("gameId", game.id)
+      .order("label", { ascending: true });
 
     if (charsError || !charactersFromDb) {
       console.error("Error fetching characters:", charsError);
