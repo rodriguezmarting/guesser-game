@@ -14,13 +14,14 @@ function getFontSizeClass(text: string): string {
     .reduce((a, b) => (a.length > b.length ? a : b), "");
 
   // If a single word is long (like "Unknown" or longer), shrink font
-  if (longestWord.length > 6) {
-    return "text-[10px] leading-tight";
-  }
-  if (wordCount > 3 || charCount > 20) {
-    return "text-[10px] leading-tight";
-  } else if (wordCount > 2 || charCount > 15) {
-    return "text-[11px] leading-tight";
+  if (longestWord.length > 6 && wordCount === 1) {
+    return "text-[0.5rem] leading-tight";
+  } else if (wordCount > 4) {
+    return "text-[0.5rem] leading-tight";
+  } else if (wordCount > 3) {
+    return "text-[0.55rem] leading-tight";
+  } else if (wordCount > 2) {
+    return "text-[0.7rem] leading-tight";
   }
   return "text-xs";
 }
