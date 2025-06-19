@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Root redirects to avatar game -->
+  <url>
+    <loc>https://guessergame.com/</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.1</priority>
+  </url>
+  
+  <!-- Main Avatar game page - highest priority, changes daily -->
+  <url>
+    <loc>https://guessergame.com/avatar</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Privacy policy page - static content, lower priority -->
+  <url>
+    <loc>https://guessergame.com/privacy</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Contact page - semi-static content, medium priority -->
+  <url>
+    <loc>https://guessergame.com/contact</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset> 
