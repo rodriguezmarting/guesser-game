@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as PrivacyImport } from './routes/privacy'
 import { Route as ContactImport } from './routes/contact'
 import { Route as AvatarImport } from './routes/avatar'
+import { Route as SplatImport } from './routes/$splat'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -36,6 +37,12 @@ const AvatarRoute = AvatarImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const SplatRoute = SplatImport.update({
+  id: '/$splat',
+  path: '/$splat',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
@@ -51,6 +58,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/$splat': {
+      id: '/$splat'
+      path: '/$splat'
+      fullPath: '/$splat'
+      preLoaderRoute: typeof SplatImport
       parentRoute: typeof rootRoute
     }
     '/avatar': {
@@ -81,6 +95,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$splat': typeof SplatRoute
   '/avatar': typeof AvatarRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -88,6 +103,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$splat': typeof SplatRoute
   '/avatar': typeof AvatarRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -96,6 +112,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$splat': typeof SplatRoute
   '/avatar': typeof AvatarRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
@@ -103,15 +120,16 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/avatar' | '/contact' | '/privacy'
+  fullPaths: '/' | '/$splat' | '/avatar' | '/contact' | '/privacy'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/avatar' | '/contact' | '/privacy'
-  id: '__root__' | '/' | '/avatar' | '/contact' | '/privacy'
+  to: '/' | '/$splat' | '/avatar' | '/contact' | '/privacy'
+  id: '__root__' | '/' | '/$splat' | '/avatar' | '/contact' | '/privacy'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   AvatarRoute: typeof AvatarRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -119,6 +137,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   AvatarRoute: AvatarRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
@@ -135,6 +154,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/$splat",
         "/avatar",
         "/contact",
         "/privacy"
@@ -142,6 +162,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/$splat": {
+      "filePath": "$splat.tsx"
     },
     "/avatar": {
       "filePath": "avatar.tsx"
