@@ -23,9 +23,13 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       ...seo({
-        title: "Guesser Game",
-        description: `Browser game where you guess a random character of a show.`,
-        keywords: "browser, game, guesser, show",
+        title:
+          "Avatar Guesser - Daily Avatar Character Guessing Game | Wordle for Avatar: The Last Airbender",
+        description:
+          "Play Avatar Guesser, the daily character guessing game for Avatar: The Last Airbender and Legend of Korra fans! Guess today's character using clues about their bending, nationality, and quotes. A new Avatar character every day!",
+        keywords:
+          "avatar the last airbender, legend of korra, avatar game, wordle, daily game, character guessing game, avatar characters, aang, korra, bending game, avatar quiz, avatar trivia, browser game, daily puzzle",
+        image: "https://guessergame.com/splash.png",
       }),
     ],
     links: [
