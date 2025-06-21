@@ -50,6 +50,13 @@ export const Route = createRootRoute({
       { rel: "manifest", href: "/site.webmanifest", color: "#fffff" },
       { rel: "icon", href: "/favicon.ico" },
     ],
+    scripts: [
+      {
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5286081880171700",
+        async: true,
+        crossOrigin: "anonymous",
+      },
+    ],
   }),
   errorComponent: (props) => {
     return (
