@@ -33,6 +33,10 @@ export const seo = ({
     { name: "apple-mobile-web-app-title", content: "Avatar Guesser" },
     { name: "apple-mobile-web-app-capable", content: "yes" },
     { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+    // Additional SEO tags for better search appearance
+    { name: "og:site_name", content: "Avatar Guesser" },
+    { name: "twitter:domain", content: "guessergame.com" },
+    { name: "format-detection", content: "telephone=no" },
     ...(image
       ? [
           { name: "twitter:image", content: image },

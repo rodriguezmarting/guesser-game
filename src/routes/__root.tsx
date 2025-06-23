@@ -23,10 +23,9 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       ...seo({
-        title:
-          "Avatar Guesser - Daily Avatar Character Guessing Game | Wordle for Avatar: The Last Airbender",
+        title: "Avatar Guesser - Avatar Wordle Game",
         description:
-          "Play Avatar Guesser, the daily character guessing game for Avatar: The Last Airbender and Legend of Korra fans! Guess today's character using clues about their bending, nationality, and quotes. A new Avatar character every day!",
+          "Avatar Guesser is a daily word-guessing game inspired by the beloved Avatar: The Last Airbender series. Taking cues from popular games like Wordle, Loldle, and Spotle, this game challenges players to identify characters from the Avatar universe through a series of strategic guesses.",
         keywords:
           "avatar the last airbender, legend of korra, avatar game, wordle, daily game, character guessing game, avatar characters, aang, korra, bending game, avatar quiz, avatar trivia, browser game, daily puzzle",
         image: "https://guessergame.com/splash.png",
@@ -82,10 +81,52 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Avatar Guesser",
+    alternateName: "Avatar Character Guessing Game",
+    description:
+      "Avatar Guesser is a daily word-guessing game inspired by the beloved Avatar: The Last Airbender series. Taking cues from popular games like Wordle, Loldle, and Pokedle, this game challenges players to identify characters from the Avatar universe through a series of strategic guesses.",
+    url: "https://guessergame.com",
+    applicationCategory: "Game",
+    operatingSystem: "Web Browser",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
+      "@type": "Organization",
+      name: "Avatar Guesser Team",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Avatar Guesser",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://guessergame.com/android-chrome-512x512.png",
+      },
+    },
+    image: "https://guessergame.com/splash.png",
+    screenshot: "https://guessergame.com/splash.png",
+    genre: ["Puzzle", "Word Game", "Daily Game"],
+    keywords:
+      "avatar the last airbender, legend of korra, avatar game, wordle, daily game, character guessing game",
+    isAccessibleForFree: true,
+    inLanguage: "en-US",
+  };
+
   return (
     <html>
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
       </head>
       <body>
         {children}

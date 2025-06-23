@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Root redirects to avatar game -->
+  <!-- Home page - Netflix-style landing page -->
   <url>
     <loc>https://guessergame.com/</loc>
     <lastmod>2024-01-01</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.1</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   
   <!-- Main Avatar game page - highest priority, changes daily -->

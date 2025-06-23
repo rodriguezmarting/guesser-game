@@ -80,3 +80,85 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Scrollbar Styling - Avatar Theme */
+@layer components {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #a5a58d; /* Light olive background */
+    border-radius: 6px;
+    margin: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #6b705c; /* Darker olive for thumb */
+    border-radius: 6px;
+    border: 2px solid #a5a58d; /* Slight border for definition */
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5a5f4a; /* Even darker on hover */
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: #4a4f3a; /* Darkest when clicked */
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #a5a58d;
+  }
+
+  /* Firefox */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #6b705c #a5a58d;
+  }
+
+  /* For specific containers with custom styling */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #6b705c #a5a58d;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(165, 165, 141, 0.3);
+    border-radius: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(107, 112, 92, 0.8);
+    border-radius: 4px;
+    border: 1px solid rgba(165, 165, 141, 0.2);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(90, 95, 74, 0.9);
+  }
+}
+
+/* Netflix-style slow zoom animation */
+@layer utilities {
+  @keyframes slow-zoom {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 10s ease-in-out infinite alternate;
+  }
+}
